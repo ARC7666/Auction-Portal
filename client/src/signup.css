@@ -1,0 +1,171 @@
+.backTheme {
+  background-color: rgb(100, 97, 116);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.loginBox {
+  display: flex;
+  width: 90%;
+  max-width: 900px;
+  height: 600px;
+  background-color: rgb(43, 38, 55);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.imageIllustration {
+  width: 50%;
+  background-color: rgb(43, 38, 55);
+}
+
+.image {
+  width: 99%;
+  height: 98%;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-left: 6px;
+  margin-top: 6px;
+}
+
+.signupContent {
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.titleText {
+  width: 100%;
+  text-align: left;
+  margin-top: 30px;
+  margin-bottom: 0 px;
+}
+
+.titleText p {
+  margin-top: 0;
+  color: rgb(126, 126, 129);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.name-fields {
+  display: flex;
+  gap: 15px; 
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.name-fields input {
+  flex: 1; 
+  padding: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px;
+  background-color: rgb(59, 54, 74);
+  color: white;
+}
+
+.input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px;
+  background-color: rgb(59, 54, 74);
+  color: white;
+}
+
+.button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgb(130, 66, 201);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  color: rgb(151, 151, 153);
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.divider hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid rgb(151, 151, 153);
+}
+
+.divider span {
+  margin: 0 10px;
+}
+
+.googleButton {
+  display: flex;
+  justify-content: center;
+  padding: 10px 30px;
+  font-size: 16px;
+  background-color: rgb(43, 38, 55);
+  color: white;
+  border: 1px solid rgba(250, 250, 250, 0.35);
+  border-radius: 5px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.googleLogo {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.loginLink {
+  margin-top: 20px;
+  color: rgb(170, 170, 173);
+  margin-bottom: 20px;
+}
+
+.link {
+  color: rgb(142, 88, 186);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.popup {
+  position: fixed;
+  top: 30%;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: rgb(59, 54, 74);
+}
+
+.popupContent {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
