@@ -13,55 +13,31 @@ function Login() {
   const [passwordInput, setPasswordInput] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+
+/* example to understand the working of .then and .catch ( as u r forgetting it more often)
+orderPizza()
+  .then((pizza) => {
+    eat(pizza);  // 🍕 Yay! Pizza is here. Time to eat!
+  })
+  .catch((error) => {
+    complain(error); // ❌ Pizza didn't arrive. Complain to the app.
+  });
+
+
+  basically 
+  *if pizza delivered -> .then()runs
+  *if pizza not delivered -> .catch()runs
+*/
+
+
 // user login using google 
 function loginWithGoogle() {
- signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
-    const userDoc = doc(db, "users", user.uid);
-     return getDoc(userDoc).then((userData) => {
-       if (!userData.exists()) {
-        return setDoc(userDoc, {
-         name: user.displayName,
-         email: user.email,
-         role: "buyer",
-         createdAt: new Date()
-        });
-      }
-    }).then(() => {
-     navigate("/dashboard");
-  });
- })
-  .catch((error) => {
-    console.log("Google login error:", error);
-    setErrorMessage("Google login failed");
- });
+ 
 }
 
 // fucntion to login using email and entering password
 function loginWithEmail() {
- signInWithEmailAndPassword(auth, emailInput, passwordInput)
-    .then((result) => {
-    const user = result.user;
-    const userDoc = doc(db, "users", user.uid);
-    return getDoc(userDoc).then((userData) => {
-     if (!userData.exists()) {
-      return setDoc(userDoc, {
-        name: user.email,
-        email: user.email,
-        role: "buyer",
-        createdAt: new Date()
-        });
-       }
-     }).then(() => {
-    navigate("/dashboard");
-  });
-})
- 
-.catch((error) => {
-    console.log("Email login error:", error);
-    setErrorMessage("Invalid email or password.");
-    });
+
 }
 
 return (

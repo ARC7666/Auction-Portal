@@ -178,6 +178,7 @@ return (
     <span className="link" onClick={() => navigate('/login')}>Login here</span>
   </p>
 
+ 
   {showRolePopup && (
   <div className="popup">
    <h4>Select your role</h4>
