@@ -21,7 +21,9 @@ const navigate = useNavigate();
 
 // fucntion called when user clicks "Create account"
 function handleSignup(event) {
-  event.preventDefault()
+event.preventDefault()
+  /*(	•	If removed: [ event.preventDefault()]
+The page will reload when you click “Sign Up”, breaking your logic and UI state.)*/
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((result) => {
@@ -63,7 +65,7 @@ function handleSignup(event) {
      i.e. buyer , seller and admin . */
 
   function handleGoogleContinue() {
-    if (googleUser === null) return;
+    if (googleUser === null) return; //if no user present then exit
      const userDoc = doc(db, 'users', googleUser.uid);
 
     getDoc(userDoc).then((snapshot) => {
@@ -86,13 +88,9 @@ function handleSignup(event) {
     email: googleUser.email,
     role: role,
     createdAt: new Date()}).then(() => {
-      setShowRolePopup(false);
-      setGoogleUser(null);
       navigate('/dashboard');
     });
   } else {
-    setShowRolePopup(false);
-    setGoogleUser(null);
     navigate('/dashboard');
     }
   });
