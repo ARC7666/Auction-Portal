@@ -20,7 +20,13 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Services
 const auth = getAuth(app);
+
+// ✅ Force Google account selection popup
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "select_account"
+});
+
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
