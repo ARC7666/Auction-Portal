@@ -1,0 +1,41 @@
+.auction-container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.auction-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.auction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auction-form input,
+.auction-form textarea {
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.auction-form button {
+  padding: 10px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.auction-form button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}

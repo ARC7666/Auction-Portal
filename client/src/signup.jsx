@@ -94,7 +94,7 @@ function Signup() {
         });
       } else {
         const userRole = snapshot.data().role || 'buyer';
-        redirectToDashboard(userRole);
+        redirectToDashboard(userRole); 
       }
     });
   }

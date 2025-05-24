@@ -1,5 +1,6 @@
 import React from 'react';
 import './seller-dashboard.css';
+import { Link } from 'react-router-dom';
 
 function SellerDashboard() {
   return (
@@ -7,15 +8,17 @@ function SellerDashboard() {
       <h1>Seller Dashboard</h1>
       <p>Welcome to your seller portal.</p>
 
-      <section className="dashboard-section">
-        <h3>Your Listings</h3>
-        <p>[Placeholder for product listings]</p>
-      </section>
-
-      <section className="dashboard-section">
-        <h3>Sales Analytics</h3>
-        <p>[Placeholder for sales data]</p>
-      </section>
+      <div className="dashboard-buttons">
+        <Link to="/create-auction">
+          <button>Create New Auction</button>
+        </Link>
+        <Link to="/seller-auctions">
+          <button>My Listings</button>
+        </Link>
+        <Link to="/seller-analytics">
+          <button>Sales Analytics</button>
+        </Link>
+      </div>
     </div>
   );
 }

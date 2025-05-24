@@ -6,6 +6,9 @@ import Login from "./login.jsx";
 import BuyerDashboard from "./buyer-dashboard.jsx";
 import SellerDashboard from "./seller-dashboard.jsx";
 import AdminDashboard from "./admin-dashboard.jsx";
+import CreateAuction from './CreateAuction';
+import SellerAuctions from './SellerAuctions';
+import SellerAnalytics from './SellerAnalytics';
 
 //   React Router DOM is a library used to enable routing in React apps.
 //   It allows us to navigate between different components and pages (like Login, Signup, Dashboard) without reloading the page.
@@ -20,7 +23,10 @@ function App() {
         <Route path="/" element={<Signup />} />         
         <Route path="/login" element={<Login />} />   
         <Route path="/buyer-dashboard" element={<BuyerDashboard />} />   
-        <Route path="/seller-dashboard" element={<SellerDashboard />} />   
+        <Route path="/seller-dashboard" element={<SellerDashboard />} />  
+        <Route path="/create-auction" element={<CreateAuction />} />
+        <Route path="/seller-auctions" element={<SellerAuctions />} />
+        <Route path="/seller-analytics" element={<SellerAnalytics />} /> 
         <Route path="/admin-dashboard" element={<AdminDashboard />} />   
       </Routes>
     </Router>
