@@ -84,28 +84,6 @@
   font-weight: 700;
 }
 
-.logout-button {
-  margin-top: auto;
-  margin-left: -185px;
-}
-
-.logout-button button {
-  width: 100%;
-  padding: 10px;
-  background-color:  rgb(59, 54, 74); /*background-color: #a94444;*/
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  font-family: Arial, Helvetica, sans-serif;
-  
-}
-
-.logout-button button:hover {
-  background-color: rgb(146, 46, 46);
-}
 
 /* Right Panel */
 .dashboard-content1 {

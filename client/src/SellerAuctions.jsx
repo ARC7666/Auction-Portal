@@ -47,6 +47,23 @@ function SellerAuctions() {
 
   return (
     <div className="auction-list-container">
+      <aside className="sidebar2">
+              <div className="logo"><img src="/logo.png" alt="Logo" /></div>
+               <div className="dashboard-title2">
+                  <hr />
+                  <span>Seller Dashboard</span>
+                  <hr />
+                </div>
+      
+              
+              <nav className="nav-buttons">
+                <Link to="/create-auction"><button>Create Auction</button></Link>
+                <Link to="/seller-dashboard"><button>Home</button></Link>
+                <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
+              </nav>
+      
+            </aside>
+    <main className="dashboard-content2">
       <h2>Your Listings</h2>
       {auctions.length === 0 ? (
         <p>No listings yet.</p>
@@ -71,6 +88,7 @@ function SellerAuctions() {
           ))}
         </ul>
       )}
+      </main>
     </div>
   );
 }

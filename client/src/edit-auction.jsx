@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { db, storage, auth } from './firebase';
 import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { Link } from 'react-router-dom';
+
 
 function EditAuction() {
   const { id } = useParams();
@@ -11,7 +13,7 @@ function EditAuction() {
   const [uploading, setUploading] = useState(false);
   const [mediaFiles, setMediaFiles] = useState([]);
   const [isEditable, setIsEditable] = useState(false);
-
+   
   useEffect(() => {
     const fetchAuction = async () => {
       const docRef = doc(db, 'auctions', id);
@@ -94,16 +96,56 @@ function EditAuction() {
   if (!isEditable) {
     return (
       <div className="auction-container">
+          <aside className="sidebar3">
+        <div className="logo"><img src="/logo.png" alt="Logo" /></div>
+         <div className="dashboard-title3">
+            <hr />
+            <span>Seller Dashboard</span>
+            <hr />
+          </div>
+
+        
+        <nav className="nav-buttons">
+          <Link to="/seller-dashboard"><button>Home</button></Link>
+          <Link to="/seller-auctions"><button>View Listing</button></Link>
+          <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
+        </nav>
+
+      
+      </aside>
+
+       <main className="dashboard-content3">
         <h2>Edit Auction</h2>
         <p style={{ color: 'red' }}>❌ This auction has already started and cannot be edited.</p>
         <button onClick={() => navigate('/seller-auctions')}>Go Back</button>
+         </main>
       </div>
     );
   }
 
   return (
     <div className="auction-container">
+      <aside className="sidebar3">
+        <div className="logo"><img src="/logo.png" alt="Logo" /></div>
+         <div className="dashboard-title3">
+            <hr />
+            <span>Seller Dashboard</span>
+            <hr />
+          </div>
+
+        
+        <nav className="nav-buttons">
+          <Link to="/seller-dashboard"><button>Home</button></Link>
+          <Link to="/seller-auctions"><button>View Listing</button></Link>
+          <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
+        </nav>
+
+      
+      </aside>
+
+       <main className="dashboard-content3">
       <h2>Edit Auction</h2>
+      <div className="form-wrapper">
       <form onSubmit={handleSubmit} className="auction-form">
         <input type="text" placeholder="Title" value={auction.title}
           onChange={(e) => setAuction({ ...auction, title: e.target.value })} required />
@@ -127,6 +169,8 @@ function EditAuction() {
           {uploading ? 'Updating...' : 'Update Auction'}
         </button>
       </form>
+      </div>
+      </main>
     </div>
   );
 }
