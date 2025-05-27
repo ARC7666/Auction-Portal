@@ -3,6 +3,8 @@ import './CreateAuction.css';
 import { db, storage, auth } from './firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function CreateAuction() {
   const [title, setTitle] = useState('');
@@ -12,6 +14,11 @@ function CreateAuction() {
   const [duration, setDuration] = useState('');
   const [mediaFiles, setMediaFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+   const navigate = useNavigate();
+
+  /*const handleGoBack1 = () => {
+    navigate("/seller-dashboard"); 
+  }*/
 
   const handleMediaChange = (e) => {
     setMediaFiles(Array.from(e.target.files));
@@ -79,30 +86,52 @@ function CreateAuction() {
 
   return (
     <div className="auction-container">
-      <h2>Create Auction</h2>
-      <form onSubmit={handleSubmit} className="auction-form">
-        <input type="text" placeholder="Title" value={title}
+      <aside className="sidebar1">
+        <div className="logo"><img src="/logo.png" alt="Logo" /></div>
+         <div className="dashboard-title1">
+            <hr />
+            <span>Seller Dashboard</span>
+            <hr />
+          </div>
+
+        
+        <nav className="nav-buttons">
+          <Link to="/seller-dashboard"><button>Home</button></Link>
+          <Link to="/seller-auctions"><button>View Listing</button></Link>
+          <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
+        </nav>
+
+      
+      </aside>
+
+       <main className="dashboard-content1">
+           <h2>Create Auction</h2>
+             <form onSubmit={handleSubmit} className="auction-form">
+           <input type="text" placeholder="Title" value={title}
           onChange={(e) => setTitle(e.target.value)} required />
 
-        <textarea placeholder="Description" value={description}
+           <textarea placeholder="Description" value={description}
           onChange={(e) => setDescription(e.target.value)} required />
 
-        <input type="number" placeholder="Start Price" value={startPrice}
-          onChange={(e) => setStartPrice(e.target.value)} required />
+          <input type="number" placeholder="Start Price" value={startPrice}
+            onChange={(e) => setStartPrice(e.target.value)} required />
 
-        <input type="datetime-local" value={startTime}
-          onChange={(e) => setStartTime(e.target.value)} required />
+          <input type="datetime-local" value={startTime}
+            onChange={(e) => setStartTime(e.target.value)} required />
 
-        <input type="number" placeholder="Duration (in minutes)" value={duration}
+          <input type="number" placeholder="Duration (in minutes)" value={duration}
           onChange={(e) => setDuration(e.target.value)} required />
 
-        <input type="file" multiple accept="image/*,video/*"
+          <input type="file" multiple accept="image/*,video/*"
           onChange={handleMediaChange} />
 
-        <button type="submit" disabled={uploading}>
-          {uploading ? 'Uploading...' : 'Create Auction'}
-        </button>
+           <button type="submit" disabled={uploading}>
+             {uploading ? 'Uploading...' : 'Create Auction'}
+          </button>
       </form>
+      </main>
+
+      
     </div>
   );
 }

@@ -1,0 +1,11 @@
+.edit-link {
+  padding: 6px 12px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+}
+.edit-link:hover {
+  background-color: #45a049;
+}

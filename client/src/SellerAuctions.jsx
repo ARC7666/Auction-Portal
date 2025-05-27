@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { db, auth } from './firebase';
-//import './seller-auctions.css';
+import { Link } from 'react-router-dom';
+import './SellerAuctions.css';
 
 function SellerAuctions() {
   const [auctions, setAuctions] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!auth.currentUser) return;
@@ -23,6 +26,25 @@ function SellerAuctions() {
     fetchAuctions();
   }, []);
 
+  const handleDelete = async (auctionId) => {
+    const confirm = window.confirm("Are you sure you want to delete this auction?");
+    if (!confirm) return;
+
+    try {
+      await deleteDoc(doc(db, 'auctions', auctionId));
+      setAuctions(prev => prev.filter(a => a.id !== auctionId));
+      alert("Auction deleted successfully.");
+    } catch (err) {
+      console.error("Delete failed:", err);
+      alert("Failed to delete auction.");
+    }
+  };
+
+  const handleEdit = (auctionId) => {
+    // Navigate to edit page with auction ID
+    navigate(`/edit-auction/${auctionId}`);
+  };
+
   return (
     <div className="auction-list-container">
       <h2>Your Listings</h2>
@@ -36,6 +58,15 @@ function SellerAuctions() {
               <p>{auction.description}</p>
               <p>Start Price: ₹{auction.startPrice}</p>
               <p>Status: {auction.status}</p>
+
+              {auction.status !== 'live' && (
+                <div style={{ marginTop: '8px' }}>
+                  <Link to={`/edit-auction/${auction.id}`} className="edit-link">✏️ Edit</Link>
+                  <button onClick={() => handleDelete(auction.id)} style={{ marginLeft: '8px' }}>
+                    ❌ Delete
+                  </button>
+                </div>
+              )}
             </li>
           ))}
         </ul>

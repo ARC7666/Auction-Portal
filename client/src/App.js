@@ -8,6 +8,7 @@ import SellerDashboard from "./seller-dashboard.jsx";
 import AdminDashboard from "./admin-dashboard.jsx";
 import CreateAuction from './CreateAuction';
 import SellerAuctions from './SellerAuctions';
+import EditAuction from './edit-auction.jsx';  
 import SellerAnalytics from './SellerAnalytics';
 
 //   React Router DOM is a library used to enable routing in React apps.
@@ -26,6 +27,7 @@ function App() {
         <Route path="/seller-dashboard" element={<SellerDashboard />} />  
         <Route path="/create-auction" element={<CreateAuction />} />
         <Route path="/seller-auctions" element={<SellerAuctions />} />
+        <Route path="/edit-auction/:id" element={<EditAuction />} />
         <Route path="/seller-analytics" element={<SellerAnalytics />} /> 
         <Route path="/admin-dashboard" element={<AdminDashboard />} />   
       </Routes>

@@ -1,0 +1,134 @@
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { db, storage, auth } from './firebase';
+import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+function EditAuction() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [auction, setAuction] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [mediaFiles, setMediaFiles] = useState([]);
+  const [isEditable, setIsEditable] = useState(false);
+
+  useEffect(() => {
+    const fetchAuction = async () => {
+      const docRef = doc(db, 'auctions', id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = { id: docSnap.id, ...docSnap.data() };
+        setAuction(data);
+
+        const now = new Date();
+        const startTime = new Date(data.startTime);
+        setIsEditable(now < startTime);
+      } else {
+        alert('Auction not found');
+        navigate('/');
+      }
+    };
+
+    fetchAuction();
+  }, [id, navigate]);
+
+  const handleMediaChange = (e) => {
+    setMediaFiles(Array.from(e.target.files));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!auth.currentUser || !auction || auction.sellerId !== auth.currentUser.uid) {
+      alert("Unauthorized or missing data.");
+      return;
+    }
+
+    if (!isEditable) {
+      alert("Auction has already started and cannot be edited.");
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      let mediaURLs = auction.media || [];
+
+      if (mediaFiles.length > 0) {
+        mediaURLs = await Promise.all(
+          mediaFiles.map(async (file) => {
+            const fileRef = ref(storage, `auctions/${auth.currentUser.uid}/${Date.now()}-${file.name}`);
+            await uploadBytes(fileRef, file);
+            return await getDownloadURL(fileRef);
+          })
+        );
+      }
+
+      const start = new Date(auction.startTime);
+      const end = new Date(start.getTime() + parseInt(auction.duration) * 60000);
+
+      await updateDoc(doc(db, 'auctions', id), {
+        title: auction.title,
+        description: auction.description,
+        startPrice: parseFloat(auction.startPrice),
+        currentBid: parseFloat(auction.startPrice),
+        startTime: start.toISOString(),
+        endTime: end.toISOString(),
+        media: mediaURLs,
+        duration: auction.duration,
+        updatedAt: serverTimestamp()
+      });
+
+      alert('Auction updated successfully!');
+      navigate('/seller-auctions');
+    } catch (error) {
+      console.error("Error updating auction:", error);
+      alert('Update failed: ' + error.message);
+    }
+
+    setUploading(false);
+  };
+
+  if (!auction) return <div>Loading...</div>;
+
+  if (!isEditable) {
+    return (
+      <div className="auction-container">
+        <h2>Edit Auction</h2>
+        <p style={{ color: 'red' }}>❌ This auction has already started and cannot be edited.</p>
+        <button onClick={() => navigate('/seller-auctions')}>Go Back</button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="auction-container">
+      <h2>Edit Auction</h2>
+      <form onSubmit={handleSubmit} className="auction-form">
+        <input type="text" placeholder="Title" value={auction.title}
+          onChange={(e) => setAuction({ ...auction, title: e.target.value })} required />
+
+        <textarea placeholder="Description" value={auction.description}
+          onChange={(e) => setAuction({ ...auction, description: e.target.value })} required />
+
+        <input type="number" placeholder="Start Price" value={auction.startPrice}
+          onChange={(e) => setAuction({ ...auction, startPrice: e.target.value })} required />
+
+        <input type="datetime-local" value={auction.startTime.slice(0, 16)}
+          onChange={(e) => setAuction({ ...auction, startTime: e.target.value })} required />
+
+        <input type="number" placeholder="Duration (in minutes)" value={auction.duration}
+          onChange={(e) => setAuction({ ...auction, duration: e.target.value })} required />
+
+        <input type="file" multiple accept="image/*,video/*"
+          onChange={handleMediaChange} />
+
+        <button type="submit" disabled={uploading}>
+          {uploading ? 'Updating...' : 'Update Auction'}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default EditAuction;
