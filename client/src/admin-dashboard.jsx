@@ -3,21 +3,21 @@ import './admin-dashboard.css';
 
 function AdminDashboard() {
   return (
-    <div className="dashboard-container">
-      <h1>Admin Dashboard</h1>
-      <p>Welcome, Admin. Manage the platform here.</p>
+  <div className="dashboard-container">
+    <h1>Admin Dashboard</h1>
+  <p>Welcome, Admin. Manage the platform here.</p>
 
-      <section className="dashboard-section">
-        <h3>User Management</h3>
-        <p>[Placeholder for viewing, editing, or banning users]</p>
-      </section>
+  <section className="dashboard-section">
+    <h3>User Management</h3>
+    <p>[Placeholder for viewing, editing, or banning users]</p>
+  </section>
 
-      <section className="dashboard-section">
-        <h3>Reports & System Logs</h3>
-        <p>[Placeholder for admin insights]</p>
-      </section>
-    </div>
-  );
+  <section className="dashboard-section">
+    <h3>Reports & System Logs</h3>
+    <p>[Placeholder for admin insights]</p>
+  </section>
+ </div>
+);
 }
 
 export default AdminDashboard;

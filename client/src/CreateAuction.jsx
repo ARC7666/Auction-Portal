@@ -35,54 +35,53 @@ function CreateAuction() {
     setUploading(true);
 
     try {
-      // 1. Upload all media files to Firebase Storage
-      const mediaURLs = await Promise.all(
-        mediaFiles.map(async (file) => {
-          const fileRef = ref(storage, `auctions/${auth.currentUser.uid}/${Date.now()}-${file.name}`);
-          console.log("Uploading file:", file.name);
-          await uploadBytes(fileRef, file);
-          const url = await getDownloadURL(fileRef);
-          console.log("Uploaded URL:", url);
-          return url;
-        })
-      );
+  // uploading media to the firestore storage
+  const mediaURLs = await Promise.all(
+    mediaFiles.map(async (file) => {
+      const fileRef = ref(storage, `auctions/${auth.currentUser.uid}/${Date.now()}-${file.name}`);
+      console.log("Uploading file:", file.name);
+      await uploadBytes(fileRef, file);
+      const url = await getDownloadURL(fileRef);
+      console.log("Uploaded URL:", url);
+      return url;
+    })
+  );
 
-      // 2. Calculate endTime from duration
-      const start = new Date(startTime);
-      const end = new Date(start.getTime() + parseInt(duration) * 60000);
+   //  calculate endTime from duration
+  const start = new Date(startTime);
+  const end = new Date(start.getTime() + parseInt(duration) * 60000);
 
-      // 3. Save to Firestore
-      await addDoc(collection(db, 'auctions'), {
-        title,
-        description,
-        media: mediaURLs,
-        startPrice: parseFloat(startPrice),
-        currentBid: parseFloat(startPrice),
-        startTime: start.toISOString(),
-        endTime: end.toISOString(),
-        sellerId: auth.currentUser.uid,
-        createdAt: serverTimestamp(),
-        status: 'scheduled',
-        bids: []
-      });
+ // saving the created listing data to the firestore
+  await addDoc(collection(db, 'auctions'), {
+    title,
+    description,
+    media: mediaURLs,
+    startPrice: parseFloat(startPrice),
+    currentBid: parseFloat(startPrice),
+    startTime: start.toISOString(),
+    endTime: end.toISOString(),
+    sellerId: auth.currentUser.uid,
+    createdAt: serverTimestamp(),
+    status: 'scheduled',
+    bids: []
+  });
 
-      alert('Auction created successfully!');
+   alert('Auction created successfully!');
 
-      // Reset form
-      setTitle('');
-      setDescription('');
-      setStartPrice('');
-      setStartTime('');
-      setDuration('');
-      setMediaFiles([]);
+  // Reset form
+   setTitle('');
+   setDescription('');
+   setStartPrice('');
+   setStartTime('');
+   setDuration('');
+   setMediaFiles([]);
 
-    } catch (error) {
-      console.error("Error uploading auction:", error);
-      alert('Error creating auction: ' + error.message);
-    }
-
-    setUploading(false);
-  };
+} catch (error) {
+  console.error("Error uploading auction:", error);
+    alert('Error creating auction: ' + error.message);
+}
+setUploading(false);
+};
 
   return (
     <div className="auction-container">
@@ -104,32 +103,32 @@ function CreateAuction() {
       
       </aside>
 
-       <main className="dashboard-content1">
-           <h2>Create Auction</h2>
-             <form onSubmit={handleSubmit} className="auction-form">
-           <input type="text" placeholder="Title" value={title}
-          onChange={(e) => setTitle(e.target.value)} required />
+    <main className="dashboard-content1">
+        <h2>Create Auction</h2>
+          <form onSubmit={handleSubmit} className="auction-form">
+        <input type="text" placeholder="Title" value={title}
+      onChange={(e) => setTitle(e.target.value)} required />
 
-           <textarea placeholder="Description" value={description}
-          onChange={(e) => setDescription(e.target.value)} required />
+       <textarea placeholder="Description" value={description}
+      onChange={(e) => setDescription(e.target.value)} required />
 
-          <input type="number" placeholder="Start Price" value={startPrice}
-            onChange={(e) => setStartPrice(e.target.value)} required />
+      <input type="number" placeholder="Start Price" value={startPrice}
+        onChange={(e) => setStartPrice(e.target.value)} required />
 
-          <input type="datetime-local" value={startTime}
-            onChange={(e) => setStartTime(e.target.value)} required />
+      <input type="datetime-local" value={startTime}
+        onChange={(e) => setStartTime(e.target.value)} required />
 
-          <input type="number" placeholder="Duration (in minutes)" value={duration}
-          onChange={(e) => setDuration(e.target.value)} required />
+      <input type="number" placeholder="Duration (in minutes)" value={duration}
+      onChange={(e) => setDuration(e.target.value)} required />
 
-          <input type="file" multiple accept="image/*,video/*"
-          onChange={handleMediaChange} />
+      <input type="file" multiple accept="image/*,video/*"
+      onChange={handleMediaChange} />
 
-           <button type="submit" disabled={uploading}>
-             {uploading ? 'Uploading...' : 'Create Auction'}
-          </button>
-      </form>
-      </main>
+       <button type="submit" disabled={uploading}>
+         {uploading ? 'Uploading...' : 'Create Auction'}
+      </button>
+  </form>
+  </main>
 
       
     </div>

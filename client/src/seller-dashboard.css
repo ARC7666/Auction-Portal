@@ -1,7 +1,7 @@
 /* Layout */
 .seller-dashboard {
   display: flex;
-  height: 100vh;
+  height: 700px;
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -9,11 +9,11 @@
   width: 250px;
   background-color: rgb(43, 38, 55);
   color: #ffffff;
-  padding: 1.5rem;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 .logo {
@@ -57,7 +57,7 @@
 .nav-buttons {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
   width: 100%;
   padding: 10px;
 }

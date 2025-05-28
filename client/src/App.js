@@ -18,20 +18,20 @@ import SellerAnalytics from './SellerAnalytics';
 //   It keeps the UI in sync with the URL in the browser.
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Signup />} />         
-        <Route path="/login" element={<Login />} />   
-        <Route path="/buyer-dashboard" element={<BuyerDashboard />} />   
-        <Route path="/seller-dashboard" element={<SellerDashboard />} />  
-        <Route path="/create-auction" element={<CreateAuction />} />
-        <Route path="/seller-auctions" element={<SellerAuctions />} />
-        <Route path="/edit-auction/:id" element={<EditAuction />} />
-        <Route path="/seller-analytics" element={<SellerAnalytics />} /> 
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />   
-      </Routes>
-    </Router>
+return (
+  <Router>
+    <Routes>
+    <Route path="/" element={<Signup />} />         
+    <Route path="/login" element={<Login />} />   
+    <Route path="/buyer-dashboard" element={<BuyerDashboard />} />   
+    <Route path="/seller-dashboard" element={<SellerDashboard />} />  
+    <Route path="/create-auction" element={<CreateAuction />} />
+    <Route path="/seller-auctions" element={<SellerAuctions />} />
+    <Route path="/edit-auction/:id" element={<EditAuction />} />
+    <Route path="/seller-analytics" element={<SellerAnalytics />} /> 
+    <Route path="/admin-dashboard" element={<AdminDashboard />} />   
+   </Routes>
+</Router>
   );
 }
 

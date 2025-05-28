@@ -4,7 +4,7 @@ import { db, storage, auth } from './firebase';
 import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Link } from 'react-router-dom';
-
+import './edit-auctions.css';
 
 function EditAuction() {
   const { id } = useParams();
@@ -13,21 +13,29 @@ function EditAuction() {
   const [uploading, setUploading] = useState(false);
   const [mediaFiles, setMediaFiles] = useState([]);
   const [isEditable, setIsEditable] = useState(false);
-   
-  useEffect(() => {
-    const fetchAuction = async () => {
-      const docRef = doc(db, 'auctions', id);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const data = { id: docSnap.id, ...docSnap.data() };
-        setAuction(data);
+  const [loading, setLoading] = useState(true);
+  
 
-        const now = new Date();
-        const startTime = new Date(data.startTime);
-        setIsEditable(now < startTime);
-      } else {
-        alert('Auction not found');
-        navigate('/');
+  useEffect(() => {
+   const fetchAuction = async () => {
+      try {
+        const docRef = doc(db, 'auctions', id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = { id: docSnap.id, ...docSnap.data() };
+          setAuction(data);
+
+          const now = new Date();
+          const startTime = new Date(data.startTime);
+          setIsEditable(now < startTime);
+        } else {
+          alert('Auction not found');
+          navigate('/');
+        }
+      } catch (error) {
+        alert('Error loading auction');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -42,7 +50,7 @@ function EditAuction() {
     e.preventDefault();
 
     if (!auth.currentUser || !auction || auction.sellerId !== auth.currentUser.uid) {
-      alert("Unauthorized or missing data.");
+      alert("data not found.");
       return;
     }
 
@@ -91,87 +99,92 @@ function EditAuction() {
     setUploading(false);
   };
 
-  if (!auction) return <div>Loading...</div>;
+  if (loading || !auction) {
+    return (
+      <div className="spinner-overlay">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   if (!isEditable) {
     return (
       <div className="auction-container">
-          <aside className="sidebar3">
-        <div className="logo"><img src="/logo.png" alt="Logo" /></div>
-         <div className="dashboard-title3">
+        <aside className="sidebar3">
+          <div className="logo"><img src="/logo.png" alt="Logo" /></div>
+          <div className="dashboard-title3">
             <hr />
             <span>Seller Dashboard</span>
             <hr />
           </div>
+          <nav className="nav-buttons">
+            <Link to="/seller-dashboard"><button>Home</button></Link>
+            <Link to="/seller-auctions"><button>View Listing</button></Link>
+            <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
+          </nav>
+        </aside>
 
-        
-        <nav className="nav-buttons">
-          <Link to="/seller-dashboard"><button>Home</button></Link>
-          <Link to="/seller-auctions"><button>View Listing</button></Link>
-          <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
-        </nav>
-
-      
-      </aside>
-
-       <main className="dashboard-content3">
-        <h2>Edit Auction</h2>
-        <p style={{ color: 'red' }}>❌ This auction has already started and cannot be edited.</p>
-        <button onClick={() => navigate('/seller-auctions')}>Go Back</button>
-         </main>
+        <main className="dashboard-content3">
+          <h2>Edit Auction</h2>
+          <p style={{ color: 'red' }}>❌ This auction has already started and cannot be edited.</p>
+          <button onClick={() => navigate('/seller-auctions')}>Go Back</button>
+        </main>
       </div>
     );
   }
 
   return (
-    <div className="auction-container">
-      <aside className="sidebar3">
-        <div className="logo"><img src="/logo.png" alt="Logo" /></div>
-         <div className="dashboard-title3">
+    <>
+      {(uploading) && (
+        <div className="spinner-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
+      <div className="auction-container">
+        <aside className="sidebar3">
+          <div className="logo"><img src="/logo.png" alt="Logo" /></div>
+          <div className="dashboard-title3">
             <hr />
             <span>Seller Dashboard</span>
             <hr />
           </div>
+          <nav className="nav-buttons">
+            <Link to="/create-auction"><button>Create Auction</button></Link>
+            <Link to="/seller-auctions"><button>My Listing</button></Link>
+            <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
+          </nav>
+        </aside>
 
-        
-        <nav className="nav-buttons">
-          <Link to="/seller-dashboard"><button>Home</button></Link>
-          <Link to="/seller-auctions"><button>View Listing</button></Link>
-          <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
-        </nav>
+        <main className="dashboard-content-3">
+          <h2>Edit Auction</h2>
+          <div className="form-wrapper">
+            <form onSubmit={handleSubmit} className="auction-form">
+              <input type="text" placeholder="Title" value={auction.title}
+                onChange={(e) => setAuction({ ...auction, title: e.target.value })} required />
 
-      
-      </aside>
+              <textarea placeholder="Description" value={auction.description}
+                onChange={(e) => setAuction({ ...auction, description: e.target.value })} required />
 
-       <main className="dashboard-content3">
-      <h2>Edit Auction</h2>
-      <div className="form-wrapper">
-      <form onSubmit={handleSubmit} className="auction-form">
-        <input type="text" placeholder="Title" value={auction.title}
-          onChange={(e) => setAuction({ ...auction, title: e.target.value })} required />
+              <input type="number" placeholder="Start Price" value={auction.startPrice}
+                onChange={(e) => setAuction({ ...auction, startPrice: e.target.value })} required />
 
-        <textarea placeholder="Description" value={auction.description}
-          onChange={(e) => setAuction({ ...auction, description: e.target.value })} required />
+              <input type="datetime-local" value={auction.startTime.slice(0, 16)}
+                onChange={(e) => setAuction({ ...auction, startTime: e.target.value })} required />
 
-        <input type="number" placeholder="Start Price" value={auction.startPrice}
-          onChange={(e) => setAuction({ ...auction, startPrice: e.target.value })} required />
+              <input type="number" placeholder="Duration (in minutes)" value={auction.duration}
+                onChange={(e) => setAuction({ ...auction, duration: e.target.value })} required />
 
-        <input type="datetime-local" value={auction.startTime.slice(0, 16)}
-          onChange={(e) => setAuction({ ...auction, startTime: e.target.value })} required />
+              <input type="file" multiple accept="image/*,video/*"
+                onChange={handleMediaChange} />
 
-        <input type="number" placeholder="Duration (in minutes)" value={auction.duration}
-          onChange={(e) => setAuction({ ...auction, duration: e.target.value })} required />
-
-        <input type="file" multiple accept="image/*,video/*"
-          onChange={handleMediaChange} />
-
-        <button type="submit" disabled={uploading}>
-          {uploading ? 'Updating...' : 'Update Auction'}
-        </button>
-      </form>
+              <button type="submit" disabled={uploading}>
+                {uploading ? 'Updating...' : 'Update Auction'}
+              </button>
+            </form>
+          </div>
+        </main>
       </div>
-      </main>
-    </div>
+    </>
   );
 }
 

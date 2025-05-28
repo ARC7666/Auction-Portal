@@ -1,11 +1,11 @@
-// Import the functions you need from the SDKs
+// import the functions you need from the SDKs (Software Development Kit)
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 
-// Firebase configuration
+// firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBpSXlF7kIJ6YmCrx7leVEG0xuESBG3yi4",
   authDomain: "auction-portal-in.firebaseapp.com",
@@ -16,13 +16,13 @@ const firebaseConfig = {
   measurementId: "G-QJEN9460XT"
 };
 
-// Initialize Firebase
+// initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Services
+// initialize Services
 const auth = getAuth(app);
 
-// ✅ Force Google account selection popup
+//  force Google account selection popup
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
   prompt: "select_account"
@@ -32,5 +32,5 @@ const db = getFirestore(app);
 const analytics = getAnalytics(app);
 const storage = getStorage(app);
 
-// Export required modules
+// export required modules
 export { auth, provider, db , storage };
