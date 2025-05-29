@@ -100,12 +100,12 @@ function EditAuction() {
   };
 
   if (loading || !auction) {
-    return (
-      <div className="spinner-overlay">
-        <div className="spinner"></div>
-      </div>
-    );
-  }
+  return (
+    <div className="spinner-overlay">
+      <div className="spinner" />
+    </div>
+  );
+}
 
   if (!isEditable) {
     return (
@@ -135,11 +135,11 @@ function EditAuction() {
 
   return (
     <>
-      {(uploading) && (
-        <div className="spinner-overlay">
-          <div className="spinner"></div>
-        </div>
-      )}
+      {uploading && (
+  <div className="spinner-overlay">
+    <div className="spinned" />
+  </div>
+)}
       <div className="auction-container">
         <aside className="sidebar3">
           <div className="logo"><img src="/logo.png" alt="Logo" /></div>

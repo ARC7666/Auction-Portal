@@ -1,6 +1,6 @@
 .backTheme {
   background-color: rgb(100, 97, 116);
-  min-height: 700px;
+  min-height: 95vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +10,7 @@
 .loginBox {
   display: flex;
   width: 90%;
-  max-width: 900px;
+  max-width: 1000px;
   height: 600px;
   background-color: rgb(43, 38, 55);
   border-radius: 10px;

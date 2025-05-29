@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { auth, provider, db } from './firebase';
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile , signInWithPopup } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
@@ -17,7 +17,6 @@ function Signup() {
 
   const navigate = useNavigate();
 
-  // Role-based redirection
   function redirectToDashboard(userRole) {
     switch (userRole) {
       case 'admin':
@@ -43,7 +42,10 @@ function Signup() {
      if (lastName !== '') {
         fullName = firstName + ' ' + lastName;
       }
-
+     
+      updateProfile(user, {
+        displayName: fullName,
+      }).then(() => {
 
         setDoc(doc(db, 'users', user.uid), {
           name: fullName,
@@ -53,7 +55,8 @@ function Signup() {
         }).then(() => {
           redirectToDashboard(role);
         });
-      })
+      });
+    })
       .catch((error) => {
         alert("Signup failed: " + error.message);
       });

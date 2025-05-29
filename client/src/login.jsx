@@ -40,9 +40,9 @@ function Login() {
         if (role === "buyer") navigate("/buyer-dashboard");
         else if (role === "seller") navigate("/seller-dashboard");
         else if (role === "admin") navigate("/admin-dashboard");
-        else navigate("/login"); // fallback
+        else navigate("/login"); 
       } else {
-        // Sign out the user since they're not registered in your DB
+        // Sign out the user since they're not registered in our database
         await signOut(auth);
         alert("No account found for this Google account. Please sign up first.");
         navigate("/"); // or navigate('/signup') depending on your path 
@@ -56,7 +56,7 @@ function Login() {
     });
 }
 
-  // Function to login using email and password
+
   function loginWithEmail() {
     signInWithEmailAndPassword(auth, emailInput, passwordInput)
       .then(async (result) => {
@@ -77,7 +77,7 @@ function Login() {
           if (role === "buyer") navigate("/buyer-dashboard");
           else if (role === "seller") navigate("/seller-dashboard");
           else if (role === "admin") navigate("/admin-dashboard");
-          else navigate("/login"); // fallback if role is invalid
+          else navigate("/login"); // it will fallback to the login if role is invalid
         }
       })
       .catch((error) => {
@@ -87,6 +87,8 @@ function Login() {
   }
 
   return (
+    
+      
     <div className="backTheme1">
       <div className="loginBox1">
         <div className="signInContent1">
@@ -141,6 +143,7 @@ function Login() {
         </div>
       </div>
     </div>
+    
   );
 }
 

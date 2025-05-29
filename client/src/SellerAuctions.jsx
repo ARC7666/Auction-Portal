@@ -7,7 +7,7 @@ import './SellerAuctions.css';
 
 function SellerAuctions() {
   const [auctions, setAuctions] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function SellerAuctions() {
       } catch (err) {
         console.error("Fetch error:", err);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -34,8 +34,8 @@ function SellerAuctions() {
   }, []);
 
   const handleDelete = async (auctionId) => {
-    const confirm = window.confirm("Are you sure you want to delete this auction?");
-    if (!confirm) return;
+    const confirmDelete = window.confirm("Are you sure you want to delete this auction?");
+    if (!confirmDelete) return;
 
     try {
       await deleteDoc(doc(db, 'auctions', auctionId));
@@ -74,25 +74,33 @@ function SellerAuctions() {
         {auctions.length === 0 ? (
           <p>No listings yet.</p>
         ) : (
-          <ul className="auction-list">
+          <div className="auction-grid">
             {auctions.map(auction => (
-              <li key={auction.id}>
-                <h4>{auction.title}</h4>
-                <p>{auction.description}</p>
-                <p>Start Price: ₹{auction.startPrice}</p>
-                <p>Status: {auction.status}</p>
-
-                {auction.status !== 'live' && (
-                  <div style={{ marginTop: '8px' }}>
-                    <Link to={`/edit-auction/${auction.id}`} className="edit-link">✏️ Edit</Link>
-                    <button onClick={() => handleDelete(auction.id)} style={{ marginLeft: '8px' }}>
-                      ❌ Delete
-                    </button>
-                  </div>
+              <div className="auction-card" key={auction.id}>
+                {auction.media?.[0] && (
+                  <img
+                    src={auction.media[0]}
+                    alt={auction.title || "auction"}
+                    style={{ width: '100%', height: '200px', objectFit: 'cover' , borderRadius: '8px' }}
+                  />
                 )}
-              </li>
+
+                <div className="auction-details">
+                  <h3 >{auction.title}</h3>
+                  <p>{auction.description}</p>
+                  <p><strong>Start Price:</strong> ₹{auction.startPrice}</p>
+                  <p><strong>Status:</strong> {auction.status}</p>
+
+                  {auction.status !== 'live' && (
+                    <div className="action-buttons">
+                      <Link to={`/edit-auction/${auction.id}`} className="edit-link">✏️ Edit</Link>
+                      <button onClick={() => handleDelete(auction.id)}>❌ Delete</button>
+                    </div>
+                  )}
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </main>
     </div>

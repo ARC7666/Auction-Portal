@@ -8,13 +8,13 @@ function BuyerDashboard() {
     <p>Welcome to your buyer portal.</p>
       
     <section className="dashboard-section">
-      <h3>Your Recent Bids</h3>
-      <p>[Placeholder for bidding activity]</p>
+      <h3>Recent Bids</h3>
+      <p>[]</p>
      </section>
 
     <section className="dashboard-section">
       <h3>Recommended Products</h3>
-      <p>[Placeholder for product recommendations]</p>
+      <p>[]</p>
     </section>
   </div>
   );

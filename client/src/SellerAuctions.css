@@ -1,6 +1,7 @@
 .auction-list-container {
   display: flex;
-  height: auto;
+  min-height: 100vh;
+;
   
 }
 
@@ -118,8 +119,8 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(0px);
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -136,6 +137,48 @@
   animation: spin 1s linear infinite;
 }
 
+.auction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.auction-card {
+  background-color: #3c3a4d;
+  padding: 16px;
+  border-radius: 16px;
+  color: white;
+  display: flex;
+  align-items: flex-start;/*flex-start is going to ensures that our child elements 
+  (like .auction-details) align to the left inside .auction-card*/
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.auction-card:hover {
+  transform: scale(1.02);
+}
+
+.auction-details {
+  text-align: left; 
+  width: 100%;       
+  margin-top: 16px;
+}
+
+.auction-details h3,
+.auction-details p,
+.auction-details strong {
+  margin: 5px 0;
+}
+
+.action-buttons {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
 /* Keyframes for spin */
 @keyframes spin {
   to {

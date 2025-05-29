@@ -1,7 +1,7 @@
 // SellerAnalytics.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SellerAnalytics.css'; // Importing the CSS file
+import './SellerAnalytics.css'; 
 
 function SellerAnalytics() {
   const navigate = useNavigate();

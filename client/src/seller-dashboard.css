@@ -1,7 +1,7 @@
 /* Layout */
 .seller-dashboard {
   display: flex;
-  height: 700px;
+  height: auto;
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -92,7 +92,7 @@
 .logout-button button {
   width: 100%;
   padding: 10px;
-  background-color:  rgb(59, 54, 74); /*background-color: #a94444;*/
+  background-color:  rgb(59, 54, 74); 
   color: white;
   border: none;
   border-radius: 6px;
@@ -107,7 +107,7 @@
   background-color: rgb(146, 46, 46);
 }
 
-/* Right Panel */
+
 .dashboard-content {
   flex-grow: 1;
   background-color:rgb(100, 97, 116);

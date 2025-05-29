@@ -1,11 +1,15 @@
 .backTheme1 {
   background-color: rgb(100, 97, 116);
-  min-height: 700px;
+  height: 100vh;
+  overflow: hidden;  
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  
+
 }
+
 
 .loginBox1 {
   display: flex;
@@ -16,11 +20,13 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
 }
 
 .imageIllustration1 {
   width: 50%;
   background-color: rgb(43, 38, 55);
+  overflow: hidden;
 }
 
 .image1 {

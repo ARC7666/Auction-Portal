@@ -9,12 +9,12 @@ function AdminDashboard() {
 
   <section className="dashboard-section">
     <h3>User Management</h3>
-    <p>[Placeholder for viewing, editing, or banning users]</p>
+    <p>[]</p>
   </section>
 
   <section className="dashboard-section">
     <h3>Reports & System Logs</h3>
-    <p>[Placeholder for admin insights]</p>
+    <p>[]</p>
   </section>
  </div>
 );
