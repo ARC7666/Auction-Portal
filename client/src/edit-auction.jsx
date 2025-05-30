@@ -5,6 +5,9 @@ import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Link } from 'react-router-dom';
 import './edit-auctions.css';
+import 'react-datepicker/dist/react-datepicker.css'; // help taken by  @Codevolution channel
+import DatePicker from "react-datepicker";
+  import { signOut, onAuthStateChanged } from "firebase/auth";
 
 function EditAuction() {
   const { id } = useParams();
@@ -14,7 +17,24 @@ function EditAuction() {
   const [mediaFiles, setMediaFiles] = useState([]);
   const [isEditable, setIsEditable] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [startTime, setStartTime] = useState('');
+  const [user, setUser] = useState(null);
+
   
+
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user); 
+      } else {
+        navigate("/"); 
+      }
+    });
+
+    return () => unsubscribe(); 
+  }, [navigate]);
 
   useEffect(() => {
    const fetchAuction = async () => {
@@ -40,6 +60,8 @@ function EditAuction() {
     };
 
     fetchAuction();
+
+    
   }, [id, navigate]);
 
   const handleMediaChange = (e) => {
@@ -74,7 +96,7 @@ function EditAuction() {
         );
       }
 
-      const start = new Date(auction.startTime);
+      const start = startTime;
       const end = new Date(start.getTime() + parseInt(auction.duration) * 60000);
 
       await updateDoc(doc(db, 'auctions', id), {
@@ -89,7 +111,7 @@ function EditAuction() {
         updatedAt: serverTimestamp()
       });
 
-      alert('Auction updated successfully!');
+      //alert('Auction updated successfully!');
       navigate('/seller-auctions');
     } catch (error) {
       console.error("Error updating auction:", error);
@@ -102,10 +124,12 @@ function EditAuction() {
   if (loading || !auction) {
   return (
     <div className="spinner-overlay">
-      <div className="spinner" />
+      <div className="spinned" />
     </div>
   );
 }
+
+
 
   if (!isEditable) {
     return (
@@ -156,7 +180,7 @@ function EditAuction() {
         </aside>
 
         <main className="dashboard-content-3">
-          <h2>Edit Auction</h2>
+          <h2 style={{fontSize: 35,}}>Edit Auction</h2>
           <div className="form-wrapper">
             <form onSubmit={handleSubmit} className="auction-form">
               <input type="text" placeholder="Title" value={auction.title}
@@ -168,8 +192,21 @@ function EditAuction() {
               <input type="number" placeholder="Start Price" value={auction.startPrice}
                 onChange={(e) => setAuction({ ...auction, startPrice: e.target.value })} required />
 
-              <input type="datetime-local" value={auction.startTime.slice(0, 16)}
-                onChange={(e) => setAuction({ ...auction, startTime: e.target.value })} required />
+              {/*<input type="datetime-local" value={auction.startTime.slice(0, 16)}
+                //onChange={(e) => setAuction({ ...auction, startTime: e.target.value })} required */}
+                <DatePicker
+                selected={startTime}
+                onChange={(date) => setStartTime(date)}
+                      showTimeSelect
+                placeholderText=" dd/mm/yyyy ,  --:--                                  🗓️"
+                timeFormat="HH:mm"
+          
+                timeIntervals={1}
+                timeCaption="Time"
+                dateFormat="dd/MM/yyyy h:mm aa"
+                className="custom-datepicker"
+                minDate={new Date()}
+                />
 
               <input type="number" placeholder="Duration (in minutes)" value={auction.duration}
                 onChange={(e) => setAuction({ ...auction, duration: e.target.value })} required />
@@ -177,7 +214,7 @@ function EditAuction() {
               <input type="file" multiple accept="image/*,video/*"
                 onChange={handleMediaChange} />
 
-              <button type="submit" disabled={uploading}>
+              <button type="submit" disabled={uploading}style={{fontWeight: 700 , fontSize: 20}}>
                 {uploading ? 'Updating...' : 'Update Auction'}
               </button>
             </form>

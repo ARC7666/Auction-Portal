@@ -16,13 +16,10 @@ const firebaseConfig = {
   measurementId: "G-QJEN9460XT"
 };
 
-// initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// initialize Services
 const auth = getAuth(app);
 
-//  force Google account selection popup
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
   prompt: "select_account"
@@ -32,5 +29,4 @@ const db = getFirestore(app);
 const analytics = getAnalytics(app);
 const storage = getStorage(app);
 
-// export required modules
 export { auth, provider, db , storage };

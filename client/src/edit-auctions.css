@@ -125,6 +125,7 @@
   border: 6px solid #ccc;
   border-top-color: #333;
   border-radius: 50%;
+
   animation: spin 1s linear infinite;
 }
 

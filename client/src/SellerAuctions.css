@@ -119,7 +119,7 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  background: rgba(255, 255, 255, 0);
+  
   backdrop-filter: blur(0px);
   z-index: 1000;
   display: flex;
@@ -135,6 +135,7 @@
   border-top-color: #333;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  margin-left: 300px;
 }
 
 .auction-grid {

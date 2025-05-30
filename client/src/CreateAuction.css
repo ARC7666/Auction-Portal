@@ -107,30 +107,62 @@
   display: flex;
   height: 100vh;
   font-family: 'Segoe UI', sans-serif;
+  
 }
 
 .auction-container h2 {
   text-align: center;
   margin-bottom: 20px;
+  
+  
 }
 
 .auction-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  
 }
 
 .auction-form input,
 .auction-form textarea {
-  padding: 10px;
-  border: 1px solid #aaa;
+  padding: 18px;
+  border: 1px solid rgb(59, 54, 74);
   border-radius: 5px;
+  color: #ffffff;
   font-size: 16px;
+  background-color: rgb(59, 54, 74);
 }
 
+.auction-form input:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+}
+
+.auction-form input:hover {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+}
+
+.auction-form textarea:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+}
+
+.auction-form textarea:hover {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+}
+
+
 .auction-form button {
-  padding: 10px;
-  background-color: #0077cc;
+  padding: 17px;
+  margin-top:10px ;
+  background-color: rgb(120, 59, 180);
   color: white;
   border: none;
   font-size: 16px;
@@ -138,7 +170,36 @@
   border-radius: 5px;
 }
 
-.auction-form button:disabled {
-  background-color: gray;
+.auction-form button:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+}
+
+
+.auction-form button:hover {
+  background-color: rgb(120, 59, 180);
   cursor: not-allowed;
+  box-shadow: 0 0 5px rgb(59, 54, 74);
+  
+}
+
+
+input::placeholder,
+textarea::placeholder {
+  color: #cccccc; 
+ 
+  opacity: 1; 
+}
+
+.custom-datepicker {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #fefefe;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
 }

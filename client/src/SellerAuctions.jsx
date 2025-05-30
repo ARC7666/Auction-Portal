@@ -4,11 +4,26 @@ import { useNavigate } from 'react-router-dom';
 import { db, auth } from './firebase';
 import { Link } from 'react-router-dom';
 import './SellerAuctions.css';
+ import { signOut, onAuthStateChanged } from "firebase/auth";
 
 function SellerAuctions() {
   const [auctions, setAuctions] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+ const [user, setUser] = useState(null);
+ 
+   
+    useEffect(() => {
+       const unsubscribe = onAuthStateChanged(auth, (user) => {
+         if (user) {
+           setUser(user); 
+         } else {
+           navigate("/"); 
+         }
+       });
+   
+       return () => unsubscribe(); 
+     }, [navigate]);
 
   useEffect(() => {
     if (!auth.currentUser) return;
@@ -29,6 +44,8 @@ function SellerAuctions() {
         setLoading(false);
       }
     };
+
+    
 
     fetchAuctions();
   }, []);

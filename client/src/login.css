@@ -81,6 +81,12 @@
   max-width: 400px;;
 }
 
+.input1:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px #4a90e2;
+}
+
 .button1 {
   padding: 10px;
   font-size: 16px;
