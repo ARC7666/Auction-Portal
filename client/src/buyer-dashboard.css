@@ -1,13 +1,13 @@
 .dashboard-container {
-  padding: 2rem;
+  padding: 32px;
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
 }
 
 .dashboard-section {
   background: #fff;
-  padding: 1rem;
-  margin-top: 1rem;
+  padding: 16px;
+  margin-top: 16px;
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
 }

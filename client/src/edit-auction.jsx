@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import './edit-auctions.css';
 import 'react-datepicker/dist/react-datepicker.css'; // help taken by  @Codevolution channel
 import DatePicker from "react-datepicker";
-  import { signOut, onAuthStateChanged } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 
 function EditAuction() {
   const { id } = useParams();

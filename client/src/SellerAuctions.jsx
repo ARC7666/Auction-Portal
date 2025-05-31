@@ -5,6 +5,7 @@ import { db, auth } from './firebase';
 import { Link } from 'react-router-dom';
 import './SellerAuctions.css';
  import { signOut, onAuthStateChanged } from "firebase/auth";
+import Swal from 'sweetalert2';
 
 function SellerAuctions() {
   const [auctions, setAuctions] = useState([]);
@@ -50,19 +51,46 @@ function SellerAuctions() {
     fetchAuctions();
   }, []);
 
-  const handleDelete = async (auctionId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this auction?");
-    if (!confirmDelete) return;
 
-    try {
-      await deleteDoc(doc(db, 'auctions', auctionId));
-      setAuctions(prev => prev.filter(a => a.id !== auctionId));
-      alert("Auction deleted successfully.");
-    } catch (err) {
-      console.error("Delete failed:", err);
-      alert("Failed to delete auction.");
-    }
-  };
+const handleDelete = async (auctionId) => {
+  const result = await Swal.fire({
+    title: 'Confirm Deletion',
+    text: 'Are you sure you want to delete this auction?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it',
+    cancelButtonText: 'Cancel',
+    customClass: {
+      popup: 'custom-swal-popup',
+      title: 'custom-swal-title',
+      confirmButton: 'custom-swal-confirm',
+      cancelButton: 'custom-swal-cancel'
+    },
+    buttonsStyling: false 
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    await deleteDoc(doc(db, 'auctions', auctionId));
+    setAuctions(prev => prev.filter(a => a.id !== auctionId));
+
+    Swal.fire({
+      title: 'Deleted!',
+      text: 'The auction has been removed',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true,
+      customClass: {
+        popup: 'success-swal-popup '
+      }
+    });
+  } catch (err) {
+    console.error("Delete failed:", err);
+    Swal.fire('Error', 'Failed to delete auction.', 'error');
+  }
+};
 
   return (
     <div className="auction-list-container">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { auth, provider, db } from './firebase';
 import { createUserWithEmailAndPassword, updateProfile , signInWithPopup } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
@@ -62,7 +62,7 @@ function Signup() {
       });
   }
 
-// fucntion to be called when user clicks "Sign up with Google"
+
   function handleGoogleClick() {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -79,7 +79,7 @@ function Signup() {
      i.e. buyer , seller and admin . */
 
   function handleGoogleContinue() {
-    if (googleUser === null) return; //if no user present then exit
+    if (googleUser === null) return; 
      const userDoc = doc(db, 'users', googleUser.uid);
 
     getDoc(userDoc).then((snapshot) => {
@@ -102,7 +102,6 @@ function Signup() {
     });
   }
 
-  // JSX stays the same (except changed navigate('/dashboard') to redirectToDashboard)
   return (
     <div className="backTheme">
       <div className="loginBox">

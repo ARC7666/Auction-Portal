@@ -121,3 +121,17 @@ code {
   border-radius: 7px;
   border: 2px solid rgb(43, 38, 55) !important;
 }
+
+.react-datepicker__time-list::-webkit-scrollbar {
+  width: 9px;
+}
+
+.react-datepicker__time-list::-webkit-scrollbar-thumb {
+  background-color: rgb(59, 52, 75); 
+  border-radius: 5px;
+}
+
+.react-datepicker__time-list::-webkit-scrollbar-track {
+  background-color: rgb(104, 102, 120) 
+}
+

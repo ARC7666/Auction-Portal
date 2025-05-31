@@ -25,7 +25,7 @@ function SellerDashboard() {
     signOut(auth)
       .then(() => {
         alert("Logout successful!");
-        navigate("/");
+        navigate("/");// remember to change this location once landing is created 
       })
       .catch((error) => {
         console.error("Logout error:", error);

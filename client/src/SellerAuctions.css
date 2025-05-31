@@ -180,9 +180,101 @@
   display: flex;
   gap: 8px;
 }
-/* Keyframes for spin */
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
+
+
+.custom-swal-popup {
+  background-color: rgb(100, 97, 116); 
+  max-width: 90vw;
+  width: 320px;
+  padding: 20px;
+  font-size: 14px;
+  border-radius: 12px;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 12px rgb(43, 38, 55)!important;
+}
+
+.custom-swal-title {
+  font-size: 21px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  
+}
+
+.swal2-html-container {
+  color: rgb(205, 205, 205); 
+  font-size: 14px;
+}
+
+.custom-swal-confirm,
+.custom-swal-cancel {
+  padding: 12px 18px;
+  border-radius: 8px;
+
+  font-weight: 500;
+  margin: 0 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.custom-swal-confirm {
+  background-color: rgb(43, 38, 55);
+    font-size: 14px;
+  color: white;
+}
+
+.custom-swal-confirm:hover {
+  background-color: #ae0c3f;
+
+}
+
+.custom-swal-cancel {
+  background-color: rgb(204, 203, 203);
+  font-weight: 600;
+  font-size: 14px;
+  color: rgb(43, 38, 55);
+}
+
+.custom-swal-cancel:hover {
+  background-color: rgb(220, 220, 220);
+  color: rgb(11, 10, 14);
+  /* box-shadow: 0 0 10px rgb(43, 38, 55)!important;*/
+  /* transform: scale(1.02);*/
+ 
+
+}
+
+@media (max-width: 480px) {
+  .custom-swal-popup {
+    width: 90%;
+    font-size: 13px;
+  }
+
+  .custom-swal-title {
+    font-size: 16px;
+  }
+
+  .custom-swal-confirm,
+  .custom-swal-cancel {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+.success-swal-popup {
+  max-width: 90vw;
+  width: 320px;
+  font-size: 14px !important;
+  padding: 20px !important;
+  border-radius: 12px !important;
+  background-color: rgb(100, 97, 116)!important;
+  color: rgb(255, 255, 255) !important;
+  box-shadow: 0 0 12px rgb(43, 38, 55)!important;
+}
+
+

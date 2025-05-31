@@ -18,9 +18,9 @@ function CreateAuction() {
   const [duration, setDuration] = useState('');
   const [mediaFiles, setMediaFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
-   const navigate = useNavigate();
-   const [selectedDate, setSelectedDate] = useState(null);
-    const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [user, setUser] = useState(null);
     
       
        useEffect(() => {
@@ -53,19 +53,19 @@ function CreateAuction() {
 
     setUploading(true);
 
-    try {
+  try {
   // uploading media to the firestore storage
-  const mediaURLs = await Promise.all(
+    const mediaURLs = await Promise.all(
     mediaFiles.map(async (file) => {
-      const fileRef = ref(storage, `auctions/${auth.currentUser.uid}/${Date.now()}-${file.name}`);
+    const fileRef = ref(storage, `auctions/${auth.currentUser.uid}/${Date.now()}-${file.name}`);
       //example -> auctions/u12345xyz/1717000000000-image.png
       /* so storage instance kai auctions folder mai with valid used uid and timestap( for unique file name ) ke sath
       data will be stored */
-      console.log("Uploading file:", file.name);
-      await uploadBytes(fileRef, file);
-      const url = await getDownloadURL(fileRef);
-      console.log("Uploaded URL:", url);
-      return url;
+    console.log("Uploading file:", file.name);
+    await uploadBytes(fileRef, file);
+    const url = await getDownloadURL(fileRef);
+    console.log("Uploaded URL:", url);
+    return url;
     })
   );
 
