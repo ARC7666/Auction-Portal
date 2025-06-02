@@ -15,4 +15,7 @@ A full-stack auction web application where buyers and sellers can interact throu
 - React
 - Firebase (Auth, Firestore, Storage)
 - CSS (modular and global)
-- Create React App
+- Vite
+
+## Author
+- Ankit Ranjan
