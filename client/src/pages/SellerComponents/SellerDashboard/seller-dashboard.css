@@ -21,7 +21,7 @@
   justify-content: center;
   align-items: center;
   padding: 0px 0;
-   margin-top: -20px;
+   margin-top: 0px;
 }
 
 .logo img {
@@ -30,6 +30,7 @@
   object-fit: contain;
   object-fit: contain;
   margin-bottom: 0px;
+  margin-top: 20px;
 }
 
 .dashboard-title {

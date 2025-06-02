@@ -1,6 +1,6 @@
 import React, { useEffect ,useState } from 'react';
 import './CreateAuction.css';
-import { db, storage, auth } from './firebase';
+import { db, storage, auth } from '../../../firebase/firebaseConfig';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import 'react-datepicker/dist/react-datepicker.css'; // help taken by  @Codevolution channel
 import DatePicker from "react-datepicker";
 import { signOut, onAuthStateChanged } from "firebase/auth";
+import { logo } from '../../../assets';
 
 
 function CreateAuction() {
@@ -110,7 +111,7 @@ setUploading(false);
   return (
     <div className="auction-container">
       <aside className="sidebar1">
-      <div className="logo"><img src="/logo.png" alt="Logo" /></div>
+      <div className="logo"><img src={logo} alt="Logo" /></div>
       <div className="dashboard-title1">
         <hr />
         <span>Seller Dashboard</span>

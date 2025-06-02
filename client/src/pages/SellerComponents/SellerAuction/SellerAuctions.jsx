@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { db, auth } from './firebase';
+import { db, auth } from '../../../firebase/firebaseConfig';
 import { Link } from 'react-router-dom';
 import './SellerAuctions.css';
  import { signOut, onAuthStateChanged } from "firebase/auth";
 import Swal from 'sweetalert2';
+import { logo } from '../../../assets';
 
 function SellerAuctions() {
   const [auctions, setAuctions] = useState([]);
@@ -101,7 +102,7 @@ const handleDelete = async (auctionId) => {
       )}
 
       <aside className="sidebar2">
-        <div className="logo"><img src="/logo.png" alt="Logo" /></div>
+        <div className="logo"><img src={logo} alt="Logo" /></div>
         <div className="dashboard-title2">
           <hr />
           <span>Seller Dashboard</span>

@@ -1,10 +1,11 @@
 import React, { useEffect , useState } from 'react'; 
-import { auth, provider, db } from './firebase';
+import { auth, provider, db } from '../../firebase/firebaseConfig';
 import { createUserWithEmailAndPassword, updateProfile , signInWithPopup } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
 import { onAuthStateChanged } from 'firebase/auth';
+import image1 from '../../assets/images/image1.jpg';
 
 
 function Signup() {
@@ -125,7 +126,7 @@ useEffect(() => {
     <div className="backTheme">
       <div className="loginBox">
         <div className="imageIllustration">
-          <img src="/image1.jpg" alt="login" className="image" />
+          <img src={image1} alt="login" className="image" />
         </div>
 
         <div className="signupContent">

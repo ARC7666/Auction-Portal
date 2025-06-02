@@ -1,11 +1,12 @@
 // src/pages/Landing.js
 import React, { useEffect , useState } from 'react';
 import { signInWithPopup, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { auth, provider, db } from './firebase';
+import { auth, provider, db } from '../../firebase/firebaseConfig';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import { onAuthStateChanged } from 'firebase/auth';
+import image2 from '../../assets/images/image2.jpg';
 
 function Login() {
   const navigate = useNavigate();
@@ -151,7 +152,7 @@ useEffect(() => {
         </div>
 
         <div className="imageIllustration1">
-          <img src="/image2.jpg" alt="login" className="image1" />
+          <img src={image2} alt="login" className="image1" />
         </div>
       </div>
     </div>

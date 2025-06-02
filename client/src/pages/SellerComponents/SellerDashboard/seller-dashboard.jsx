@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase"; 
+import { auth } from '../../../firebase/firebaseConfig'; 
 import './seller-dashboard.css';
 import Swal from 'sweetalert2';
+import { logo } from '../../../assets';
 
 function SellerDashboard() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ function SellerDashboard() {
     <div className="seller-dashboard">
       <aside className="sidebar">
         <div className="logo">
-          <img src="/logo.png" alt="Logo" />
+          <div className="logo"><img src={logo} alt="Logo" /></div>
         </div>
 
         <div className="dashboard-title">

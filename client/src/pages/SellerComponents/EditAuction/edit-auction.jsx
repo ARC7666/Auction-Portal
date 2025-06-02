@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { db, storage, auth } from './firebase';
+import { db, storage, auth } from '../../../firebase/firebaseConfig';
 import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,7 @@ import './edit-auctions.css';
 import 'react-datepicker/dist/react-datepicker.css'; // help taken by  @Codevolution channel
 import DatePicker from "react-datepicker";
 import { signOut, onAuthStateChanged } from "firebase/auth";
+import { logo } from '../../../assets';
 
 function EditAuction() {
   const { id } = useParams();
@@ -135,7 +136,7 @@ function EditAuction() {
     return (
       <div className="auction-container">
         <aside className="sidebar3">
-          <div className="logo"><img src="/logo.png" alt="Logo" /></div>
+          <div className="logo"><img src={logo} alt="Logo" /></div>
           <div className="dashboard-title3">
             <hr />
             <span>Seller Dashboard</span>

@@ -1,16 +1,16 @@
 // App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Signup from "./signup.jsx";
-import Login from "./login.jsx";
-import BuyerDashboard from "./buyer-dashboard.jsx";
-import SellerDashboard from "./seller-dashboard.jsx";
-import AdminDashboard from "./admin-dashboard.jsx";
-import CreateAuction from './CreateAuction';
-import SellerAuctions from './SellerAuctions';
-import EditAuction from './edit-auction.jsx';  
-import SellerAnalytics from './SellerAnalytics';
-import Chats from './chats.jsx';
+import Signup from "./pages/signup/signup.jsx";
+import Login from "./pages/login/login.jsx";
+import BuyerDashboard from "./pages/BuyerDashboard/buyer-dashboard.jsx";
+import SellerDashboard from "./pages/SellerComponents/SellerDashboard/seller-dashboard.jsx";
+import AdminDashboard from "./pages/AdminDashboard/admin-dashboard.jsx";
+import CreateAuction from './pages/SellerComponents/CreateAuctions/CreateAuction';
+import SellerAuctions from './pages/SellerComponents/SellerAuction/SellerAuctions.jsx';
+import EditAuction from './pages/SellerComponents/EditAuction/edit-auction.jsx';  
+import SellerAnalytics from './pages/SellerComponents/SellerAnalytic/SellerAnalytics.jsx';
+import Chats from './pages/chats/chats.jsx';
 
 
 //   React Router DOM is a library used to enable routing in React apps.
