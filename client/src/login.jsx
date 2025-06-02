@@ -1,10 +1,11 @@
 // src/pages/Landing.js
-import React, { useState } from 'react';
+import React, { useEffect , useState } from 'react';
 import { signInWithPopup, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth, provider, db } from './firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
+import { onAuthStateChanged } from 'firebase/auth';
 
 function Login() {
   const navigate = useNavigate();
@@ -42,11 +43,10 @@ function Login() {
         else if (role === "admin") navigate("/admin-dashboard");
         else navigate("/login"); 
       } else {
-        // Sign out the user since they're not registered in our database
         await signOut(auth);
         alert("No account found for this Google account. Please sign up first.");
         navigate("/"); // or navigate('/signup') depending on your path 
-        // if u making landing page then ye change karna hoga from app.js and here 
+        // if I make landing page then ye change karna hoga from app.js and here 
         //WARNING WARNING WARNING 
       }
     })
@@ -56,6 +56,22 @@ function Login() {
     });
 }
 
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const role = userDoc.exists() ? userDoc.data().role : null;
+
+      if (role === "buyer") navigate("/buyer-dashboard", { replace: true });
+      else if (role === "seller") navigate("/seller-dashboard", { replace: true });
+      else if (role === "admin") navigate("/admin-dashboard", { replace: true });
+      else navigate("/", { replace: true }); 
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+
 
   function loginWithEmail() {
     signInWithEmailAndPassword(auth, emailInput, passwordInput)
@@ -64,20 +80,16 @@ function Login() {
         const userDoc = doc(db, "users", user.uid);
         const userData = await getDoc(userDoc);
 
-        if (!userData.exists()) {
-          await setDoc(userDoc, {
-            name: user.email,
-            email: user.email,
-            role: "buyer",
-            createdAt: new Date(),
-          });
-          navigate("/buyer-dashboard");
-        } else {
+         if (!userData.exists()) {
+          alert("No account found. Please sign up first.");
+         await signOut(auth); 
+          navigate("/"); 
+       }  else {
           const role = userData.data().role;
-          if (role === "buyer") navigate("/buyer-dashboard");
-          else if (role === "seller") navigate("/seller-dashboard");
-          else if (role === "admin") navigate("/admin-dashboard");
-          else navigate("/login"); // it will fallback to the login if role is invalid
+          if (role === "buyer") navigate("/buyer-dashboard" ,{ replace: true });
+          else if (role === "seller") navigate("/seller-dashboard",{ replace: true });
+          else if (role === "admin") navigate("/admin-dashboard",{ replace: true });
+          else navigate("/login"); 
         }
       })
       .catch((error) => {

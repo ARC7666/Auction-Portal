@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase"; 
 import './seller-dashboard.css';
+import Swal from 'sweetalert2';
 
 function SellerDashboard() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function SellerDashboard() {
       if (user) {
         setUser(user); 
       } else {
-        navigate("/"); 
+        navigate("/",{ replace: true }); 
       }
     });
 
@@ -24,7 +25,18 @@ function SellerDashboard() {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        alert("Logout successful!");
+         Swal.fire({
+        icon: 'success',
+        title: 'Logout Successful',
+        text: 'You have been logged out.',
+        showConfirmButton: false,
+        timer: 1200, 
+        timerProgressBar: true,
+        customClass: {
+          popup: 'custom-swal-popup',
+          title: 'custom-swal-title',
+        }
+      });
         navigate("/");// remember to change this location once landing is created 
       })
       .catch((error) => {
@@ -50,6 +62,7 @@ function SellerDashboard() {
           <Link to="/create-auction"><button>Create Auction</button></Link>
           <Link to="/seller-auctions"><button>View Listing</button></Link>
           <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
+          <Link to="/chats"><button>Chat</button></Link>
         </nav>
 
         <div className="logout-button">

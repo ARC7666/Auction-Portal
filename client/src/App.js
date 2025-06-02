@@ -10,6 +10,8 @@ import CreateAuction from './CreateAuction';
 import SellerAuctions from './SellerAuctions';
 import EditAuction from './edit-auction.jsx';  
 import SellerAnalytics from './SellerAnalytics';
+import Chats from './chats.jsx';
+
 
 //   React Router DOM is a library used to enable routing in React apps.
 //   It allows us to navigate between different components and pages (like Login, Signup, Dashboard) without reloading the page.
@@ -29,6 +31,7 @@ return (
     <Route path="/seller-auctions" element={<SellerAuctions />} />
     <Route path="/edit-auction/:id" element={<EditAuction />} />
     <Route path="/seller-analytics" element={<SellerAnalytics />} /> 
+    <Route path="/chats" element={<Chats />} /> 
     <Route path="/admin-dashboard" element={<AdminDashboard />} />   
    </Routes>
 </Router>

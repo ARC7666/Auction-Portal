@@ -1,9 +1,11 @@
-import React, { useState } from 'react'; 
+import React, { useEffect , useState } from 'react'; 
 import { auth, provider, db } from './firebase';
 import { createUserWithEmailAndPassword, updateProfile , signInWithPopup } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
+import { onAuthStateChanged } from 'firebase/auth';
+
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
@@ -11,22 +13,39 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('buyer');
-
+  
   const [showRolePopup, setShowRolePopup] = useState(false);
   const [googleUser, setGoogleUser] = useState(null);
 
   const navigate = useNavigate();
 
+
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const role = userDoc.exists() ? userDoc.data().role : null;
+
+      if (role === "buyer") navigate("/buyer-dashboard", { replace: true });
+      else if (role === "seller") navigate("/seller-dashboard", { replace: true });
+      else if (role === "admin") navigate("/admin-dashboard", { replace: true });
+      else navigate("/", { replace: true }); 
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+
   function redirectToDashboard(userRole) {
     switch (userRole) {
       case 'admin':
-        navigate('/admin-dashboard');
+        navigate('/admin-dashboard',{ replace: true });
         break;
       case 'seller':
-        navigate('/seller-dashboard');
+        navigate('/seller-dashboard',{ replace: true });
         break;
       default:
-        navigate('/buyer-dashboard');
+        navigate('/buyer-dashboard',{ replace: true });
         break;
     }
   }

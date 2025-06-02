@@ -1,6 +1,6 @@
 .backTheme {
   background-color: rgb(100, 97, 116);
-  min-height: 95vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

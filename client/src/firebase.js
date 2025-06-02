@@ -1,11 +1,11 @@
-// import the functions you need from the SDKs (Software Development Kit)
+
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 
-// firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyBpSXlF7kIJ6YmCrx7leVEG0xuESBG3yi4",
   authDomain: "auction-portal-in.firebaseapp.com",
