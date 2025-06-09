@@ -1,0 +1,129 @@
+/* Badge styles */
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+}
+
+.badge.live {
+  background-color: #4caf50; /* Green */
+}
+
+.badge.upcoming {
+  background-color: #ff9800; /* Orange */
+}
+
+.badge.ended {
+  background-color: #f44336; /* Red */
+}
+
+/* Listing Card Component */
+.listing-card {
+    position: relative;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-6px);
+}
+
+.listing-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.listing-details {
+  padding: 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.listing-details h3 {
+  margin: 0 0 8px 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.listing-details .desc {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+
+/* Description toggle button */
+.desc-toggle-btn {
+  background: none;
+  border: none;
+  color: #6C63FF;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 6px 0;
+  text-align: left;
+  outline: none;
+  transition: color 0.2s ease;
+}
+
+.desc-toggle-btn:hover {
+  color: #554ee3;
+}
+
+/* Description content */
+.listing-details .desc-content {
+  max-height: 0;
+  overflow: hidden;
+  font-size: 0.9rem;
+  color: #555;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 0;
+}
+
+.listing-details .desc-content.open {
+  max-height: 200px; /* enough height for description */
+  padding: 8px 0 12px 0;
+}
+.bid-now {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.bid-now:hover {
+  background-color: #3a8b3a;
+}
+
+.listing-details p.desc {
+  margin: 4px 0 8px 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.listing-details p.countdown {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}

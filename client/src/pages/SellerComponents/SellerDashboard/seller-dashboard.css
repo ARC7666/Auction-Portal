@@ -1,7 +1,7 @@
 /* Layout */
 .seller-dashboard {
   display: flex;
-  height: auto;
+  height: 100vh;
   font-family: 'Segoe UI', sans-serif;
 }
 
