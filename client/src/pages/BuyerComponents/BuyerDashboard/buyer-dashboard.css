@@ -1,47 +1,57 @@
-/* Layout wrapper */
+/* Reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Main layout */
 .buyer-dashboard {
   display: flex;
-  height: auto;
-  max-height: 200vh;
-  min-height: 100vh;
-  background-color: #f6f9fc;
-  color: #333;
-  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+
+  background-image: url('/images/back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  position: relative;
 }
 
 /* Sidebar */
 .sidebar {
   width: 260px;
-  background-color: #2E2A3A;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: white;
+  z-index: 2;
   padding: 25px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.15);
-  z-index: 10;
 }
 
-.dashboard-content {
+/* Main content */
+.dashboard-main {
   flex-grow: 1;
-  padding: 20px 30px;
-  padding-top: 80px;
+  height: 100%;
   overflow-y: auto;
-  position: relative;
-  background: #f6f9fc;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+  background: transparent;
+  z-index: 1;
+  padding: 20px;
 }
 
 .filter-container {
   position: fixed;
   top: 20px;
   right: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
   z-index: 100;
 }
 
@@ -85,45 +95,9 @@
 
 .auction-grid {
   display: grid;
-  padding-top: 60px;
+  padding-top: 80px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 28px;
+  background: transparent;
 }
 
-.no-auctions {
-  color: #999;
-  font-style: italic;
-  font-size: 1.1rem;
-  margin-top: 40px;
-  text-align: center;
-}
-
-/* Nav buttons in sidebar */
-.nav-buttons button {
-  width: 100%;
-  padding: 12px 0;
-  margin-bottom: 12px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  background-color: #6C63FF;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.nav-buttons button:hover {
-  background-color: #554ee3;
-}
-
-.logout-button button {
-  width: 100%;
-  padding: 12px 0;
-  margin-top: auto;
-  background-color: #FF6584;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-}

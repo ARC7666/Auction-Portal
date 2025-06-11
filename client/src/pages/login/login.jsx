@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import './login.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import image2 from '../../assets/images/image2.jpg';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function Login() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Login() {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   /* example to understand the working of .then and .catch (as u r forgetting it more often)
   orderPizza()
@@ -102,8 +104,8 @@ useEffect(() => {
   return (
     
       
-    <div className="backTheme1">
-      <div className="loginBox1">
+    <div className="backThemedn">
+      <div className="loginBoxd">
         <div className="signInContent1">
           <div className="titleText1">
             <h1>Welcome Back to Auctania</h1>
@@ -118,13 +120,21 @@ useEffect(() => {
             className="input1"
           />
 
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={passwordInput}
-            onChange={(e) => setPasswordInput(e.target.value)}
-            className="input1"
-          />
+          <div className="password-container">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                placeholder="Enter your password"
+                value={passwordInput}
+                            onChange={(e) => setPasswordInput(e.target.value)}
+                className="input1 password-input"
+              />
+              <span
+                className="eye-toggle"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+              >
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
 
           <button onClick={loginWithEmail} className="button1">
             Login
@@ -135,7 +145,7 @@ useEffect(() => {
             <span>Or Login with</span>
             <hr />
           </div>
-
+        <div className="googleWrapper1">
           <button onClick={loginWithGoogle} className="googleButton1">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Google_Favicon_2025.svg"
@@ -144,13 +154,14 @@ useEffect(() => {
             />
             Google
           </button>
+        </div>
 
           <p className="loginLink1">
             New User?{' '}
             <span className="link1" onClick={() => navigate('/')}>SignUp here</span>
           </p>
         </div>
-
+  
         <div className="imageIllustration1">
           <img src={image2} alt="login" className="image1" />
         </div>

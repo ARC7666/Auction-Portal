@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import './signup.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import image1 from '../../assets/images/image1.jpg';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // install this package first
+
+
 
 
 function Signup() {
@@ -17,6 +20,7 @@ function Signup() {
   
   const [showRolePopup, setShowRolePopup] = useState(false);
   const [googleUser, setGoogleUser] = useState(null);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -131,7 +135,8 @@ useEffect(() => {
 
         <div className="signupContent">
           <div className="titleText">
-            <h1>Welcome to Auctania</h1>
+            <h1>Sign up to Auctania</h1>
+         
             <p>Buy, Sell, and Bid in real-time</p>
           </div>
 
@@ -161,14 +166,22 @@ useEffect(() => {
               className="input"
             />
 
-            <input
-              type="password"
-              placeholder="Create your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="input"
-            />
+            <div className="password-container">
+  <input
+    type={passwordVisible ? 'text' : 'password'}
+    placeholder="Create your password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    required
+    className="input password-input"
+  />
+  <span
+    className="eye-toggle"
+    onClick={() => setPasswordVisible(!passwordVisible)}
+  >
+    {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+  </span>
+</div>
 
             <select
               value={role}

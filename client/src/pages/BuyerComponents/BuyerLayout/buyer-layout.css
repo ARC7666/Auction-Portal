@@ -1,0 +1,68 @@
+/* RESET */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* MAIN WRAPPER */
+.buyer-dashboard {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  /* ✅ This is your fixed wallpaper */
+  background-image: url('/images/back.jpg'); /* from public folder */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* SIDEBAR */
+.sidebard {
+  width: 260px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  z-index: 2;
+}
+
+/* MAIN CONTENT */
+.dashboard-mained {
+  flex-grow: 1;
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  background: transparent;
+}
+
+.logout-button {
+  margin-top: auto;
+  margin-left: -185px;
+}
+
+.logout-button button {
+  width: 100%;
+  padding: 10px;
+  background-color:  rgb(59, 54, 74); 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+.logout-button button:hover {
+  background-color: rgb(146, 46, 46);
+}
