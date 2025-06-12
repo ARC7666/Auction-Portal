@@ -84,7 +84,8 @@
 }
 
 .desc-toggle-btn:hover {
-  color: #554ee3;
+  color: #302c82;
+  background-color: transparent;
 }
 
 /* Description content */

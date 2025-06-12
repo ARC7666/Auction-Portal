@@ -87,7 +87,7 @@
   flex-grow: 1;
   background-color: rgb(100, 97, 116);
   color: white;
-  padding: 40px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,7 +96,7 @@
 
 .dashboard-content2 h2 {
   font-size: 30px;
-  margin: 0 0 20px 0;
+  margin: 0 0 -50px 0;
   align-self: flex-start;
 } 
 
@@ -278,3 +278,33 @@
 }
 
 
+.auction-list-container {
+  display: flex;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden; /* Prevent double scrollbars */
+}
+
+.dashboard-content2 {
+  flex-grow: 1;
+  background-color: rgb(100, 97, 116);
+  color: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  overflow-y: auto;  /* ✅ Add this */
+  max-height: 100vh; /* ✅ Add this */
+  scrollbar-width: thin; /* For Firefox */
+}
+
+/* Optional: Better scroll look */
+.dashboard-content2::-webkit-scrollbar {
+  width: 8px;
+}
+.dashboard-content2::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}

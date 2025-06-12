@@ -1,0 +1,183 @@
+.auction-detail-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;       
+  padding: 2rem;
+  height: 90vh;      
+  min-height: 90vh;        
+  background: transparent;
+}
+
+.auction-detail-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 1000px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.314);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.auction-gallery {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 2;
+}
+
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
+
+.auction-details {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.auction-description {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.current-bid {
+  font-weight: bold;
+  color: #2d6a4f;
+  margin-top: 1rem;
+}
+
+input[type="number"] {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: rgba(43, 38, 55, 0.159);
+  color: rgba(43, 38, 55, 0.879);
+  font-weight: 700;
+}
+
+input::placeholder {
+   color: rgba(255, 255, 255, 0.75); 
+  opacity: 2; 
+  font-weight: 600;
+}
+
+.bid-now-btn, .bid-status-btn {
+  margin-top: 0.8rem;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6c63ff, #8e76ff);
+  color: white;
+  cursor: pointer;
+}
+
+.bid-now-btn:hover {
+  background: linear-gradient(135deg, #7e75ff, #a594ff);
+}
+
+.bid-status-btn {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.dot-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.auction-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.auction-main-img.visible {
+  opacity: 1;
+  z-index: 1;
+}
+
+.auction-main-img.hidden {
+  opacity: 0;
+  z-index: 0;
+}
+
+.dot-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: #bbb;
+  border-radius: 50%;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dot.active {
+    background: linear-gradient(135deg ,  #bbb, #8e76ff);
+}

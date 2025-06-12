@@ -13,6 +13,9 @@ import EditAuction from './pages/SellerComponents/EditAuction/edit-auction.jsx';
 import SellerAnalytics from './pages/SellerComponents/SellerAnalytic/SellerAnalytics.jsx';
 import AuctionDetails from './pages/BuyerComponents/AuctionDetail/AuctionDetail'; 
 import ChatBox from "./pages/chats/ChatBox.jsx"; 
+import Unauthorized from './components/Unauthorized';
+import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute
+
 
 function App() {
   return (
@@ -28,16 +31,26 @@ function App() {
            <Route path="chat" element={<ChatBox />} />             
            <Route path="my-bids" element={<div>My Bids Page</div>} />  
            <Route path="auctions" element={<div>Auctions Page</div>} />  
+           <Route path="auction/:auctionId" element={<AuctionDetails />} />
          </Route>
 
+        {/* Protected seller route */}
+        <Route
+          path="/seller-dashboard"
+          element={
+            <ProtectedRoute requiredRole="seller">
+              <SellerDashboard />
+            </ProtectedRoute>
+          }
+        />
+        
         {/* Other direct routes */}
         <Route path="/auction/:auctionId" element={<AuctionDetails />} /> 
-        <Route path="/seller-dashboard" element={<SellerDashboard />} />  
         <Route path="/create-auction" element={<CreateAuction />} />
         <Route path="/seller-auctions" element={<SellerAuctions />} />
         <Route path="/edit-auction/:id" element={<EditAuction />} />
         <Route path="/seller-analytics" element={<SellerAnalytics />} /> 
-    
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
     </Router>
   );

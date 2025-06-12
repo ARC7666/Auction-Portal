@@ -72,7 +72,7 @@ function ListingCard({ listing }) {
           </>
         )}
 
-        <Link to={`/auction/${listing.id}`}>
+        <Link to={`/buyer-dashboard/auction/${listing.id}`}>
           <button
             className="bid-now"
             disabled={!isLive}

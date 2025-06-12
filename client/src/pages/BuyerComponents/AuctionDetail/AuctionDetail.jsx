@@ -1,110 +1,161 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
-import { auth, db } from "../../../firebase/firebaseConfig";
-import ChatBox from '../../chats/ChatBox';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../../../firebase/firebaseConfig';
+import './AuctionDetail.css';
 
-function AuctionDetails() {
-  const { id } = useParams(); // auction ID from URL
+const AuctionDetails = () => {
+  const { auctionId } = useParams();
   const [auction, setAuction] = useState(null);
-  const [bidAmount, setBidAmount] = useState("");
-  const [timeLeft, setTimeLeft] = useState("");
+  const [bidAmount, setBidAmount] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(null);
 
-  // Fetch auction
   useEffect(() => {
     const fetchAuction = async () => {
-      const docRef = doc(db, "auctions", id);
+      const docRef = doc(db, 'auctions', auctionId);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setAuction({ id: docSnap.id, ...docSnap.data() });
-      } else {
-        alert("Auction not found.");
       }
+      setLoading(false);
     };
     fetchAuction();
-  }, [id]);
+  }, [auctionId]);
 
-  // Countdown timer
   useEffect(() => {
     if (!auction) return;
 
-    const interval = setInterval(() => {
+    const updateCountdown = () => {
       const now = new Date();
       const end = new Date(auction.endTime);
       const diff = end - now;
 
       if (diff <= 0) {
-        setTimeLeft("Auction Ended");
-        clearInterval(interval);
+        setTimeLeft('Auction Ended');
         return;
       }
 
-      const minutes = Math.floor(diff / 60000);
-      const seconds = Math.floor((diff % 60000) / 1000);
-      setTimeLeft(`${minutes}m ${seconds}s`);
-    }, 1000);
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
+    };
 
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
     return () => clearInterval(interval);
   }, [auction]);
 
-  // Place Bid
-  const placeBid = async () => {
-    if (!bidAmount) return alert("Please enter a bid amount.");
-    const bid = parseFloat(bidAmount);
-    if (isNaN(bid)) return alert("Invalid bid.");
-
-    const auctionRef = doc(db, "auctions", id);
-    const auctionSnap = await getDoc(auctionRef);
-
-    if (!auctionSnap.exists()) return alert("Auction not found.");
-    const auctionData = auctionSnap.data();
-
-    const now = new Date();
-    if (now > new Date(auctionData.endTime)) return alert("Auction already ended.");
-    if (bid <= auctionData.currentBid) return alert("Bid must be higher!");
-
-    const newBid = {
-      amount: bid,
-      bidderId: auth.currentUser.uid,
-      timestamp: new Date().toISOString(),
-    };
-
-    const updatedBids = [...auctionData.bids, newBid];
-
-    await updateDoc(auctionRef, {
-      currentBid: bid,
-      bids: updatedBids,
-    });
-
-    alert("Bid placed!");
-    setBidAmount(""); // clear input
-    setAuction({ ...auctionData, currentBid: bid, bids: updatedBids });
+  const handleBid = async () => {
+    if (bidAmount && parseFloat(bidAmount) > auction.currentBid) {
+      const docRef = doc(db, 'auctions', auction.id);
+      await updateDoc(docRef, { currentBid: parseFloat(bidAmount) });
+      setAuction(prev => ({ ...prev, currentBid: parseFloat(bidAmount) }));
+      setBidAmount('');
+    }
   };
-return auction ? (
-  <div className="auction-details">
-    <h2>{auction.title}</h2>
-    <p>{auction.description}</p>
-    <p>Start Price: ₹{auction.startPrice}</p>
-    <p>Current Bid: ₹{auction.currentBid}</p>
-    <p>Ends In: {timeLeft}</p>
 
-    <input
-      type="number"
-      placeholder="Enter bid amount"
-      value={bidAmount}
-      onChange={(e) => setBidAmount(e.target.value)}
-    />
-    <button onClick={placeBid}>Place Bid</button>
+  const handleNextImage = () => {
+    if (auction?.media && currentImage < auction.media.length - 1) {
+      setCurrentImage(currentImage + 1);
+    }
+  };
 
-    {/* 🟢 ChatBox Component */}
-    <div style={{ marginTop: '2rem' }}>
-      <h3>Chat About This Auction</h3>
-      <ChatBox auctionId={auction.id} user={auth.currentUser} />
+  const handlePrevImage = () => {
+    if (auction?.media && currentImage > 0) {
+      setCurrentImage(currentImage - 1);
+    }
+  };
+
+  const now = new Date();
+  const start = new Date(auction?.startTime);
+  const end = new Date(auction?.endTime);
+  const status = now < start ? 'notStarted' : now > end ? 'ended' : 'live';
+
+  if (loading) return <p>Loading...</p>;
+  if (!auction) return <p>No auction found.</p>;
+
+  return (
+    <div className="auction-detail-page">
+      <div className="auction-detail-container">
+        <div className="auction-gallery">
+  {auction.media && auction.media.length > 0 ? (
+    <div className="carousel-wrapper">
+      {auction.media.map((img, index) => (
+        <img
+          key={index}
+          src={img}
+          alt={`Auction ${index}`}
+          className={`auction-main-img ${index === currentImage ? 'visible' : 'hidden'}`}
+        />
+      ))}
+
+      <button
+        className="carousel-btn left"
+        onClick={handlePrevImage}
+        disabled={currentImage === 0}
+      >
+        ◀
+      </button>
+      <button
+        className="carousel-btn right"
+        onClick={handleNextImage}
+        disabled={currentImage === auction.media.length - 1}
+      >
+        ▶
+      </button>
+
+      <div className="dot-container">
+        {auction.media.map((_, index) => (
+          <span
+            key={index}
+            className={`dot ${index === currentImage ? 'active' : ''}`}
+            onClick={() => setCurrentImage(index)}
+          />
+        ))}
+      </div>
     </div>
-  </div>
-) : (
-  <p>Loading auction...</p>
-);
-}
+  ) : (
+    <div style={{ textAlign: 'center', color: '#777' }}>
+      <p>No images available</p>
+    </div>
+  )}
+</div>
+
+        <div className="auction-details">
+          <h2>{auction.title}</h2>
+          <p className="auction-description">{auction.description}</p>
+
+          {status === 'live' && (
+            <div className="bidding-section">
+              <p className="current-bid">Current Bid: ₹{auction.currentBid}</p>
+              <p className="countdown">Time Left: {timeLeft}</p>
+              <input
+                type="number"
+                value={bidAmount}
+                onChange={e => setBidAmount(e.target.value)}
+                placeholder="Enter your bid"
+              />
+              <button onClick={handleBid} className="bid-now-btn">Bid Now</button>
+            </div>
+          )}
+
+          {status === 'notStarted' && (
+            <button className="bid-status-btn" disabled>Not Started</button>
+          )}
+
+          {status === 'ended' && (
+            <>
+              <p className="countdown">Auction Ended</p>
+              <button className="bid-status-btn" disabled>Ended</button>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default AuctionDetails;
