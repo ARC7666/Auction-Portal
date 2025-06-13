@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebaseConfig';
 import './AuctionDetail.css';
+import LoaderScreen from '../../../components/LoaderScreen';
 
 const AuctionDetails = () => {
   const { auctionId } = useParams();
@@ -74,7 +75,7 @@ const AuctionDetails = () => {
   const end = new Date(auction?.endTime);
   const status = now < start ? 'notStarted' : now > end ? 'ended' : 'live';
 
-  if (loading) return <p>Loading...</p>;
+
   if (!auction) return <p>No auction found.</p>;
 
   return (
@@ -135,6 +136,7 @@ const AuctionDetails = () => {
               <input
                 type="number"
                 value={bidAmount}
+                className="bid-input"
                 onChange={e => setBidAmount(e.target.value)}
                 placeholder="Enter your bid"
               />

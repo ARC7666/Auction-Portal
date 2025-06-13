@@ -76,7 +76,10 @@
 }
 
 .titleText1 p {
-   color: rgb(90, 90, 92);
+    color: rgb(90, 90, 92);
+  font-size: 14px;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .form1 {

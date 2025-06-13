@@ -8,6 +8,7 @@ import './login.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import image2 from '../../assets/images/image2.jpg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { motion } from "framer-motion";
 
 function Login() {
   const navigate = useNavigate();
@@ -106,7 +107,11 @@ useEffect(() => {
       
     <div className="backThemedn">
       <div className="loginBoxd">
-        <div className="signInContent1">
+         <motion.div className="signInContent1"
+         initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+           transition={{ duration: 0.7, ease: "easeOut" }}
+         >
           <div className="titleText1">
             <h1>Welcome Back to Auctania</h1>
             <p>Buy, Sell, and Bid in real-time</p>
@@ -133,6 +138,9 @@ useEffect(() => {
                 onClick={() => setPasswordVisible(!passwordVisible)}
               >
                 {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                <span className="tooltip-text">
+                {passwordVisible ? 'Hide Password' : 'Show Password'}
+    </span>
               </span>
             </div>
 
@@ -160,11 +168,17 @@ useEffect(() => {
             New User?{' '}
             <span className="link1" onClick={() => navigate('/')}>SignUp here</span>
           </p>
-        </div>
+        
+        </motion.div>
   
-        <div className="imageIllustration1">
-          <img src={image2} alt="login" className="image1" />
-        </div>
+        <motion.div
+          className="imageIllustration1"
+          initial={{ x: 50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+           transition={{ duration: 0.7, ease: "easeOut" }}
+         >
+              <img src={image2} alt="login" className="image1" />
+          </motion.div>
       </div>
     </div>
     

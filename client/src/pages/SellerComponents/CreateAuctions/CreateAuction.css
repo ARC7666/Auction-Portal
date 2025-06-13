@@ -1,45 +1,59 @@
-/* Layout */
-.seller-dashboard {
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.auction-container {
   display: flex;
+  width: 100vw;
   height: 100vh;
+  position: relative;
+  background-image: url('/images/back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: 'Segoe UI', sans-serif;
 }
 
 .sidebar1 {
   width: 250px;
-  background-color: rgb(43, 38, 55);
-  color: #ffffff;
-  padding: 1.5rem;
+  height: 100vh;
+  background: linear-gradient(to bottom, #1f1c2c, #302b63);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  padding: 24px 16px;
+  position: relative;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+  border-right: 3px solid #6c63ff;
+  font-family: 'Poppins', sans-serif;
 }
 
 .logo {
-  display: flex;
+  width: 11vw;
+  margin-bottom: 20px;
+  margin-left: 20px;
   justify-content: center;
-  align-items: center;
-  padding: 0px 0;
-   margin-top: -20px;
 }
 
 .logo img {
- width: 180px; 
+  width: 180px; 
   height: 80px; 
   object-fit: contain;
-  object-fit: contain;
-  margin-bottom: 0px;
+  margin-top: 20px;
 }
 
 .dashboard-title1 {
   display: flex;
   align-items: center;
-  margin-top: -10px;
+  margin-top: -20px;
   font-weight: 500;
   font-size: 14px;
   color: rgb(151, 151, 153);
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
@@ -53,153 +67,156 @@
   margin: 0 10px;
 }
 
-
 .nav-buttons {
   display: flex;
+  color: #ccc;
   flex-direction: column;
   gap: 16px;
-  width: 100%;
-  padding: 10px;
 }
 
-.nav-buttons button {
-  padding: 10px;
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   width: 100%;
-  background-color: rgb(59, 54, 74);
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #7e75ff, #a594ff);
   border: none;
-  color: rgb(191, 189, 196);
-  border-radius: 6px;
+  border-radius: 12px;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
-  font-size: 20px;
-  font-weight: 500;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  margin-bottom: 10px;
-
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.35);
 }
 
-.nav-buttons button:hover {
-  background-color: rgba(59, 54, 74, 0.566);
-  color: rgb(255, 255, 255);
-  font-weight: 700;
+.nav-btn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(135deg, #6c63ff, #8e76ff);
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
+  color: white;
 }
 
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
 
-/* Right Panel */
-.dashboard-content1 {
+.nav-btn span {
+  color: white;
+}
+
+.nav-buttons a,
+.nav-buttons a:visited,
+.nav-buttons a:hover {
+  text-decoration: none;
+}
+
+.dashboard-contented {
   flex-grow: 1;
-  background-color: rgb(100, 97, 116);
+  background-color: transparent;
   color: white;
   padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  margin-top: 30px;
 }
 
-.dashboard-content1 h1 {
-  margin-top: -440px;
-  font-size: 30px;
-  margin-left: -500px;
-}
 
-.auction-container {
-  display: flex;
-  height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-  
-}
-
-.auction-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  
-  
-}
 
 .auction-form {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(6.5px);
+  -webkit-backdrop-filter: blur(6.5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  
+  gap: 20px;
 }
 
 .auction-form input,
-.auction-form textarea {
-  padding: 18px;
-  border: 1px solid rgb(59, 54, 74);
-  border-radius: 5px;
-  color: #ffffff;
+.auction-form textarea,
+.custom-datepicker {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.28);
+  border: 2px solid rgba(245, 245, 245, 0.547);
   font-size: 16px;
-  background-color: rgb(59, 54, 74);
+  transition: 0.3s;
+  width: 100%;
+  color: #1f1c2c;
+  font-weight: 700;
 }
 
-.auction-form input:focus {
-  border-color: #4a90e2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+.auction-form textarea {
+  resize: vertical; 
 }
 
-.auction-form input:hover {
-  border-color: #4a90e2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+.auction-form input::placeholder,
+.auction-form textarea::placeholder {
+  color: #545353b5;
+  opacity: 1;
+  font-weight: 600;
 }
 
-.auction-form textarea:focus {
-  border-color: #4a90e2;
+.auction-form input:focus,
+.auction-form textarea:focus,
+.custom-datepicker:focus {
   outline: none;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+  box-shadow: 0 0 8px rgba(108, 99, 255, 0.6);
 }
 
-.auction-form textarea:hover {
-  border-color: #4a90e2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+.auction-form input:hover,
+.auction-form textarea:hover,
+.custom-datepicker:hover {
+  box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
 }
 
 
 .auction-form button {
-  padding: 17px;
-  margin-top:10px ;
-  background-color: rgb(120, 59, 180);
+  padding: 16px;
+  background-color: #6c63ff;
   color: white;
   border: none;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 12px;
   cursor: pointer;
-  border-radius: 5px;
-}
-
-.auction-form button:focus {
-  border-color: #4a90e2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
-}
-
-
-.auction-form button:hover {
-  background-color: rgb(120, 59, 180);
-  cursor: not-allowed;
-  box-shadow: 0 0 5px rgb(59, 54, 74);
-  
-}
-
-
-input::placeholder,
-textarea::placeholder {
-  color: #cccccc; 
- 
-  opacity: 1; 
-}
-
-.custom-datepicker {
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  background-color: #fefefe;
-  width: 100%;
-  max-width: 300px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
 }
+
+.auction-form button:hover {
+  background-color: #5848e5;
+  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.6);
+}
+
+input[type="file"] {
+  color: white;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  background-color: #6c63ff;
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #5848e5;
+}
+

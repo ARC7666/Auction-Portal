@@ -1,5 +1,6 @@
 import React, { useEffect ,useState } from 'react';
 import './CreateAuction.css';
+import { doc, getDoc } from "firebase/firestore";
 import { db, storage, auth } from '../../../firebase/firebaseConfig';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -9,6 +10,8 @@ import 'react-datepicker/dist/react-datepicker.css'; // help taken by  @Codevolu
 import DatePicker from "react-datepicker";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { logo } from '../../../assets';
+import { ClipLoader } from 'react-spinners';
+import { Home, List, BarChart3 ,CalendarDays } from 'lucide-react';
 
 
 function CreateAuction() {
@@ -22,23 +25,61 @@ function CreateAuction() {
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
     
       
-       useEffect(() => {
-          const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-              setUser(user); 
-            } else {
-              navigate("/"); 
-            }
-          });
-      
-          return () => unsubscribe(); 
-        }, [navigate]);
+ useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists() && docSnap.data().role === "seller") {
+        const userData = docSnap.data();
+        setUser({ ...user, name: userData.name, role: userData.role });
+        setLoading(false);
+      } else {
+        navigate("/unauthorized", { replace: true });
+      }
+    } else {
+      navigate("/", { replace: true });
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+
+if (loading) {
+  return (
+    <div
+      style={{
+        height: "100vh",
+        width: "100vw",
+        backgroundImage: 'url("/images/back.jpg")',
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <ClipLoader color="#6c63ff" size={60} />
+    </div>
+  );
+}
 
   /*const handleGoBack1 = () => {
     navigate("/seller-dashboard"); 
   }*/
+
+     const formatIndianCurrency = (value) => {
+    if (!value) return '';
+    const num = value.replace(/[^0-9]/g, ''); 
+    const x = parseInt(num);
+    if (isNaN(x)) return '';
+
+     return '₹' + x.toLocaleString('en-IN');
+};
 
   const handleMediaChange = (e) => {
     setMediaFiles(Array.from(e.target.files));
@@ -53,6 +94,8 @@ function CreateAuction() {
     }
 
     setUploading(true);
+
+ 
 
   try {
   // uploading media to the firestore storage
@@ -79,8 +122,8 @@ function CreateAuction() {
     title,
     description,
     media: mediaURLs, // ye firebase storage sai download url mila .[remember cloudinary use krne sai ye chnage karna hai]
-    startPrice: parseFloat(startPrice), //parse is converting string data ( jo hum enter karenge) to numbers which is to be stored in database
-    currentBid: parseFloat(startPrice),
+   startPrice: parseFloat(startPrice.replace(/[^\d.]/g, "")), //parse is converting string data ( jo hum enter karenge) to numbers which is to be stored in database
+   currentBid: parseFloat(startPrice.replace(/[^\d.]/g, "")),
     startTime: start.toISOString(),
     endTime: end.toISOString(),
     sellerId: auth.currentUser.uid,
@@ -108,28 +151,49 @@ function CreateAuction() {
 setUploading(false);
 };
 
-  return (
+return (
     <div className="auction-container">
       <aside className="sidebar1">
-      <div className="logo"><img src={logo} alt="Logo" /></div>
+      <div className="logo">
+                <Link to="/seller-dashboard">
+                  <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
+                </Link>
+              </div>
       <div className="dashboard-title1">
         <hr />
-        <span>Seller Dashboard</span>
+        <span>Create Auction</span>
         <hr />
       </div>
 
         
-    <nav className="nav-buttons">
-      <Link to="/seller-dashboard"><button>Home</button></Link>
-      <Link to="/seller-auctions"><button>View Listing</button></Link>
-      <Link to="/seller-analytics"><button>Sale Analytics</button></Link>
-    </nav>
+   <nav className="nav-buttons">
+  <Link to="/seller-dashboard">
+    <button className="nav-btn">
+      <Home className="nav-icon" />
+      <span>Home</span>
+    </button>
+  </Link>
 
-      
+  <Link to="/seller-auctions">
+    <button className="nav-btn">
+      <List className="nav-icon" />
+      <span>View Listing</span>
+    </button>
+  </Link>
+
+  <Link to="/seller-analytics">
+    <button className="nav-btn">
+      <BarChart3 className="nav-icon" />
+      <span>Sale Analytics</span>
+    </button>
+  </Link>
+</nav>
+    
+    
     </aside>
 
-    <main className="dashboard-content1">
-        <h2 style={{fontSize: 35,}}>Create Auction</h2>
+    <main className="dashboard-contented">
+     {/*}   <h2 style={{fontSize: 35,}}>List Your Item</h2>*/}
           <form onSubmit={handleSubmit} className="auction-form">
         <input type="text" placeholder="Title" value={title}
       onChange={(e) => setTitle(e.target.value)} required />
@@ -137,14 +201,19 @@ setUploading(false);
        <textarea placeholder="Description" value={description}
       onChange={(e) => setDescription(e.target.value)} required />
 
-      <input type="number" placeholder="Start Price" value={startPrice}
-        onChange={(e) => setStartPrice(e.target.value)} required />
+        <input
+               type="text"
+               placeholder="Start Price"
+               value={formatIndianCurrency(startPrice)}
+               onChange={(e) => setStartPrice(e.target.value)}
+               required
+          />
 
       <DatePicker
         selected={startTime}
         onChange={(date) => setStartTime(date)}
               showTimeSelect
-        placeholderText=" dd/mm/yyyy ,  --:--                                  🗓️"
+        placeholderText=" dd/mm/yyyy ,  --:--                                                                           🗓️"
         timeFormat="HH:mm"
   
         timeIntervals={1}
@@ -152,7 +221,7 @@ setUploading(false);
         dateFormat="dd/MM/yyyy h:mm aa"
         className="custom-datepicker"
         minDate={new Date()}
-/>
+       />
 
 
       <input type="number" placeholder="Duration (in minutes)" value={duration}

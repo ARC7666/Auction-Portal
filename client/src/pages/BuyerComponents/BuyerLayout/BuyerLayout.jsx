@@ -10,6 +10,9 @@ import { MessageSquare, Gavel, Radio, Settings, User, LogOut, BellRing } from "l
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 import dayjs from "dayjs";
+import { ClipLoader } from 'react-spinners';
+import LoaderScreen from '../../../components/LoaderScreen';
+
 
 
 function BuyerLayout() {
@@ -21,24 +24,25 @@ function BuyerLayout() {
   const [loading, setLoading] = useState(true);
   const dropdownRef = useRef(null);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists() && docSnap.data().role === "buyer") {
-          setUser(user);
-          setLoading(false);
-        } else {
-          navigate("/unauthorized", { replace: true });
-        }
+ useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists() && docSnap.data().role === "buyer") {
+        const userData = docSnap.data();
+        setUser({ ...user, name: userData.name, role: userData.role });
+        setLoading(false);
       } else {
-        navigate("/", { replace: true });
+        navigate("/unauthorized", { replace: true });
       }
-    });
+    } else {
+      navigate("/", { replace: true });
+    }
+  });
 
-    return () => unsubscribe();
-  }, [navigate]);
+  return () => unsubscribe();
+}, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -53,30 +57,49 @@ function BuyerLayout() {
   }, []);
 
   useEffect(() => {
-    const fetchAuctions = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "auctions"));
-        const fetched = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setAuctions(fetched);
-      } catch (err) {
-        console.error("Error fetching auctions:", err);
-      }
-    };
-
-    fetchAuctions();
-  }, []);
-
-  const upcomingAuctions = auctions
-    .filter((auction) => {
+  const fetchAuctions = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "auctions"));
       const today = dayjs();
-      const startTime = dayjs(auction.startTime);
-      const diffInDays = startTime.diff(today, 'day');
-      return diffInDays >= 0 && diffInDays <= 5 && auction.status === "scheduled";
-    })
-    .sort((a, b) => dayjs(a.startTime).diff(dayjs(b.startTime)));
+      const filtered = [];
+
+      for (const docSnap of querySnapshot.docs) {
+        const auction = { id: docSnap.id, ...docSnap.data() };
+
+        const endTime = dayjs(auction.endTime || auction.startTime).add(1, "day"); // assuming 1-day auctions
+        const startTime = dayjs(auction.startTime);
+        const diffInDays = startTime.diff(today, "day");
+
+        if (endTime.isBefore(today)) {
+          try {
+            await deleteDoc(doc(db, "auctions", auction.id));
+            console.log(`🗑️ Deleted expired auction: ${auction.title}`);
+          } catch (err) {
+            console.error("❌ Error deleting:", auction.title, err);
+          }
+          continue;
+        }
+
+        filtered.push(auction);
+      }
+
+      setAuctions(filtered);
+    } catch (err) {
+      console.error("Error fetching auctions:", err);
+    }
+  };
+
+  fetchAuctions();
+}, []);
+
+const upcomingAuctions = auctions
+  .filter((auction) => {
+    const today = dayjs();
+    const startTime = dayjs(auction.startTime);
+    const diffInDays = startTime.diff(today, 'day');
+    return diffInDays >= 0 && diffInDays <= 5 && auction.status === "scheduled";
+  })
+  .sort((a, b) => dayjs(a.startTime).diff(dayjs(b.startTime)));
 
   const handleLogout = () => {
     signOut(auth)
@@ -101,8 +124,10 @@ function BuyerLayout() {
       });
   };
 
-  // Prevent render until user is verified
-  if (loading) return null;
+if (loading) {
+  return <LoaderScreen />;
+}
+
 
   return (
     <div className="buyer-dashboard">
@@ -110,7 +135,7 @@ function BuyerLayout() {
         <div className="logo1">
            <Link to="/buyer-dashboard">
                <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
-            </Link>
+          </Link>
         </div>
         <div className="dashboard-title">
           <hr />
@@ -155,12 +180,12 @@ function BuyerLayout() {
             )}
           </div>
 
-          <div className="profile-toggle" onClick={() => setShowProfile(!showProfile)}>
-            <img src={`https://ui-avatars.com/api/?name=${user?.displayName || "User"}`} alt="User Avatar" />
+          <div className="profile-toggle-buyer" onClick={() => setShowProfile(!showProfile)}>
+            <img src={`https://ui-avatars.com/api/?name=${user?.name || "User"}`} alt="User Avatar" />
             {showProfile && (
               <div className="profile-dropdown">
                 <div className="profile-info">
-                  <p className="profile-name">{user?.displayName || "No Name"}</p>
+                  <p className="profile-name">{user?.name || "No Name"}</p>
                   <p className="profile-email">{user?.email}</p>
                 </div>
                 <button className="dropdown-btn"><Settings size={16} /> Settings</button>

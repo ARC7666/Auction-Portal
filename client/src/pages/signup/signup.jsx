@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import './signup.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import image1 from '../../assets/images/image1.jpg';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // install this package first
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import { motion } from "framer-motion";
 
 
 
@@ -21,6 +22,7 @@ function Signup() {
   const [showRolePopup, setShowRolePopup] = useState(false);
   const [googleUser, setGoogleUser] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  
 
   const navigate = useNavigate();
 
@@ -129,13 +131,23 @@ useEffect(() => {
   return (
     <div className="backTheme">
       <div className="loginBox">
-        <div className="imageIllustration">
-          <img src={image1} alt="login" className="image" />
-        </div>
+          <motion.div
+           className="imageIllustration"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+         >
+           <img src={image1} alt="login" className="image" />
+          </motion.div>
 
-        <div className="signupContent">
+        <motion.div className="signupContent"
+         initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+         >
+
           <div className="titleText">
-            <h1>Sign up to Auctania</h1>
+            <h1>Create your Auctania account</h1>
          
             <p>Buy, Sell, and Bid in real-time</p>
           </div>
@@ -166,22 +178,25 @@ useEffect(() => {
               className="input"
             />
 
-            <div className="password-container">
-  <input
-    type={passwordVisible ? 'text' : 'password'}
-    placeholder="Create your password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    required
-    className="input password-input"
-  />
-  <span
-    className="eye-toggle"
-    onClick={() => setPasswordVisible(!passwordVisible)}
-  >
-    {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-  </span>
-</div>
+           <div className="password-container">
+                <input
+                  type={passwordVisible ? 'text' : 'password'}
+                  placeholder="Create your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="input password-input"
+                />
+                <span
+                  className="eye-toggle"
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                >
+                  {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                  <span className="tooltip-text">
+                    {passwordVisible ? 'Hide Password' : 'Show Password'}
+                  </span>
+                </span>
+           </div>
 
             <select
               value={role}
@@ -190,7 +205,6 @@ useEffect(() => {
             >
               <option value="buyer">Buyer</option>
               <option value="seller">Seller</option>
-              <option value="admin">Admin</option>
             </select>
 
             <button type="submit" className="button">Create account</button>
@@ -223,12 +237,12 @@ useEffect(() => {
                 className="input">
                 <option value="buyer">Buyer</option>
                 <option value="seller">Seller</option>
-                <option value="admin">Admin</option>
               </select>
               <button className="button" onClick={handleGoogleContinue}>Continue</button>
             </div>
           )}
-        </div>
+        </motion.div>
+        
       </div>
     </div>
   );
