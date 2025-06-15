@@ -143,10 +143,10 @@ useEffect(() => {
         <motion.div className="signupContent"
          initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
          >
 
-          <div className="titleText">
+          <div className="titleText-signup">
             <h1>Create your Auctania account</h1>
          
             <p>Buy, Sell, and Bid in real-time</p>

@@ -36,7 +36,7 @@ html, body {
 
 .logo img {
   width: 11vw;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-left: 20px;
   justify-content: center;
 }
@@ -44,7 +44,7 @@ html, body {
 .dashboard-title {
   display: flex;
   align-items: center;
-  margin-top: -20px;
+  margin-top: -30px;
   font-weight: 500;
   font-size: 14px;
   color: rgb(151, 151, 153);
@@ -63,14 +63,14 @@ html, body {
 }
 
 
-.nav-buttons {
+.nav-buttons-seller {
   display: flex;
   color: #ccc;
   flex-direction: column;
   gap: 16px;
 }
 
-.nav-btn {
+.nav-btn-seller {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -87,7 +87,7 @@ html, body {
   box-shadow: 0 4px 15px rgba(108, 99, 255, 0.35);
 }
 
-.nav-btn:hover {
+.nav-btn-seller:hover {
   transform: scale(1.03);
   background: linear-gradient(135deg, #6c63ff, #8e76ff);
   box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
@@ -100,14 +100,14 @@ html, body {
   flex-shrink: 0;
 }
 
-.nav-btn span {
+.nav-btn-seller span {
   color: white;
 }
 
 /* for removing the underline i did this*/
-.nav-buttons a,
-.nav-buttons a:visited,
-.nav-buttons a:hover {
+.nav-buttons-seller a,
+.nav-buttons-seller a:visited,
+.nav-buttons-seller a:hover {
   text-decoration: none;
 }
 

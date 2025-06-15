@@ -1,0 +1,214 @@
+.category-section {
+  padding: 4rem 0;
+  background-color: #f9f9f9;
+}
+
+.category-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 1rem;
+}
+
+.category-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+}
+
+
+.category-card:hover {
+  transform: scale(1.0);
+}
+
+.category-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 0.8rem;
+}
+
+.category-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.iphone-wrapper {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+      border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+}
+
+.iphone-frame {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.iphone-frame-img {
+  position: absolute;
+  width: 35%;
+  height: auto;
+  transform: rotate(270deg) translateY(-25%) translateX(90%);
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.iphone-supporter {
+    position: absolute;
+  top: 6%;
+  left: 6%;
+  width: 88%;
+  height: 88%;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 3.5rem;
+ background: rgba(232, 232, 234, 0.772);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+
+}
+
+
+.iphone-screen-content {
+  position: absolute;
+  top: 21%;
+  left: 22%;
+  width: 60.5%;
+  height: 57%;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 3.5rem;
+  background: rgb(194, 174, 174);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  box-shadow:
+    inset 10px 10px 50px rgba(255, 255, 255, 0.3),
+    5px 5px 70px rgba(255, 200, 150, 0.3),
+    5px 5px  100px rgba(255, 175, 200, 0.2),
+    10px 10px 100px rgba(190, 255, 255, 0.15);
+}
+
+
+
+.category-scroll-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0 1rem;
+  width: 100%;
+  height: 20vh;
+}
+
+.scroll-card {
+  flex: 0 0 30%;
+  max-width: 20%;
+  min-width: 20%;
+  min-height: 30%;
+  background: rgba(255, 255, 255, 0.681);
+  border-radius: 16px;
+ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 1rem 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.scroll-card img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.category-card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1f1f1f;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.nav-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 50%;
+  padding: 0.4rem 0.6rem;
+  z-index: 5;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+}
+
+
+.black-overlay-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1.5;
+  background: rgba(255, 255, 255, 0.352);
+  pointer-events: none;
+
+
+}
+
+.category-scroll-container::-webkit-scrollbar {
+  height: 6px; 
+}
+
+.category-scroll-container::-webkit-scrollbar-thumb {
+  background: #88888800;       
+  border-radius: 10px;     
+}
+
+.category-scroll-container::-webkit-scrollbar-track {
+  background: transparent; 
+   
+}
+
+.category-scroll-container {
+  scroll-behavior: auto !important;
+}
+
+.screen-heading {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #151313;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: -4rem;
+   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+

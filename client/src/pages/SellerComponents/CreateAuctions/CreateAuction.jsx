@@ -166,23 +166,23 @@ return (
       </div>
 
         
-   <nav className="nav-buttons">
+   <nav className="nav-buttons-seller">
   <Link to="/seller-dashboard">
-    <button className="nav-btn">
+    <button className="nav-btn-seller">
       <Home className="nav-icon" />
       <span>Home</span>
     </button>
   </Link>
 
   <Link to="/seller-auctions">
-    <button className="nav-btn">
+    <button className="nav-btn-seller">
       <List className="nav-icon" />
       <span>View Listing</span>
     </button>
   </Link>
 
   <Link to="/seller-analytics">
-    <button className="nav-btn">
+    <button className="nav-btn-seller">
       <BarChart3 className="nav-icon" />
       <span>Sale Analytics</span>
     </button>

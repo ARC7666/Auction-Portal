@@ -136,7 +136,6 @@ html, body {
   background-color: #34a853;
 }
 
-/* For WebKit browsers (Chrome, Edge, Safari) */
 .dashboard-main::-webkit-scrollbar {
   width: 8px;
 }

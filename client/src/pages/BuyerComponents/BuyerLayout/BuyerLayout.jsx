@@ -131,7 +131,7 @@ if (loading) {
 
   return (
     <div className="buyer-dashboard">
-      <aside className="sidebard">
+      <aside className="sidebar-buyer">
         <div className="logo1">
            <Link to="/buyer-dashboard">
                <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
@@ -142,16 +142,16 @@ if (loading) {
           <span>Buyer Dashboard</span>
           <hr />
         </div>
-        <nav className="nav-buttons">
-          <button className="nav-btn">
+        <nav className="nav-button-buyer">
+          <button className="nav-btn-buyer">
             <MessageSquare className="nav-icon" />
             <span>Chat</span>
           </button>
-          <button className="nav-btn">
+          <button className="nav-btn-buyer">
             <Gavel className="nav-icon" />
             <span>My Bids</span>
           </button>
-          <button className="nav-btn">
+          <button className="nav-btn-buyer">
             <Radio className="nav-icon" />
             <span>Live Auctions</span>
           </button>

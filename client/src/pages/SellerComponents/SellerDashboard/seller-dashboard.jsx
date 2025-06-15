@@ -94,30 +94,30 @@ function SellerDashboard() {
           <hr />
         </div>
 
-        <nav className="nav-buttons">
+        <nav className="nav-buttons-seller">
           <Link to="/create-auction">
-            <button className="nav-btn">
+            <button className="nav-btn-seller">
               <Gavel className="nav-icon" />
               <span>Create Auction</span>
             </button>
           </Link>
 
           <Link to="/seller-auctions">
-            <button className="nav-btn">
+            <button className="nav-btn-seller">
               <List className="nav-icon" />
               <span>View Listing</span>
             </button>
           </Link>
 
           <Link to="/seller-analytics">
-            <button className="nav-btn">
+            <button className="nav-btn-seller">
               <BarChart3 className="nav-icon" />
               <span>Analytics</span>
             </button>
           </Link>
 
           <Link to="/chats">
-            <button className="nav-btn">
+            <button className="nav-btn-seller">
               <MessageSquare className="nav-icon" />
               <span>Chat</span>
             </button>

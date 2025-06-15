@@ -1,0 +1,19 @@
+.custom-heading {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+}
+
+.custom-heading.center {
+  text-align: center;
+}
+
+.custom-heading h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.custom-heading p {
+  font-size: 1rem;
+  color: #777;
+}

@@ -21,7 +21,7 @@ html, body {
   background-attachment: fixed;
 }
 
-.sidebard {
+.sidebar-buyer {
   width: 240px;
   height: 100vh;
   background: linear-gradient(to bottom, #1f1c2c, #302b63);
@@ -36,29 +36,30 @@ html, body {
 
 .logo1 img {
   width: 11vw;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   margin-left: 20px;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .dashboard-title {
   color: #ccc;
   text-align: center;
   font-size: 1.1rem;
-  margin-bottom: 30px;
-  
-  padding-bottom: 10px;
+  margin-bottom: 10px;
   letter-spacing: 1px;
 }
 
-.nav-button {
+.nav-button-buyer {
   display: flex;
   color: #ccc;
   flex-direction: column;
   gap: 16px;
 }
 
-.nav-btn {
+
+
+.nav-btn-buyer {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -75,7 +76,7 @@ html, body {
   box-shadow: 0 4px 15px rgba(108, 99, 255, 0.35);
 }
 
-.nav-btn:hover {
+.nav-btn-buyer:hover {
   transform: scale(1.03);
   background: linear-gradient(135deg, #6c63ff, #8e76ff);
   box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
@@ -88,7 +89,7 @@ html, body {
   flex-shrink: 0;
 }
 
-.nav-btn span {
+.nav-btn-buyer span {
   color: white;
 }
 

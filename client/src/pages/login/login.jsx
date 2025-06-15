@@ -112,7 +112,7 @@ useEffect(() => {
           animate={{ x: 0, opacity: 1 }}
            transition={{ duration: 0.7, ease: "easeOut" }}
          >
-          <div className="titleText1">
+          <div className="titleText-login">
             <h1>Welcome Back to Auctania</h1>
             <p>Buy, Sell, and Bid in real-time</p>
           </div>
@@ -166,7 +166,7 @@ useEffect(() => {
 
           <p className="loginLink1">
             New User?{' '}
-            <span className="link1" onClick={() => navigate('/')}>SignUp here</span>
+            <span className="link1" onClick={() => navigate('/signup')}>SignUp here</span>
           </p>
         
         </motion.div>
