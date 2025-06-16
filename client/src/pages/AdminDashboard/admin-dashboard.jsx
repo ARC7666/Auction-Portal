@@ -5,6 +5,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 import { onAuthStateChanged } from "firebase/auth";
 import { Users, FileText, BarChart3, ShieldCheck, AlertTriangle, LogOut } from 'lucide-react';
+import LoaderScreen from '../../components/LoaderScreen';
 
 function AdminDashboard() {
   const [adminUser, setAdminUser] = useState({ name: "Admin", role: "superadmin" });
@@ -12,25 +13,35 @@ function AdminDashboard() {
  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-   useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists() && docSnap.data().role === "admin") {
-        const userData = docSnap.data();
-        setUser({ ...user, name: userData.name, role: userData.role });
-        setLoading(false);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists() && docSnap.data().role === "admin") {
+            const userData = docSnap.data();
+            setUser({ ...user, name: userData.name, role: userData.role });
+            setLoading(false);
+          } else {
+            navigate("/unauthorized", { replace: true });
+          }
+        } catch (error) {
+          console.error("Error fetching user doc:", error);
+          navigate("/unauthorized", { replace: true });
+        }
       } else {
-        navigate("/unauthorized", { replace: true });
+        navigate("/", { replace: true });
       }
-    } else {
-      navigate("/", { replace: true });
-    }
-  });
+    });
 
-  return () => unsubscribe();
-}, []);
+    return () => unsubscribe();
+  }, []);
+
+
+  if (loading) {
+    return <LoaderScreen />;
+  }
 
 
   const handleLogout = () => {

@@ -61,6 +61,14 @@
 
 }
 
+.iphone-shell {
+  position: relative;
+  width: 1800px;       
+  height: 800px;      
+  margin: auto;
+}
+
+
 .iphone-frame-img {
   position: absolute;
   width: 35%;
@@ -94,10 +102,10 @@
 
 .iphone-screen-content {
   position: absolute;
-  top: 21%;
+  top: 23%;
   left: 22%;
   width: 60.5%;
-  height: 57%;
+  height: 52%;
   z-index: 1;
   overflow: hidden;
   border-radius: 3.5rem;

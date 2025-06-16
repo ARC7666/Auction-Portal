@@ -109,13 +109,7 @@ function SellerDashboard() {
             </button>
           </Link>
 
-          <Link to="/seller-analytics">
-            <button className="nav-btn-seller">
-              <BarChart3 className="nav-icon" />
-              <span>Analytics</span>
-            </button>
-          </Link>
-
+        
           <Link to="/chats">
             <button className="nav-btn-seller">
               <MessageSquare className="nav-icon" />

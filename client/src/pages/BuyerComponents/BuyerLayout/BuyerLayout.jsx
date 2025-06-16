@@ -7,11 +7,12 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase/firebaseConfig";
 import Swal from "sweetalert2";
 import { MessageSquare, Gavel, Radio, Settings, User, LogOut, BellRing } from "lucide-react";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc , deleteDoc} from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 import dayjs from "dayjs";
 import { ClipLoader } from 'react-spinners';
 import LoaderScreen from '../../../components/LoaderScreen';
+
 
 
 
@@ -147,14 +148,14 @@ if (loading) {
             <MessageSquare className="nav-icon" />
             <span>Chat</span>
           </button>
-          <button className="nav-btn-buyer">
+          <button className="nav-btn-buyer" onClick={() => navigate("/buyer-dashboard/my-bids")}>
             <Gavel className="nav-icon" />
             <span>My Bids</span>
           </button>
-          <button className="nav-btn-buyer">
-            <Radio className="nav-icon" />
-            <span>Live Auctions</span>
-          </button>
+          <button className="nav-btn-buyer" onClick={() => navigate("/buyer-dashboard/live-auctions")}>
+              <Radio className="nav-icon" />
+             <span>Live Auctions</span>
+         </button>
         </nav>
       </aside>
 

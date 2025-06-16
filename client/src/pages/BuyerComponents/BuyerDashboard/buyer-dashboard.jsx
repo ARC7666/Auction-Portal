@@ -132,7 +132,7 @@ return (
     ) : filteredListings.length === 0 ? (
       <p className="no-auctions">No auctions found.</p>
     ) : (
-      <div className="auction-grid">
+      <div className="auction-grid-buyer">
         {filteredListings.map(listing => (
           <ListingCard key={listing.id} listing={listing} />
         ))}

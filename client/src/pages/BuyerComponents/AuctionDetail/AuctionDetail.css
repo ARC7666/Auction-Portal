@@ -181,3 +181,31 @@ input::placeholder {
 .dot.active {
     background: linear-gradient(135deg ,  #bbb, #8e76ff);
 }
+
+.bid-success-msg {
+  background-color: #4ade80; /* green-400 */
+  color: #064e3b;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  animation: fadeUp 0.4s ease-out, fadeOut 0.5s ease-in 1.2s forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}

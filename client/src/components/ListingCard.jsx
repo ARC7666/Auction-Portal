@@ -47,6 +47,8 @@ function ListingCard({ listing }) {
       <div className="listing-details">
         <h3>{title}</h3>
 
+         <hr className="listing-card-divider-up" />
+
         {/* Current Bid */}
         <p className="desc">Current Bid: ₹{currentBid?.toFixed(2)}</p>
 
@@ -54,6 +56,7 @@ function ListingCard({ listing }) {
         <p style={{ fontSize: "0.85rem", color: isLive ? "green" : isUpcoming ? "orange" : "red" }}>
           {isLive ? "⏳ Ends in: " : isUpcoming ? "🔜 Starts in: " : "❌ Bidding ended"} {countdown()}
         </p>
+         <hr className="listing-card-divider-down" />
 
         {/* Description toggle button */}
         {description && (

@@ -1,5 +1,13 @@
-/* Badge styles */
-.badge {
+
+.live-auctions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.live-badge {
   position: absolute;
   top: 12px;
   left: 12px;
@@ -11,112 +19,90 @@
   text-transform: uppercase;
   user-select: none;
   pointer-events: none;
-}
-
-.badge.live {
-  background-color: #4caf50; /* Green */
-}
-
-.badge.upcoming {
-  background-color: #ff9800; /* Orange */
-}
-
-.badge.ended {
-  background-color: #f44336; /* Red */
+  background-color: #4caf50;
 }
 
 /* Listing Card Component */
-.listing-card {
-  position: relative;
-  background: rgba(232, 232, 234, 0.672);
+.live-card {
+  max-width: 100%;
+  background: rgba(232, 232, 234, 0.85);
   border-radius: 18px;
   border: 2px solid white;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
 }
 
-.listing-card:hover {
+.live-card:hover {
   transform: translateY(-6px);
 }
 
-.listing-image {
+.live-image {
   width: 100%;
   height: 180px;
   object-fit: cover;
 }
 
-.listing-details {
-  padding: 16px;
-  flex-grow: 1;
+.live-details {
+  padding: 14px;
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
-.listing-details h3 {
-  margin: 0 0 8px 0;
+.live-details h3 {
+  margin: 0;
   font-weight: 700;
   font-size: 1.1rem;
   color: #222;
 }
 
-.listing-card-divider-up {
-  margin-top: 0px;
+.live-divider-up,
+.live-divider-down {
   border: none;
-  border-top: 1px solid #545354;
-  margin-bottom: 5px;
+  border-top: 1px solid #ccc;
+  margin: 4px 0;
 }
 
-.listing-card-divider-down {
-  margin-top: -5px;
-  border: none;
-  border-top: 1px solid #222222;
-  margin-bottom: 5px;
-}
-.listing-details .desc {
-  flex-grow: 1;
+.live-description {
   font-size: 0.9rem;
   color: #555;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
-
-/* Description toggle button */
-.desc-toggle-btn {
+.live-toggle-btn {
   background: none;
   border: none;
   color: #6C63FF;
   cursor: pointer;
   font-weight: 600;
   font-size: 0.9rem;
-  padding: 6px 0;
+  padding: 0;
   text-align: left;
-  outline: none;
   transition: color 0.2s ease;
 }
 
-.desc-toggle-btn:hover {
+.live-toggle-btn:hover {
   color: #302c82;
-  background-color: transparent;
 }
 
-/* Description content */
-.listing-details .desc-content {
+.live-desc-content {
   max-height: 0;
   overflow: hidden;
-  font-size: 12px;
-  color: #555;
+  font-size: 0.85rem;
+  color: #444;
   transition: max-height 0.3s ease, padding 0.3s ease;
-  padding: 0 0;
+  padding: 0;
 }
 
-.listing-details .desc-content.open {
-  max-height: 200px; /* enough hai height  description kai leye */
+.live-desc-content.open {
+  max-height: 200px;
   padding: 8px 0 12px 0;
 }
-.bid-now {
+
+.live-bid-btn {
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -127,17 +113,11 @@
   transition: background-color 0.2s ease;
 }
 
-.bid-now:hover {
+.live-bid-btn:hover {
   background-color: #3a8b3a;
 }
 
-.listing-details p.desc {
-  margin: 4px 0 8px 0;
-  font-size: 0.95rem;
-  color: #444;
-}
-
-.listing-details p.countdown {
+.live-details p.live-countdown {
   font-size: 0.85rem;
   font-weight: 500;
   margin-bottom: 10px;

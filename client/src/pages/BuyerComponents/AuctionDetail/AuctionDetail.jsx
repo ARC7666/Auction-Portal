@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../../../firebase/firebaseConfig';
+import { db , auth } from '../../../firebase/firebaseConfig';
+import { arrayUnion } from "firebase/firestore";
 import './AuctionDetail.css';
 import LoaderScreen from '../../../components/LoaderScreen';
 
@@ -12,6 +13,7 @@ const AuctionDetails = () => {
   const [loading, setLoading] = useState(true);
   const [currentImage, setCurrentImage] = useState(0);
   const [timeLeft, setTimeLeft] = useState(null);
+  const [bidSuccess, setBidSuccess] = useState(false);
 
   useEffect(() => {
     const fetchAuction = async () => {
@@ -49,13 +51,36 @@ const AuctionDetails = () => {
     return () => clearInterval(interval);
   }, [auction]);
 
-  const handleBid = async () => {
-    if (bidAmount && parseFloat(bidAmount) > auction.currentBid) {
-      const docRef = doc(db, 'auctions', auction.id);
-      await updateDoc(docRef, { currentBid: parseFloat(bidAmount) });
-      setAuction(prev => ({ ...prev, currentBid: parseFloat(bidAmount) }));
-      setBidAmount('');
-    }
+const handleBid = async () => {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  if (bidAmount && parseFloat(bidAmount) > auction.currentBid) {
+    const bidData = {
+      userId: user.uid,
+      amount: parseFloat(bidAmount),
+      timestamp: new Date().toISOString(),
+    };
+
+    const docRef = doc(db, 'auctions', auction.id);
+
+    await updateDoc(docRef, {
+      currentBid: bidData.amount,
+      bids: arrayUnion(bidData)  
+    });
+
+    // Update local state too
+    setAuction(prev => ({
+      ...prev,
+      currentBid: bidData.amount,
+      bids: [...(prev.bids || []), bidData]
+    }));
+
+    setBidAmount('');
+
+        setBidSuccess(true);
+        setTimeout(() => setBidSuccess(false), 1500);
+}
   };
 
   const handleNextImage = () => {
@@ -128,6 +153,8 @@ const AuctionDetails = () => {
         <div className="auction-details">
           <h2>{auction.title}</h2>
           <p className="auction-description">{auction.description}</p>
+
+             {bidSuccess && <div className="bid-success-msg">✅ Your bid was placed!</div>}
 
           {status === 'live' && (
             <div className="bidding-section">

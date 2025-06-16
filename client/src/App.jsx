@@ -12,9 +12,11 @@ import SellerAuctions from './pages/SellerComponents/SellerAuction/SellerAuction
 import EditAuction from './pages/SellerComponents/EditAuction/edit-auction.jsx';  
 import SellerAnalytics from './pages/SellerComponents/SellerAnalytic/SellerAnalytics.jsx';
 import AuctionDetails from './pages/BuyerComponents/AuctionDetail/AuctionDetail'; 
+import LiveAuctions from "./pages/BuyerComponents/LiveAuctions/LiveAuctions";
 import ChatBox from "./pages/chats/ChatBox.jsx"; 
 import Unauthorized from './components/Unauthorized';
-import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute
+import ProtectedRoute from './components/ProtectedRoute'; 
+import MyBids from "./pages/BuyerComponents/MyBids/MyBids";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -31,8 +33,8 @@ function App() {
         <Route path="/buyer-dashboard" element={<BuyerLayout />}>
             <Route index element={<BuyerDashboard />} />            
            <Route path="chat" element={<ChatBox />} />             
-           <Route path="my-bids" element={<div>My Bids Page</div>} />  
-           <Route path="auctions" element={<div>Auctions Page</div>} />  
+           <Route path="my-bids" element={<MyBids />} />  
+            <Route path="live-auctions" element={<LiveAuctions />} />  
            <Route path="auction/:auctionId" element={<AuctionDetails />} />
          </Route>
 

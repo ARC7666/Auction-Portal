@@ -48,6 +48,7 @@ return (
   <>
     <div className="iphone-wrapper">
       <div className="iphone-frame">
+        <div className="iphone-shell">
         <img src={iphoneFrame} className="iphone-frame-img" alt="iPhone Frame" />
 
         <div className="iphone-supporter">
@@ -63,6 +64,7 @@ return (
                   <div className="category-card-title">{item.title}</div>
                 </div>
               ))}
+            </div>
             </div>
 
             <div className="black-overlay-mask"></div>

@@ -1,6 +1,6 @@
-import React, { useEffect , useState } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import { auth, provider, db } from '../../firebase/firebaseConfig';
-import { createUserWithEmailAndPassword, updateProfile , signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, signInWithPopup } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
@@ -9,39 +9,34 @@ import image1 from '../../assets/images/image1.jpg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import { motion } from "framer-motion";
 
-
-
-
 function Signup() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('buyer');
-  
   const [showRolePopup, setShowRolePopup] = useState(false);
   const [googleUser, setGoogleUser] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  
+  const [isChoosingGoogleRole, setIsChoosingGoogleRole] = useState(false);
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user && !isChoosingGoogleRole) {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        const role = userDoc.exists() ? userDoc.data().role : null;
 
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      const role = userDoc.exists() ? userDoc.data().role : null;
+        if (role === "buyer") navigate("/buyer-dashboard", { replace: true });
+        else if (role === "seller") navigate("/seller-dashboard", { replace: true });
+        else if (role === "admin") navigate("/admin-dashboard", { replace: true });
+  
+      }
+    });
 
-      if (role === "buyer") navigate("/buyer-dashboard", { replace: true });
-      else if (role === "seller") navigate("/seller-dashboard", { replace: true });
-      else if (role === "admin") navigate("/admin-dashboard", { replace: true });
-      else navigate("/", { replace: true }); 
-    }
-  });
-
-  return () => unsubscribe();
-}, []);
+    return () => unsubscribe();
+  }, [navigate, isChoosingGoogleRole]);
 
   function redirectToDashboard(userRole) {
     switch (userRole) {
@@ -63,33 +58,32 @@ useEffect(() => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const user = result.user;
-         let fullName = firstName;
+        let fullName = firstName;
 
-     if (lastName !== '') {
-        fullName = firstName + ' ' + lastName;
-      }
-     
-      updateProfile(user, {
-        displayName: fullName,
-      }).then(() => {
+        if (lastName !== '') {
+          fullName = firstName + ' ' + lastName;
+        }
 
-        setDoc(doc(db, 'users', user.uid), {
-          name: fullName,
-          email: email,
-          role: role,
-          createdAt: new Date()
+        updateProfile(user, {
+          displayName: fullName,
         }).then(() => {
-          redirectToDashboard(role);
+          setDoc(doc(db, 'users', user.uid), {
+            name: fullName,
+            email: email,
+            role: role,
+            createdAt: new Date()
+          }).then(() => {
+            redirectToDashboard(role);
+          });
         });
-      });
-    })
+      })
       .catch((error) => {
         alert("Signup failed: " + error.message);
       });
   }
 
-
   function handleGoogleClick() {
+    setIsChoosingGoogleRole(true);
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
@@ -98,57 +92,57 @@ useEffect(() => {
       })
       .catch((error) => {
         alert("Google Sign in failed: " + error.message);
+        setIsChoosingGoogleRole(false);
       });
   }
 
-/* function to be called when user uses google to signup and then select there role
-     i.e. buyer , seller and admin . */
+function handleGoogleContinue(e) {
+  e.preventDefault(); // 🛑 Prevent page reload on button click
 
-  function handleGoogleContinue() {
-    if (googleUser === null) return; 
-     const userDoc = doc(db, 'users', googleUser.uid);
+  if (googleUser === null) return;
 
-    getDoc(userDoc).then((snapshot) => {
-      if (!snapshot.exists()) {
-        let nameToSave = firstName || googleUser.displayName || googleUser.email.split('@')[0];
-        if (firstName && lastName) nameToSave = `${firstName} ${lastName}`;
+  const userDoc = doc(db, 'users', googleUser.uid);
 
-        setDoc(userDoc, {
-          name: nameToSave,
-          email: googleUser.email,
-          role: role,
-          createdAt: new Date()
-        }).then(() => {
-          redirectToDashboard(role);
-        });
-      } else {
-        const userRole = snapshot.data().role || 'buyer';
-        redirectToDashboard(userRole); 
-      }
-    });
-  }
+  getDoc(userDoc).then((snapshot) => {
+    if (!snapshot.exists()) {
+      let nameToSave = firstName || googleUser.displayName || googleUser.email.split('@')[0];
+      if (firstName && lastName) nameToSave = `${firstName} ${lastName}`;
+
+      setDoc(userDoc, {
+        name: nameToSave,
+        email: googleUser.email,
+        role: role,
+        createdAt: new Date()
+      }).then(() => {
+        redirectToDashboard(role);
+      });
+    } else {
+      const userRole = snapshot.data().role || 'buyer';
+      redirectToDashboard(userRole);
+    }
+  });
+}
 
   return (
     <div className="backTheme">
       <div className="loginBox">
-          <motion.div
-           className="imageIllustration"
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-         >
-           <img src={image1} alt="login" className="image" />
-          </motion.div>
+        <motion.div
+          className="imageIllustration"
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <img src={image1} alt="login" className="image" />
+        </motion.div>
 
         <motion.div className="signupContent"
-         initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-         >
+          initial={{ x: 50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+        >
 
           <div className="titleText-signup">
             <h1>Create your Auctania account</h1>
-         
             <p>Buy, Sell, and Bid in real-time</p>
           </div>
 
@@ -178,25 +172,25 @@ useEffect(() => {
               className="input"
             />
 
-           <div className="password-container">
-                <input
-                  type={passwordVisible ? 'text' : 'password'}
-                  placeholder="Create your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="input password-input"
-                />
-                <span
-                  className="eye-toggle"
-                  onClick={() => setPasswordVisible(!passwordVisible)}
-                >
-                  {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-                  <span className="tooltip-text">
-                    {passwordVisible ? 'Hide Password' : 'Show Password'}
-                  </span>
+            <div className="password-container">
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                placeholder="Create your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="input password-input"
+              />
+              <span
+                className="eye-toggle"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+              >
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                <span className="tooltip-text">
+                  {passwordVisible ? 'Hide Password' : 'Show Password'}
                 </span>
-           </div>
+              </span>
+            </div>
 
             <select
               value={role}
@@ -242,7 +236,6 @@ useEffect(() => {
             </div>
           )}
         </motion.div>
-        
       </div>
     </div>
   );
