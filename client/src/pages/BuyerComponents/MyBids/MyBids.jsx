@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from "../../../firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+import { Link } from "react-router-dom";
 import "./MyBids.css";
 
 const MyBids = () => {
@@ -98,7 +99,9 @@ const MyBids = () => {
                   {isWinner ? (
                     <>
                       <p className="status won">Won</p>
-                      <a href={`/payment/${item.id}`} className="payment-link">Make Payment →</a>
+                      <Link to={`/payment/${item.id}`} className="payment-link">
+                         Make Payment →
+                         </Link>
                     </>
                   ) : (
                     <p className={`status ${status.toLowerCase().replace(" ", "-")}`}>{status}</p>

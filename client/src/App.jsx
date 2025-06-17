@@ -10,13 +10,16 @@ import AdminDashboard from "./pages/AdminDashboard/admin-dashboard.jsx";
 import CreateAuction from './pages/SellerComponents/CreateAuctions/CreateAuction';
 import SellerAuctions from './pages/SellerComponents/SellerAuction/SellerAuctions.jsx';
 import EditAuction from './pages/SellerComponents/EditAuction/edit-auction.jsx';  
+import SellerLayout from './pages/SellerComponents/SellerLayout/SellerLayout.jsx';
+import SellerChats from "./pages/SellerComponents/SellerChats/SellerChats";
 import SellerAnalytics from './pages/SellerComponents/SellerAnalytic/SellerAnalytics.jsx';
 import AuctionDetails from './pages/BuyerComponents/AuctionDetail/AuctionDetail'; 
 import LiveAuctions from "./pages/BuyerComponents/LiveAuctions/LiveAuctions";
-import ChatBox from "./pages/chats/ChatBox.jsx"; 
+import ChatRoom from "./pages/chats/ChatRoom.jsx"; 
 import Unauthorized from './components/Unauthorized';
 import ProtectedRoute from './components/ProtectedRoute'; 
 import MyBids from "./pages/BuyerComponents/MyBids/MyBids";
+import PaymentPage from "./pages/BuyerComponents/BuyerPayment/PaymentPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -32,11 +35,13 @@ function App() {
         {/* Buyer routes using layout */}
         <Route path="/buyer-dashboard" element={<BuyerLayout />}>
             <Route index element={<BuyerDashboard />} />            
-           <Route path="chat" element={<ChatBox />} />             
+           <Route path="/buyer-dashboard/chat/:auctionId" element={<ChatRoom />} />             
            <Route path="my-bids" element={<MyBids />} />  
             <Route path="live-auctions" element={<LiveAuctions />} />  
            <Route path="auction/:auctionId" element={<AuctionDetails />} />
+          
          </Route>
+          <Route path="payment/:auctionId" element={<PaymentPage />} />
 
         {/* Protected seller route */}
         <Route
@@ -52,6 +57,12 @@ function App() {
         <Route path="/auction/:auctionId" element={<AuctionDetails />} /> 
         <Route path="/create-auction" element={<CreateAuction />} />
         <Route path="/seller-auctions" element={<SellerAuctions />} />
+        
+
+       <Route path="/seller-dashboard-layout" element={<SellerLayout />}>
+         <Route path="chat" element={<SellerChats />} />
+          <Route path="chat/:auctionId" element={<ChatRoom />} />
+       </Route>
         <Route path="/edit-auction/:id" element={<EditAuction />} />
         <Route path="/seller-analytics" element={<SellerAnalytics />} /> 
         <Route path="/admin-dashboard" element={<AdminDashboard />} />

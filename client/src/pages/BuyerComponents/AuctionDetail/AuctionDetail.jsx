@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db , auth } from '../../../firebase/firebaseConfig';
 import { arrayUnion } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import './AuctionDetail.css';
 import LoaderScreen from '../../../components/LoaderScreen';
 
@@ -170,6 +171,11 @@ const handleBid = async () => {
               <button onClick={handleBid} className="bid-now-btn">Bid Now</button>
             </div>
           )}
+         
+
+         <Link to={`/buyer-dashboard/chat/${auction.id}`}>
+               <button className="chat-btn">💬 Chat about this Auction</button>
+          </Link>
 
           {status === 'notStarted' && (
             <button className="bid-status-btn" disabled>Not Started</button>

@@ -1,0 +1,95 @@
+.seller-chat-msg {
+  font-size: 1.1rem;
+  color: #444;
+  padding: 2rem;
+}
+
+.chat-heading {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.seller-chat-table {
+  display: flex;
+  flex-direction: column;
+  width: 73vw;
+  margin-top: 1rem;
+}
+
+.seller-chat-header {
+  display: grid;
+  grid-template-columns: 140px 2fr 120px 150px 120px  120px;  /* Added column for Current Bid */
+  padding: 12px 20px;
+  background-color: #f1f1f1;
+  font-weight: 600;
+  border-bottom: 2px solid #ccc;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.seller-chat-row {
+  display: grid;
+  grid-template-columns: 140px 2fr 150px 150px 120px 120px;  /* Same structure as header */
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #fff;
+  font-size: 0.9rem;
+}
+
+.seller-chat-thumbnail {
+  width: 120px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0px;
+}
+
+.seller-chat-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.seller-chat-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.seller-chat-cell p{
+    color: #333;
+}
+
+.label  {
+  font-size: 0.75rem;
+  color: #000000;
+}
+
+.chat-link {
+  font-size: 0.85rem;
+  color: #6c63ff;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+ 
+
+.dashboard-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dashboard-content::-webkit-scrollbar-track {
+  background: #f0f0f000;  /* track background */
+  border-radius: 10px;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb {
+  background: #6b63ff00;  /* scrollbar thumb */
+  border-radius: 10px;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb:hover {
+  background: #4f44e629;  /* darker on hover */
+}

@@ -104,7 +104,7 @@ export const ProductList = () => {
           return timeB - timeA;
         });
 
-        setLatestAuctions(allAuctions.slice(0, 8));
+        setLatestAuctions(allAuctions.slice(0, 4));
       } catch (err) {
         console.error("Error fetching latest auctions:", err);
       }

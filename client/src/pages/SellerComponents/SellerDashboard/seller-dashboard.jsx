@@ -110,7 +110,7 @@ function SellerDashboard() {
           </Link>
 
         
-          <Link to="/chats">
+          <Link to="/seller-dashboard-layout/chat">
             <button className="nav-btn-seller">
               <MessageSquare className="nav-icon" />
               <span>Chat</span>

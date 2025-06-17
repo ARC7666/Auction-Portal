@@ -144,7 +144,7 @@ if (loading) {
           <hr />
         </div>
         <nav className="nav-button-buyer">
-          <button className="nav-btn-buyer">
+          <button className="nav-btn-buyer" onClick={() => navigate(`/buyer-dashboard/chat/${auction.id}`)}>
             <MessageSquare className="nav-icon" />
             <span>Chat</span>
           </button>

@@ -1,10 +1,13 @@
 
 .live-auctions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-  justify-content: center;
-  padding-top: 1rem;
+ grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+ justify-items: center;
+ width: 100%;
+
+ margin: auto;
 }
 
 .live-badge {
@@ -24,15 +27,18 @@
 
 /* Listing Card Component */
 .live-card {
-  max-width: 100%;
   background: rgba(232, 232, 234, 0.85);
   border-radius: 18px;
-  border: 2px solid white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+  border: 2px solid white;
   transition: transform 0.3s ease;
+  width: 100%;
+
 }
 
 .live-card:hover {
@@ -121,4 +127,15 @@
   font-size: 0.85rem;
   font-weight: 500;
   margin-bottom: 10px;
+}
+
+.live-auctions-grid .listing-card {
+  width: 100%;
+ 
+  margin: auto;
+}
+@media screen and (min-width: 1200px) {
+  .live-auctions-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

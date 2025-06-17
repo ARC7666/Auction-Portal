@@ -6,7 +6,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import { onAuthStateChanged } from 'firebase/auth';
-import image2 from '../../assets/images/image2.jpg';
+import image1 from '../../assets/images/image1.jpg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { motion } from "framer-motion";
 
@@ -177,7 +177,7 @@ useEffect(() => {
           animate={{ x: 0, opacity: 1 }}
            transition={{ duration: 0.7, ease: "easeOut" }}
          >
-              <img src={image2} alt="login" className="image1" />
+              <img src={image1} alt="login" className="image1" />
           </motion.div>
       </div>
     </div>
