@@ -3,9 +3,10 @@
   padding: 4rem 1rem;
 }
 
-.product-grid {
+.product-grid-landing {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, 280px); /* fixed card width */
+  justify-content: center; /* center the cards in the grid */
   gap: 2rem;
   margin-top: 2rem;
 }

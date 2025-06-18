@@ -1,13 +1,13 @@
 
 .live-auctions-grid {
   display: grid;
- grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
- justify-items: center;
- width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 
- margin: auto;
+  margin-right: -30px;
+  gap:1.2rem;
+  margin-left: -17px;
+  justify-content: center;  
+  padding: 2rem;
 }
 
 .live-badge {
@@ -38,8 +38,11 @@
   border: 2px solid white;
   transition: transform 0.3s ease;
   width: 100%;
+  max-width: 300px;
+  margin: 0 auto
 
 }
+
 
 .live-card:hover {
   transform: translateY(-6px);
@@ -137,5 +140,18 @@
 @media screen and (min-width: 1200px) {
   .live-auctions-grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.animated-card-live-auction {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideIn 0.5s forwards;
+}
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

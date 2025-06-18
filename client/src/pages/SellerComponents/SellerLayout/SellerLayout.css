@@ -27,12 +27,19 @@
   margin-left: 20px;
 }
 
+.logo img {
+  width: 11vw;
+  margin-bottom: 0px;
+  margin-left: 20px;
+  justify-content: center;
+}
+
 .dashboard-title-seller {
   display: flex;
   align-items: center;
   font-size: 14px;
   color: rgb(151, 151, 153);
-  margin-top: -20px
+  margin-top: -10px
  ;
 }
 

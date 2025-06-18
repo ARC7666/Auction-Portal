@@ -56,14 +56,16 @@ function App() {
         {/* Other direct routes */}
         <Route path="/auction/:auctionId" element={<AuctionDetails />} /> 
         <Route path="/create-auction" element={<CreateAuction />} />
-        <Route path="/seller-auctions" element={<SellerAuctions />} />
+   
         
 
        <Route path="/seller-dashboard-layout" element={<SellerLayout />}>
+       <Route path="edit-auction/:id" element={<EditAuction />} />
+         <Route path="seller-auctions" element={<SellerAuctions />} />
          <Route path="chat" element={<SellerChats />} />
           <Route path="chat/:auctionId" element={<ChatRoom />} />
        </Route>
-        <Route path="/edit-auction/:id" element={<EditAuction />} />
+        
         <Route path="/seller-analytics" element={<SellerAnalytics />} /> 
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/unauthorized" element={<Unauthorized />} />

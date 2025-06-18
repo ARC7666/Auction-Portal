@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { logo } from '../../../assets';
 import { ClipLoader } from 'react-spinners';
-import { Home, List, BarChart3 ,CalendarDays } from 'lucide-react';
+import { Home, List, BarChart3 ,CalendarDays ,MessageSquare} from 'lucide-react';
 
 
 function CreateAuction() {
@@ -173,18 +173,17 @@ return (
       <span>Home</span>
     </button>
   </Link>
-
-  <Link to="/seller-auctions">
-    <button className="nav-btn-seller">
-      <List className="nav-icon" />
-      <span>View Listing</span>
-    </button>
+  <Link to="/seller-dashboard-layout/seller-auctions">
+      <button className="nav-btn-seller">
+         <List className="nav-icon" />
+             <span>View Listings</span>
+      </button>
   </Link>
 
-  <Link to="/seller-analytics">
+  <Link to="/seller-dashboard-layout/chat">
     <button className="nav-btn-seller">
-      <BarChart3 className="nav-icon" />
-      <span>Sale Analytics</span>
+       <MessageSquare className="nav-icon" />
+      <span>Chat</span>
     </button>
   </Link>
 </nav>

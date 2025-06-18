@@ -32,18 +32,15 @@ function ListingCard({ listing }) {
       .padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
-  // Badge text & classes based on auction status
   const badgeText = isLive ? "LIVE" : isUpcoming ? "UPCOMING" : "ENDED";
   const badgeClass = isLive ? "live" : isUpcoming ? "upcoming" : "ended";
 
   return (
     <div className="listing-card">
-      {/* Badge */}
       <div className={`badge ${badgeClass}`}>
         {badgeText}
       </div>
-
-      <img src={media?.[0]} alt={title} className="listing-image" />
+          <img src={media?.[0]} alt={title} className="listing-image" />
       <div className="listing-details">
         <h3>{title}</h3>
 

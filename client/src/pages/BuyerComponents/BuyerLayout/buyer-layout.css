@@ -36,23 +36,35 @@ html, body {
 
 .logo1 img {
   width: 11vw;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   margin-left: 20px;
   justify-content: center;
   margin-top: 20px;
 }
 
-.dashboard-title {
-  color: #ccc;
-  text-align: center;
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  letter-spacing: 1px;
+
+.dashboard-title-seller-home {
+  display: flex;
+  align-items: center;
+  margin-top: -20px;
+  font-weight: 500;
+  font-size: 14px;
+  color: rgb(151, 151, 153);
+  margin-bottom: 30px;
+  width: 100%;
 }
 
+.dashboard-title-seller-home hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid rgb(151, 151, 153);
+}
+
+.dashboard-title-seller-home span {
+  margin: 0 10px;
+}
 .nav-button-buyer {
   display: flex;
-  color: #ccc;
   flex-direction: column;
   gap: 16px;
 }
@@ -63,24 +75,22 @@ html, body {
   display: flex;
   align-items: center;
   gap: 12px;
-  width: 100%;
   padding: 12px 18px;
-  background: linear-gradient(135deg, #7e75ff, #a594ff);
-  border: none;
+  background: transparent;
+  border: 1.5px solid #7e75ff;
   border-radius: 12px;
   color: white;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.35);
+  box-shadow: inset 0 6px 20px rgba(108, 99, 255, 0.2);
 }
 
 .nav-btn-buyer:hover {
   transform: scale(1.03);
-  background: linear-gradient(135deg, #6c63ff, #8e76ff);
   box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
-    color: white;
+  background-color: rgba(255, 255, 255, 0.05);
 }
  
 .nav-icon {
@@ -130,7 +140,7 @@ html, body {
   box-shadow: 0 0 6px rgba(108, 99, 255, 0.4);
 }
 
-.profile-dropdown {
+.profile-dropdown-buyer {
   position: absolute;
   right: 0;
   margin-top: 10px;
@@ -200,31 +210,31 @@ html, body {
 }
 
 
-.notification-dropdown {
+.notification-dropdown-buyer {
   position: absolute;
   top: 2.5rem;
-  right: 3.5rem; /* align under bell */
+  right: 4rem; 
   background: white;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 8px 0 8px 8px;
   padding: 0.75rem 1rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   width: 260px;
 }
 
-.notification-dropdown .dropdown-title {
+.notification-dropdown-buyer .dropdown-title {
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: #222;
 }
 
-.notification-dropdown .auction-item {
+.notification-dropdown-buyer .auction-item {
   font-size: 14px;
   color: #444;
   padding: 4px 0;
 }
 
-.notification-dropdown .no-auction {
+.notification-dropdown-buyer .no-auction {
   font-size: 14px;
   color: #888;
 }

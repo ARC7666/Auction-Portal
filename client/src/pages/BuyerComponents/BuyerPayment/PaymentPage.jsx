@@ -48,16 +48,24 @@ const PaymentPage = () => {
     });
   }, [auctionId, navigate]);
 
-  const handleFakePayment = async () => {
-    if (!auction) return;
+const handleFakePayment = async () => {
+  if (!auction || !user) return;
 
+  try {
     await updateDoc(doc(db, "auctions", auctionId), {
       paymentStatus: "paid",
+      buyerId: user.uid,
+      status: "sold",
+      paymentSubmittedAt: new Date()
     });
 
-    alert("✅ Payment successful! Thank you.");
+    alert("✅ Payment successful!");
     navigate("/buyer-dashboard/my-bids");
-  };
+  } catch (err) {
+    console.error("Payment failed:", err);
+    alert("❌ Payment failed. Please try again.");
+  }
+};
 
   if (loading) return <p className="payment-msg">Loading payment details...</p>;
   if (error) return <p className="payment-error">❌ {error}</p>;

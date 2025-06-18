@@ -75,9 +75,12 @@ const SellerLayout = ({ children }) => {
           <Link to="/create-auction">
             <button className="nav-btn-seller"><Gavel className="nav-icon" /><span>Create Auction</span></button>
           </Link>
-          <Link to="/seller-auctions">
-            <button className="nav-btn-seller"><List className="nav-icon" /><span>View Listing</span></button>
-          </Link>
+          <Link to="/seller-dashboard-layout/seller-auctions">
+              <button className="nav-btn-seller">
+                <List className="nav-icon" />
+                  <span>View Listings</span>
+               </button>
+        </Link>
           <Link to="/seller-dashboard-layout/chat">
             <button className="nav-btn-seller"><MessageSquare className="nav-icon" /><span>Chat</span></button>
           </Link>
@@ -90,7 +93,7 @@ const SellerLayout = ({ children }) => {
             <div className="profile-toggle" onClick={() => setShowProfile(!showProfile)}>
               <img src={`https://ui-avatars.com/api/?name=${user?.name}`} alt="User Avatar" />
               {showProfile && (
-                <div className="profile-dropdown">
+                <div className="profile-dropdown-seller">
                   <div className="profile-info">
                     <p className="profile-name">{user?.name}</p>
                     <p className="profile-email">{user?.email}</p>

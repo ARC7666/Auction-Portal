@@ -122,7 +122,7 @@ export const ProductList = () => {
         />
 
         {latestAuctions.length > 0 ? (
-          <div className="product-grid">
+          <div className="product-grid-landing">
             {latestAuctions.map((item, index) => (
               <ProductCard item={item} key={index} />
             ))}

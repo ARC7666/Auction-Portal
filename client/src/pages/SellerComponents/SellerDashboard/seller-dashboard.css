@@ -12,12 +12,12 @@ html, body {
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-image: url('/images/back.jpg'); 
+  background-image: url('/images/back.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-color: #ccc;
+  font-family: 'Segoe UI', sans-serif;
 
 }
 
@@ -106,7 +106,6 @@ html, body {
   color: white;
 }
 
-/* for removing the underline i did this*/
 .nav-buttons-seller a,
 .nav-buttons-seller a:visited,
 .nav-buttons-seller a:hover {
@@ -128,9 +127,9 @@ html, body {
   color: white;
   padding: 2rem;
   display: flex;
-  flex-direction: column; /* change from row to column */
-  align-items: flex-start; /* no centering */
-  justify-content: flex-start; /* no centering */
+  flex-direction: column; 
+  align-items: flex-start; 
+  justify-content: flex-start; 
   overflow-y: auto;
 }
 .dashboard-content h1 {
@@ -155,12 +154,12 @@ html, body {
   box-shadow: 0 0 6px rgba(108, 99, 255, 0.4);
 }
 
-.profile-dropdown {
+.profile-dropdown-seller {
   position: absolute;
   right: 0;
-  margin-top: 0px;
+  margin-top: 4px;
   background: #ffffff;
-  border-radius: 12px 0 12px 12px ;
+  border-radius: 12px 0px 12px 12px ;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   padding: 12px;
   min-width: 200px;
@@ -278,4 +277,90 @@ padding: 2rem;
   color: #555;
   font-size: 1rem;
   text-align: left;
+}
+
+
+.analytics-container {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border-radius: 16px;
+  color: white;
+}
+
+.analytics-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #1f1c2c;
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+.charts-wrapper {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.chart-card {
+  flex: 1 1 30%;
+  min-width: 300px;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  color: white;
+  text-align: center;
+}
+
+/* bar chart for months */
+.chart-card:nth-child(2) canvas {
+  margin-top: 60px;
+}
+
+/* top 5 bids*/
+.chart-card:nth-child(3) canvas {
+  margin-top: 60px;
+}
+
+.chart-card h4 {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  color: #1f1c2c;
+  font-weight: 600;
+}
+
+.basic-stats-row {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.stat-box h5 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1f1c2c;
+}
+
+.stat-box p {
+  margin: 0.5rem 0 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #1f1c2c;
 }

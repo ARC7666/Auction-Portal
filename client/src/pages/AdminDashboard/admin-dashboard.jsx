@@ -113,6 +113,12 @@ function AdminDashboard() {
           <p>Review complaints, suspicious activity, or logs.</p>
           <button className="admin-btn">View Logs</button>
         </section>
+
+        <section className="admin-section">
+          <h3>Pending Payments</h3>
+          <p>Verify and mark items as sold.</p>
+         <button className="admin-btn" onClick={() => navigate('/admin/pending-payments')}>View Requests</button>
+        </section>
       </div>
     </div>
   );

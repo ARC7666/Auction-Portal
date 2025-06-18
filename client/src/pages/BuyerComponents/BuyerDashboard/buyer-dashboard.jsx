@@ -101,30 +101,35 @@ function BuyerDashboard() {
 return (
 
   <>
+  <main>
+   <div><h2 className="my-bids-heading">Explore Bids</h2>
     <div className="filter-container" ref={filterRef}>
-  <button className="filter-toggle" onClick={toggleDropdown}>
-    ☰ Filter
-  </button>
-  {showDropdown && (
-    <div className="filter-dropdown">
-      <button onClick={() => applyFilter("all")}>
+      <button className="filter-toggle" onClick={toggleDropdown}>
+        ☰ Filter
+      </button>
+     {showDropdown && (
+     <div className="filter-dropdown">
+       <button onClick={() => applyFilter("all")}>
         <ListFilter size={16} style={{ marginRight: '8px' }} />
         Show All Auctions
-      </button>
-      <button onClick={() => applyFilter("live")}>
+       </button>
+       <button onClick={() => applyFilter("live")}>
         <Radio size={16} style={{ marginRight: '8px' }} />
-        Live Now
-      </button>
-      <button onClick={() => applyFilter("past")}>
+         Live Now
+       </button>
+       <button onClick={() => applyFilter("past")}>
         <Archive size={16} style={{ marginRight: '8px' }} />
         Closed Auctions
-      </button>
-      <button onClick={() => applyFilter("future")}>
+       </button>
+       <button onClick={() => applyFilter("future")}>
         <Clock size={16} style={{ marginRight: '8px' }} />
         Upcoming 
-      </button>
+        </button>
     </div>
+   
+ 
   )}
+  </div>
 </div>
 
     {loading ? (
@@ -133,12 +138,18 @@ return (
       <p className="no-auctions">No auctions found.</p>
     ) : (
       <div className="auction-grid-buyer">
-        {filteredListings.map(listing => (
-          <ListingCard key={listing.id} listing={listing} />
+        {filteredListings.map((listing, index) => (
+         <div
+              key={listing.id}
+              className="animated-card-buyer"
+               style={{ animationDelay: `${index * 100}ms` }}
+          >
+         <ListingCard listing={listing} />
+          </div>
         ))}
       </div>
     )}
-
+  </main>
 </>
 );
 }

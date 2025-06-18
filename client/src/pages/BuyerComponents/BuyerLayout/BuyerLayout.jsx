@@ -138,7 +138,7 @@ if (loading) {
                <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
           </Link>
         </div>
-        <div className="dashboard-title">
+        <div className="dashboard-title-seller-home">
           <hr />
           <span>Buyer Dashboard</span>
           <hr />
@@ -166,7 +166,7 @@ if (loading) {
           <div className="notification-toggle" onClick={() => setShowNotifications(!showNotifications)}>
             <BellRing color="#333070" size={26} />
             {showNotifications && (
-              <div className="notification-dropdown">
+              <div className="notification-dropdown-buyer">
                 <p className="dropdown-title">Upcoming Auctions</p>
                 {upcomingAuctions.length === 0 ? (
                   <p className="no-auction">No auctions in next 5 days</p>
@@ -184,7 +184,7 @@ if (loading) {
           <div className="profile-toggle-buyer" onClick={() => setShowProfile(!showProfile)}>
             <img src={`https://ui-avatars.com/api/?name=${user?.name || "User"}`} alt="User Avatar" />
             {showProfile && (
-              <div className="profile-dropdown">
+              <div className="profile-dropdown-buyer">
                 <div className="profile-info">
                   <p className="profile-name">{user?.name || "No Name"}</p>
                   <p className="profile-email">{user?.email}</p>

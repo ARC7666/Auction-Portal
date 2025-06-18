@@ -44,8 +44,14 @@ const LiveAuctions = () => {
         <p>No live auctions currently.</p>
       ) : (
         <div className="live-auctions-grid">
-          {liveListings.map((listing) => (
+          {liveListings.map((listing, index)=> (
+              <div
+               key={listing.id}
+               className="animated-card-live-auction"
+                 style={{ animationDelay: `${index * 100}ms` }}
+              >
             <ListingCard key={listing.id} listing={listing} />
+            </div>
           ))}
         </div>
       )}
