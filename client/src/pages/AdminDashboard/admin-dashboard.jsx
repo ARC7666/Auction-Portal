@@ -30,9 +30,7 @@ function AdminDashboard() {
           console.error("Error fetching user doc:", error);
           navigate("/unauthorized", { replace: true });
         }
-      } else {
-        navigate("/", { replace: true });
-      }
+      } 
     });
 
     return () => unsubscribe();
