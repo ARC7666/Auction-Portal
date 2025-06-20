@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, useLocation  , Link} from "react-router-dom";
+import { NavLink, useLocation, useNavigate, Link } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { IoSearchOutline } from "react-icons/io5";
 import { menulists } from "../../utils/data";
@@ -11,6 +11,7 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const menuRef = useRef(null);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -34,80 +35,97 @@ export const Header = () => {
     };
   }, []);
 
+  const handleMenuClick = (path) => {
+    if (path.startsWith("#")) {
+      const id = path.substring(1);
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate(path);
+    }
+  };
+
   const isHomePage = location.pathname === "/";
   const role = "buyer";
 
   return (
-<header
-  className={`header ${isHomePage ? "bg-primary" : "bg-white shadow-md"} ${isScrolled ? "scrolled" : ""}`}
->
-  <div className="header-container">
-    <nav className="nav-bar">
-      
-      {/* LEFT SECTION (LOGO) */}
-      <div className="left-section">
-        <div className="logo">
-          <Link to="/">
-            <img src={logo} alt="Logo" style={{ cursor: "pointer" }} />
-          </Link>
-        </div>
-      </div>
+    <header className={`header ${isHomePage ? "bg-primary" : "bg-white shadow-md"} ${isScrolled ? "scrolled" : ""}`}>
+      <div className="header-container">
+        <nav className="nav-bar">
 
-      {/* CENTER SECTION (MENU) */}
-      <ul className="menu-list">
-        {menulists.map((list) => (
-          <li key={list.id}>
-            <NavLink
-              to={list.path}
-              className={({ isActive }) =>
-                `${isActive ? "active" : ""} ${isScrolled || !isHomePage ? "text-black" : "text-white"}`
-              }
-            >
-              {list.link}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
-
-      {/* RIGHT SECTION (BUTTONS) */}
-      <div className="right-section">
-        <div className="desktop-icons">
-          <IoSearchOutline
-            className={`icon ${isScrolled || !isHomePage ? "text-black" : "text-white"}`}
-          />
-          <NavLink to="/login" className={isScrolled || !isHomePage ? "text-black" : "text-white"}>
-            Sign in
-          </NavLink>
-          <NavLink to="/signup" className={`join-btn ${!isHomePage || isScrolled ? "green" : "white"}`}>
-            Join
-          </NavLink>
-          <NavLink to="/">
-            <div className="profile-pic">
-              <img src={User1} alt="User" />
+          {/* LEFT SECTION */}
+          <div className="left-section">
+            <div className="logo">
+              <Link to="/">
+                <img src={logo} alt="Logo" style={{ cursor: "pointer" }} />
+              </Link>
             </div>
-          </NavLink>
-        </div>
+          </div>
 
-        <div className="mobile-menu-button">
-          <button onClick={toggleMenu}>
-            {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
-          </button>
-        </div>
+          {/* CENTER SECTION (MENU) */}
+          <ul className="menu-list">
+            {menulists.map((list) => (
+              <li key={list.id}>
+                <button
+                  onClick={() => handleMenuClick(list.path)}
+                  className={`nav-button-link ${isScrolled || !isHomePage ? "text-black" : "text-white"}`}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    font: "inherit",
+                    cursor: "pointer",
+                    padding: "0",
+                    margin: "0"
+                  }}
+                >
+                  {list.link}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {/* RIGHT SECTION */}
+          <div className="right-section">
+            <div className="desktop-icons">
+              <IoSearchOutline className={`icon ${isScrolled || !isHomePage ? "text-black" : "text-white"}`} />
+              <NavLink to="/login" className={isScrolled || !isHomePage ? "text-black" : "text-white"}>
+                Sign in
+              </NavLink>
+              <NavLink to="/signup" className={`join-btn ${!isHomePage || isScrolled ? "green" : "white"}`}>
+                Join
+              </NavLink>
+              <NavLink to="/">
+                <div className="profile-pic">
+                  <img src={User1} alt="User" />
+                </div>
+              </NavLink>
+            </div>
+
+            <div className="mobile-menu-button">
+              <button onClick={toggleMenu}>
+                {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+              </button>
+            </div>
+          </div>
+        </nav>
+
+        {/* MOBILE MENU */}
+        <ul ref={menuRef} className={`mobile-menu ${isOpen ? "open" : "closed"}`}>
+          {menulists.map((list) => (
+            <li key={list.id}>
+              <button
+                onClick={() => handleMenuClick(list.path)}
+                className="text-white"
+                style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }}
+              >
+                {list.link}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-
-    </nav>
-
-    {/* MOBILE MENU */}
-    <ul ref={menuRef} className={`mobile-menu ${isOpen ? "open" : "closed"}`}>
-      {menulists.map((list) => (
-        <li key={list.id}>
-          <NavLink to={list.path} className="text-white">
-            {list.link}
-          </NavLink>
-        </li>
-      ))}
-    </ul>
-  </div>
-</header>
+    </header>
   );
 };

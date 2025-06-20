@@ -1,4 +1,4 @@
-import "./process.css"; // import your css
+import "./process.css"; 
 import React from "react";
 import { processList } from "../../utils/data";
 import { Container } from 'react-bootstrap';
@@ -11,7 +11,10 @@ export const Process = () => {
         <div className="top-wave"></div>
 
         <Container className="py-16 pt-24 text-white">
-          <Heading title="How It Works" subtitle="Easy 4 steps to win" />
+          <Heading
+               title={<span style={{ color: "white" }}>How It Works</span>}
+               subtitle={<span style={{ color: "#d1d5db" }}>Easy 4 steps to win</span>}
+        />
 
           <div className="content">
             {processList.map((item, index) => (

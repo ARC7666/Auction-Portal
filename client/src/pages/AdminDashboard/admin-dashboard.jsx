@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from '../../firebase/firebaseConfig';
 import { Users, FileText, BarChart3, ShieldCheck, AlertTriangle, LogOut } from 'lucide-react';
 import LoaderScreen from '../../components/LoaderScreen';
 
@@ -13,28 +15,37 @@ function AdminDashboard() {
  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        try {
-          const docRef = doc(db, "users", user.uid);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists() && docSnap.data().role === "admin") {
-            const userData = docSnap.data();
-            setUser({ ...user, name: userData.name, role: userData.role });
-            setLoading(false);
-          } else {
-            navigate("/unauthorized", { replace: true });
-          }
-        } catch (error) {
-          console.error("Error fetching user doc:", error);
-          navigate("/unauthorized", { replace: true });
-        }
-      } 
-    });
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      try {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
 
-    return () => unsubscribe();
-  }, []);
+        if (docSnap.exists() && docSnap.data().role === "admin") {
+          const userData = docSnap.data();
+          setUser({ ...user, name: userData.name, role: userData.role });
+          setLoading(false);
+        } else {
+          console.warn("Not an admin user");
+          navigate("/unauthorized", { replace: true });
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching user doc:", error);
+        navigate("/unauthorized", { replace: true });
+        setLoading(false);
+      }
+    } else {
+ 
+      console.warn("No user is logged in.");
+      navigate("/unauthorized", { replace: true });
+      setLoading(false);
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
 
 
   if (loading) {

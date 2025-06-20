@@ -1,5 +1,5 @@
 import React from 'react';
-import './heading.css'; // optional, bana sakte ho for styling
+import './heading.css'; 
 
 const Heading = ({ title, subtitle, center }) => {
   return (

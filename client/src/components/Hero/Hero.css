@@ -6,219 +6,9 @@
   position: relative;
   min-height: calc(95vh - 70px); 
   display: flex;
-  align-items: center; /* Center content vertically */
+  align-items: center; 
   
 }
-
-.hero-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.hero-left {
-  flex: 1 1 500px;
-  padding-right: 2rem;
-}
-
-.hero-title-hero {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.hero-desc {
-  color: #e2e8f0;
-  margin-bottom: 2rem;
-}
-
-.hero-stats {
-  display: flex;
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.hero-stats h2 {
-  font-size: 1.75rem;
-  color: white;
-}
-
-.hero-right {
-  flex: 1 1 500px;
-  position: relative;
-  padding-top: 2rem;
-}
-
-.hero-img {
-  width: 100%;
-  border-radius: 1rem;
-}
-
-.floating-box {
-  position: absolute;
-  animation: floatHoriz 6s ease-in-out infinite;
-}
-
-.box-top-left {
-  top: 4rem;
-  left: 0;
-}
-
-.box-bottom-right {
-  bottom: 6rem;
-  right: 0;
-}
-
-.client-box {
-  background: white;
-  padding: 1rem;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-left: 1rem;
-  width: 60%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.client-box h4 {
-  color: black;
-}
-
-.client-profiles {
-  display: flex;
-  align-items: center;
-}
-
-.profile-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid white;
-  margin-left: -10px;
-  background: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.add-profile {
-  background: #d1fae5;
-}
-
-.search-form {
-  margin-top: 1rem;
-}
-
-.search-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.search-icon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.search-input {
-  width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
-  border-radius: 999px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-}
-
-.search-btn {
-  position: absolute;
-  right: 10px;
-  bottom: 6px;
-  padding: 0.5rem 1rem;
-  background: #4f46e5;
-  color: white;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.info-box {
-  background: white;
-  padding: 1rem;
-  display: flex;
-  gap: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  width: auto;
-}
-
-.info-icon {
-  width: 50px;
-  height: 50px;
-  background: var(--green-100);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.info-box h4 {
-  margin: 0;
-  font-size: 1rem;
-  color: black;
-}
-
-.info-box p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: gray;
-}
-
-.hero-bottom-curve {
-  background: white;
-  width: 100%;
-  height: 40px;
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
-  margin-top: -40px;
-}
-
-
-@keyframes floatHoriz {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(15px);
-  }
-}
-
-@keyframes floatVert {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-}
-
-.vert-move {
-  animation: floatVert 4s ease-in-out infinite;
-}
-
-
-
 
 
 .hero-container {
@@ -438,6 +228,67 @@
   position: absolute;
   bottom: -10px;
   z-index: 10;
+}
+
+
+.hero-circle-glow {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent 70%);
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  z-index: 0;
+  filter: blur(20px);
+}
+
+
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.drop-in {
+  animation: dropIn 0.8s ease-out forwards;
+}
+
+
+.gradient-text {
+  background: linear-gradient(90deg, #6c63ff, #b392f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.hero-stats div {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+ 
+.hero-img {
+  width: 100%;
+  border-radius: 1rem;
+  animation: fadeInUp 1.2s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 

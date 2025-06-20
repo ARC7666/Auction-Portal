@@ -116,10 +116,14 @@ export const ProductList = () => {
   return (
     <section className="product-section">
       <Container>
-        <Heading
-          title="Latest Auctions"
-          subtitle="Explore on the world's best & largest Bidding marketplace with our beautiful Bidding products. We want to be a part of your smile, success and future growth."
-        />
+          <Heading
+           title={<span style={{ marginLeft: '30px' }}>Latest Auctions</span>}
+           subtitle={
+             <span style={{ marginLeft: '30px' }}>
+               Explore on the world's best & largest Bidding marketplace with our beautiful Bidding products. We want to be a part of your smile, success and future growth.
+             </span>
+           }
+       />
 
         {latestAuctions.length > 0 ? (
           <div className="product-grid-landing">

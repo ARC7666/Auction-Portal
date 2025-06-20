@@ -46,7 +46,7 @@ html, body {
 .auction-form {
     width: 100%;
   max-width: 600px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.571);
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
@@ -65,13 +65,13 @@ html, body {
   padding: 14px 20px;
   border: none;
   border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.28);
-  border: 2px solid rgba(245, 245, 245, 0.547);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(0, 0, 0, 0.191);
   font-size: 16px;
   transition: 0.3s;
   width: 100%;
-  color: #1f1c2c;
-  font-weight: 700;
+  color: #1d192d;
+  font-weight: 600;
 }
 
 .auction-form textarea {
@@ -88,14 +88,19 @@ html, body {
 .auction-form input:focus,
 .auction-form textarea:focus,
 .custom-datepicker:focus {
+
   outline: none;
-  box-shadow: 0 0 8px rgba(108, 99, 255, 0.6);
+   border: 1.5px solid #7e75ff;
+    background-color: rgb(247, 245, 255);
+  box-shadow: 0 0 5px #4a91e200;
 }
 
 .auction-form input:hover,
 .auction-form textarea:hover,
 .custom-datepicker:hover {
-  box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
+  
+   border: 1.5px solid #7e75ff;
+   transform: scale(1.03);
 }
 
 .auction-form button {

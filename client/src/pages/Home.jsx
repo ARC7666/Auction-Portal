@@ -25,7 +25,7 @@ function Home() {
       }
     });
 
-    return () => unsubscribe(); // cleanup
+    return () => unsubscribe(); 
   }, [navigate]);
 
   return (
@@ -33,7 +33,9 @@ function Home() {
       <Header />
       <Hero />
       <CategorySlider />
-      <ProductList />
+      <section id="product-section">
+         <ProductList />
+    </section>
       <Process />
     </div>
   );

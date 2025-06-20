@@ -132,13 +132,13 @@ if (loading) {
     bids: []
   });
 
-   //alert('Auction created successfully!');
+  
 
    // once data entry done reset everything
    setTitle('');
    setDescription('');
    setStartPrice('');
-   //      setStartTime('');
+  
    setSelectedDate('');
    setStartTime(null);
    setDuration('');
@@ -193,7 +193,7 @@ return (
 
     <main className="dashboard-contented">
      {/*}   <h2 style={{fontSize: 35,}}>List Your Item</h2>*/}
-          <form onSubmit={handleSubmit} className="auction-form">
+    <form onSubmit={handleSubmit} className="auction-form">
         <input type="text" placeholder="Title" value={title}
       onChange={(e) => setTitle(e.target.value)} required />
 
@@ -212,7 +212,7 @@ return (
         selected={startTime}
         onChange={(date) => setStartTime(date)}
               showTimeSelect
-        placeholderText=" dd/mm/yyyy ,  --:--                                                                           🗓️"
+        placeholderText=" dd/mm/yyyy ,  --:--                                                                                   🗓️"
         timeFormat="HH:mm"
   
         timeIntervals={1}
@@ -227,7 +227,7 @@ return (
       onChange={(e) => setDuration(e.target.value)} required />
 
       <input type="file" multiple accept="image/*,video/*"
-      onChange={handleMediaChange} style={{color: 'white', }}/>
+      onChange={handleMediaChange} style={{color: '#545353b5', }}/>
 
        <button type="submit" disabled={uploading} style={{fontWeight: 700 , fontSize: 20}}>
          {uploading ? 'Uploading...' : 'Create Auction'}

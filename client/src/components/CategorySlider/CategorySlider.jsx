@@ -67,11 +67,14 @@ return (
             </div>
             </div>
 
-            <div className="black-overlay-mask"></div>
+          
           </div>
         </div>
+           
       </div>
+
     </div>
+   
   </>
 );
 };

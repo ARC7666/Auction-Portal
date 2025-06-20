@@ -18,8 +18,16 @@ html, body {
   background: transparent;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   overflow-y: auto;
+}
+
+.scroll-target {
+  scroll-margin-top: 100px; /* or whatever your fixed header height is */
 }
 
 

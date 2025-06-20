@@ -19,6 +19,7 @@ import ChatRoom from "./pages/chats/ChatRoom.jsx";
 import Unauthorized from './components/Unauthorized';
 import ProtectedRoute from './components/ProtectedRoute'; 
 import MyBids from "./pages/BuyerComponents/MyBids/MyBids";
+import { ProductList } from "./components/ProductList/ProductList";
 import PaymentPage from "./pages/BuyerComponents/BuyerPayment/PaymentPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<Home />} />
+        <Route path="/product" element={<ProductList />} />
         <Route path="/signup" element={<Signup />} />         
         <Route path="/login" element={<Login />} />   
 

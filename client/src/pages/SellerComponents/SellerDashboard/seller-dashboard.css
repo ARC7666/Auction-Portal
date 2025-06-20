@@ -12,12 +12,18 @@ html, body {
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-image: url('/images/back.jpg');
-  background-size: cover;
-  background-position: center;
+  background: radial-gradient(
+      circle at 20% 20%,
+      #d9e4f6 0%,
+      #fcf9fa 30%,
+      #e7ebf4 60%,
+      #e3ebf9 85%,
+      #c7d5ec 100%
+  );
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-family: 'Segoe UI', sans-serif;
+  background-size: cover;
+
 
 }
 
@@ -92,7 +98,7 @@ html, body {
 
 .nav-btn-seller:hover {
   transform: scale(1.03);
-  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
+  box-shadow: 0 6px 20px rgba(107, 99, 255, 0);
     color: white;
 }
  
@@ -143,7 +149,9 @@ html, body {
   top: 20px;
   right: 30px;
   z-index: 150;
+
 }
+
 
 .profile-toggle img {
   width: 50px;
@@ -152,6 +160,7 @@ html, body {
   cursor: pointer;
   border: 2px solid #6c63ff;
   box-shadow: 0 0 6px rgba(108, 99, 255, 0.4);
+  
 }
 
 .profile-dropdown-seller {
@@ -219,7 +228,7 @@ padding: 2rem;
   min-width: 220px;
   max-width: 280px;
 
-  background: rgba(255, 255, 255, 0.234) !important;
+  background: rgba(255, 255, 255, 0.795) !important;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;

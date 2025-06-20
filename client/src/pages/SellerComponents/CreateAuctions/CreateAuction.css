@@ -11,12 +11,18 @@ html, body {
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-image: url('/images/back.jpg');
-  background-size: cover;
-  background-position: center;
+  background: radial-gradient(
+      circle at 20% 20%,
+      #e2e8f3 0%,
+      #eef2f9  30%,
+      #f3f7fd  60%,
+      #eef2f9 85%,
+      #d2dded 100%
+  );
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-family: 'Segoe UI', sans-serif;
+  background-size: cover;
+
 }
 
 .sidebar1 {
@@ -128,10 +134,10 @@ html, body {
 
 
 
-.auction-form {
+.auction-form-create {
   width: 100%;
   max-width: 600px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgb(0, 0, 0);
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
@@ -149,12 +155,13 @@ html, body {
   padding: 14px 20px;
   border: none;
   border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.28);
-  border: 2px solid rgba(245, 245, 245, 0.547);
+  border: 1.5px solid #7e75ff;
+  background-color: rgb(247, 245, 255);
+  color: rgba(4, 4, 6, 0.879);
   font-size: 16px;
   transition: 0.3s;
   width: 100%;
-  color: #1f1c2c;
+
   font-weight: 700;
 }
 
@@ -172,14 +179,20 @@ html, body {
 .auction-form input:focus,
 .auction-form textarea:focus,
 .custom-datepicker:focus {
+
   outline: none;
-  box-shadow: 0 0 8px rgba(108, 99, 255, 0.6);
+  border: 1.5px solid rgb(176, 153, 208);
+    background-color: rgb(247, 245, 255);
+  box-shadow: 0 0 5px #4a91e200;
 }
 
 .auction-form input:hover,
 .auction-form textarea:hover,
 .custom-datepicker:hover {
-  box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
+  outline: none;
+  border: 1.5px solid rgb(176, 153, 208);
+    background-color: rgb(247, 245, 255);
+  box-shadow: 0 0 5px #4a91e200;
 }
 
 
