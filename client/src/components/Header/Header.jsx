@@ -55,7 +55,7 @@ export const Header = () => {
       <div className="header-container">
         <nav className="nav-bar">
 
-          {/* LEFT SECTION */}
+       
           <div className="left-section">
             <div className="logo">
               <Link to="/">
@@ -64,7 +64,7 @@ export const Header = () => {
             </div>
           </div>
 
-          {/* CENTER SECTION (MENU) */}
+          
           <ul className="menu-list">
             {menulists.map((list) => (
               <li key={list.id}>
@@ -86,7 +86,7 @@ export const Header = () => {
             ))}
           </ul>
 
-          {/* RIGHT SECTION */}
+       
           <div className="right-section">
             <div className="desktop-icons">
               <IoSearchOutline className={`icon ${isScrolled || !isHomePage ? "text-black" : "text-white"}`} />
@@ -111,7 +111,7 @@ export const Header = () => {
           </div>
         </nav>
 
-        {/* MOBILE MENU */}
+       
         <ul ref={menuRef} className={`mobile-menu ${isOpen ? "open" : "closed"}`}>
           {menulists.map((list) => (
             <li key={list.id}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './loader-screen.css';
-import { logo } from '../assets'; // adjust this path to your actual logo import
+import { logo } from '../assets'; 
 
 const LoaderScreen = () => {
   return (

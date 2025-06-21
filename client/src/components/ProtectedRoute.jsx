@@ -1,8 +1,8 @@
-// ProtectedRoute.jsx
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../firebase/firebaseConfig'; // Adjust path as necessary
+import { auth, db } from '../firebase/firebaseConfig'; 
 import { doc, getDoc } from 'firebase/firestore';
 import LoaderScreen from '../components/LoaderScreen';
 
@@ -34,7 +34,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     return () => unsubscribe();
   }, [navigate, requiredRole]);
 
-  // While we're fetching user data, we can show a loading state (or nothing).
+ 
   if (user === null) return <LoaderScreen />;
 
   return children;

@@ -2,21 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-// Title Component
+
 export const Title = ({ children, className }) => (
   <h3 className={classNames("text-lg font-semibold text-gray-800", className)}>
     {children}
   </h3>
 );
 
-// Caption Component
+
 export const Caption = ({ children, className }) => (
   <p className={classNames("text-sm text-gray-500", className)}>
     {children}
   </p>
 );
 
-// Primary Button Component
+
 export const PrimaryButton = ({ children, className, ...props }) => (
   <button
     className={classNames(
@@ -29,7 +29,7 @@ export const PrimaryButton = ({ children, className, ...props }) => (
   </button>
 );
 
-// ProfileCard (circle icon badge)
+
 export const ProfileCard = ({ children, className }) => (
   <div
     className={classNames(
@@ -41,7 +41,6 @@ export const ProfileCard = ({ children, className }) => (
   </div>
 );
 
-// Prop types for type safety
 Title.propTypes = Caption.propTypes = ProfileCard.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,

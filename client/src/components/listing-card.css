@@ -1,4 +1,4 @@
-/* Badge styles */
+
 .badge {
   position: absolute;
   top: 12px;
@@ -15,18 +15,17 @@
 }
 
 .badge.live {
-  background-color: #4caf50; /* Green */
+  background-color: #4caf50; 
 }
 
 .badge.upcoming {
-  background-color: #ff9800; /* Orange */
+  background-color: #ff9800; 
 }
 
 .badge.ended {
-  background-color: #f44336; /* Red */
+  background-color: #f44336; 
 }
 
-/* Listing Card Component */
 .listing-card {
   position: relative;
   background: rgba(232, 232, 234, 0.672);
@@ -84,7 +83,6 @@
 }
 
 
-/* Description toggle button */
 .desc-toggle-btn {
   background: none;
   border: none;
@@ -103,7 +101,7 @@
   background-color: transparent;
 }
 
-/* Description content */
+
 .listing-details .desc-content {
   max-height: 0;
   overflow: hidden;
@@ -114,7 +112,7 @@
 }
 
 .listing-details .desc-content.open {
-  max-height: 200px; /* enough hai height  description kai leye */
+  max-height: 200px; 
   padding: 8px 0 12px 0;
 }
 .bid-now {

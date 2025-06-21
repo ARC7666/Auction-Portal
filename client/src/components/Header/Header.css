@@ -17,7 +17,7 @@
 }
 
 body {
-  padding-top: 70px; /* prevent content underlap */
+  padding-top: 70px; 
 }
 
 .header-container {
@@ -30,7 +30,7 @@ body {
   align-items: center;
 }
 
-/* === Navigation Bar === */
+
 .nav-bar {
   display: flex;
   justify-content: space-between;
@@ -39,7 +39,7 @@ body {
   width: 100%;
 }
 
-/* === Left Section (Logo only) === */
+
 .left-section {
   display: flex;
   align-items: center;
@@ -93,7 +93,6 @@ body {
   cursor: pointer;
 }
 
-/* === Join Button === */
 .join-btn {
   padding: 8px 20px;
   border-radius: 999px;
@@ -127,7 +126,7 @@ body {
   object-fit: cover;
 }
 
-/* === Mobile Menu Toggle Button === */
+
 .mobile-menu-button {
   display: none;
 }
@@ -141,7 +140,7 @@ body {
   cursor: pointer;
 }
 
-/* === Mobile Menu === */
+
 .mobile-menu {
   position: absolute;
   top: 70px;
@@ -172,7 +171,7 @@ body {
   font-size: 16px;
 }
 
-/* === Responsive Styles === */
+
 @media screen and (max-width: 1024px) {
   .menu-list,
   .desktop-icons {

@@ -6,8 +6,8 @@
 
 .product-grid-landing {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 280px); /* fixed card width */
-  justify-content: center; /* center the cards in the grid */
+  grid-template-columns: repeat(auto-fill, 280px); 
+  justify-content: center; 
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -120,7 +120,7 @@
 .product-price-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* OR center */
+  align-items: flex-start;
   gap: 1rem;
   margin-left: 1.1rem;
   margin-top: -7px;
@@ -219,5 +219,5 @@
 
 }
 .favorite-icon {
-  color: #FAFAFA; /* nice pink */
+  color: #FAFAFA; 
 }
