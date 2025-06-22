@@ -22,15 +22,15 @@ const Hero = () => {
 
           <div className="hero-stats">
             <div>
-              <h2>842M+</h2>
-              <p>Total Products</p>
+              <h2>50K+</h2>
+              <p>Total Users</p>
             </div>
             <div>
-              <h2>842M+</h2>
+              <h2>100K+</h2>
               <p>Total Auctions</p>
             </div>
             <div>
-              <h2>54</h2>
+              <h2>20+</h2>
               <p>Categories</p>
             </div>
           </div>
@@ -49,7 +49,7 @@ const Hero = () => {
           </div>
 
           <div className="client-box vert-move">
-            <h4>58M+ Happy Clients</h4>
+            <h4>58K+ Happy Clients</h4>
             <div className="client-profiles">
               {[User1, User2, User3, User4].map((user, i) => (
                 <div key={i} className="profile-img" style={{ zIndex: 10 - i }}>

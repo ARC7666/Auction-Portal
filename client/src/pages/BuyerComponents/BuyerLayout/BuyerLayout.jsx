@@ -1,22 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Outlet } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { logo } from "../../../assets";
 import "./buyer-layout.css";
-import { Link, useNavigate } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase/firebaseConfig";
 import Swal from "sweetalert2";
-import { MessageSquare, Gavel, Radio, Settings, User, LogOut, BellRing } from "lucide-react";
-import { collection, getDocs, doc, getDoc , deleteDoc} from "firebase/firestore";
+import { Home, Gavel, Radio, Settings, User, LogOut, BellRing } from "lucide-react";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 import dayjs from "dayjs";
-import { ClipLoader } from 'react-spinners';
 import LoaderScreen from '../../../components/LoaderScreen';
 
-
-
-
 function BuyerLayout() {
+  const location = useLocation();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
@@ -25,25 +21,25 @@ function BuyerLayout() {
   const [loading, setLoading] = useState(true);
   const dropdownRef = useRef(null);
 
- useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists() && docSnap.data().role === "buyer") {
-        const userData = docSnap.data();
-        setUser({ ...user, name: userData.name, role: userData.role });
-        setLoading(false);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists() && docSnap.data().role === "buyer") {
+          const userData = docSnap.data();
+          setUser({ ...user, name: userData.name, role: userData.role });
+          setLoading(false);
+        } else {
+          navigate("/unauthorized", { replace: true });
+        }
       } else {
-        navigate("/unauthorized", { replace: true });
+        navigate("/", { replace: true });
       }
-    } else {
-      navigate("/", { replace: true });
-    }
-  });
+    });
 
-  return () => unsubscribe();
-}, []);
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -58,49 +54,40 @@ function BuyerLayout() {
   }, []);
 
   useEffect(() => {
-  const fetchAuctions = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "auctions"));
-      const today = dayjs();
-      const filtered = [];
+    const fetchAuctions = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "auctions"));
+        const now = dayjs();
+        const filtered = [];
 
-      for (const docSnap of querySnapshot.docs) {
-        const auction = { id: docSnap.id, ...docSnap.data() };
+        for (const docSnap of querySnapshot.docs) {
+          const auction = { id: docSnap.id, ...docSnap.data() };
+          const endTime = dayjs(auction.endTime);
 
-        const endTime = dayjs(auction.endTime || auction.startTime).add(1, "day"); // assuming 1-day auctions
-        const startTime = dayjs(auction.startTime);
-        const diffInDays = startTime.diff(today, "day");
-
-        if (endTime.isBefore(today)) {
-          try {
-            await deleteDoc(doc(db, "auctions", auction.id));
-            console.log(`🗑️ Deleted expired auction: ${auction.title}`);
-          } catch (err) {
-            console.error("❌ Error deleting:", auction.title, err);
+          if (auction.status === "ended" && now.diff(endTime, "hour") > 12) {
+            continue;
           }
-          continue;
+
+          filtered.push(auction);
         }
 
-        filtered.push(auction);
+        setAuctions(filtered);
+      } catch (err) {
+        console.error("Error fetching auctions:", err);
       }
+    };
 
-      setAuctions(filtered);
-    } catch (err) {
-      console.error("Error fetching auctions:", err);
-    }
-  };
+    fetchAuctions();
+  }, []);
 
-  fetchAuctions();
-}, []);
-
-const upcomingAuctions = auctions
-  .filter((auction) => {
-    const today = dayjs();
-    const startTime = dayjs(auction.startTime);
-    const diffInDays = startTime.diff(today, 'day');
-    return diffInDays >= 0 && diffInDays <= 5 && auction.status === "scheduled";
-  })
-  .sort((a, b) => dayjs(a.startTime).diff(dayjs(b.startTime)));
+  const upcomingAuctions = auctions
+    .filter((auction) => {
+      const today = dayjs();
+      const startTime = dayjs(auction.startTime);
+      const diffInDays = startTime.diff(today, 'day');
+      return diffInDays >= 0 && diffInDays <= 5 && auction.status === "scheduled";
+    })
+    .sort((a, b) => dayjs(a.startTime).diff(dayjs(b.startTime)));
 
   const handleLogout = () => {
     signOut(auth)
@@ -125,46 +112,49 @@ const upcomingAuctions = auctions
       });
   };
 
-if (loading) {
-  return <LoaderScreen />;
-}
-
+  if (loading) {
+    return <LoaderScreen />;
+  }
 
   return (
-    <div className="buyer-dashboard">
-      <aside className="sidebar-buyer">
-        <div className="logo1">
-           <Link to="/buyer-dashboard">
-               <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
+    <div className="buyer-dashboard upgraded-layout">
+      <header className="header-bar-buyer" ref={dropdownRef}>
+        <div className="logo-section">
+          <Link to="/buyer-dashboard">
+            <img src={logo} alt="Logo" />
           </Link>
         </div>
-        <div className="dashboard-title-seller-home">
-          <hr />
-          <span>Buyer Dashboard</span>
-          <hr />
-        </div>
-        <nav className="nav-button-buyer">
-          <button className="nav-btn-buyer" onClick={() => navigate(`/buyer-dashboard/chat/${auction.id}`)}>
-            <MessageSquare className="nav-icon" />
-            <span>Chat</span>
-          </button>
-          <button className="nav-btn-buyer" onClick={() => navigate("/buyer-dashboard/my-bids")}>
-            <Gavel className="nav-icon" />
-            <span>My Bids</span>
-          </button>
-          <button className="nav-btn-buyer" onClick={() => navigate("/buyer-dashboard/live-auctions")}>
-              <Radio className="nav-icon" />
-             <span>Live Auctions</span>
-         </button>
-        </nav>
-      </aside>
 
-      <main className="dashboard-main">
-        <Outlet />
+      <nav className="nav-buttons-header">
+  <button
+    className={location.pathname === "/buyer-dashboard" ? "active" : ""}
+    onClick={() => navigate("/buyer-dashboard")}
+  >
+    <Home size={18} />
+    <span>Home</span>
+  </button>
 
-        <div className="topbar-icons" ref={dropdownRef}>
+  <button
+    className={location.pathname === "/buyer-dashboard/my-bids" ? "active" : ""}
+    onClick={() => navigate("/buyer-dashboard/my-bids")}
+  >
+    <Gavel size={18} />
+    <span>My Bids</span>
+  </button>
+
+  <button
+    className={location.pathname === "/buyer-dashboard/live-auctions" ? "active" : ""}
+    onClick={() => navigate("/buyer-dashboard/live-auctions")}
+  >
+    <Radio size={18} />
+    <span>Live</span>
+  </button>
+</nav>
+
+
+        <div className="right-section-header">
           <div className="notification-toggle" onClick={() => setShowNotifications(!showNotifications)}>
-            <BellRing color="#333070" size={26} />
+            <BellRing size={24} color="white" />
             {showNotifications && (
               <div className="notification-dropdown-buyer">
                 <p className="dropdown-title">Upcoming Auctions</p>
@@ -196,6 +186,10 @@ if (loading) {
             )}
           </div>
         </div>
+      </header>
+
+      <main className="dashboard-main">
+        <Outlet />
       </main>
     </div>
   );

@@ -109,3 +109,22 @@
 .messages::-webkit-scrollbar-thumb:hover {
   background: #4f44e611;  
 }
+
+.go-back-chat {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: -5px;
+}
+
+.go-back-chat .link {
+  color: #6c63ff;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.go-back-chat .link:hover {
+  color: #3e38f2;
+}

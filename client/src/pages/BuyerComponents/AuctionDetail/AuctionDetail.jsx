@@ -4,6 +4,7 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db , auth } from '../../../firebase/firebaseConfig';
 import { arrayUnion } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { MessageSquare, Gavel, Radio, Settings, User, LogOut, BellRing } from "lucide-react";
 import './AuctionDetail.css';
 import LoaderScreen from '../../../components/LoaderScreen';
 
@@ -70,7 +71,7 @@ const handleBid = async () => {
       bids: arrayUnion(bidData)  
     });
 
-    // Update local state too
+  
     setAuction(prev => ({
       ...prev,
       currentBid: bidData.amount,
@@ -174,8 +175,10 @@ const handleBid = async () => {
          
 
          <Link to={`/buyer-dashboard/chat/${auction.id}`}>
-               <button className="chat-btn">💬 Chat about this Auction</button>
+           <button className="chat-btn-buyer"><MessageSquare className="nav-icon" /><span>Chat</span></button>
           </Link>
+
+   
 
           {status === 'notStarted' && (
             <button className="bid-status-btn" disabled>Not Started</button>

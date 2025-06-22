@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../firebase/firebaseConfig';
-import {
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  onSnapshot,
-  serverTimestamp,
-  doc,
-  getDoc
-} from 'firebase/firestore';
+import {collection,addDoc,query,orderBy, onSnapshot,serverTimestamp, doc, getDoc} from 'firebase/firestore';
 import './ChatBox.css';
 
 const ChatRoom = () => {
   const { auctionId } = useParams();
   const [messages, setMessages] = useState([]);
   const [newMsg, setNewMsg] = useState('');
-  const [sellerId, setSellerId] = useState(null); // ✅
+  const [sellerId, setSellerId] = useState(null); 
+  const navigate = useNavigate();
 
-  // ✅ Fetch sellerId
+  
   useEffect(() => {
     const fetchSeller = async () => {
       const auctionRef = doc(db, 'auctions', auctionId);
@@ -82,8 +75,13 @@ const ChatRoom = () => {
           />
           <button type="submit">Send</button>
         </form>
+           <p className="go-back-chat">
+              Want to return?{' '}
+          <span className="link" onClick={() => navigate(-1)}>Go Back</span>
+        </p>
       </div>
     </div>
+    
   );
 };
 

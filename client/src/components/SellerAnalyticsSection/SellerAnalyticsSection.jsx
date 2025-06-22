@@ -50,9 +50,9 @@ docs.forEach(doc => {
     monthly[month]++;
   }
 
-  if (doc.totalBids) {
-    bidStats.push({ title: doc.title, count: doc.totalBids });
-  }
+if (doc.bids?.length) {
+  bidStats.push({ title: doc.title, count: doc.bids.length });
+}
 
   if (doc.views) {
     allViews += doc.views;

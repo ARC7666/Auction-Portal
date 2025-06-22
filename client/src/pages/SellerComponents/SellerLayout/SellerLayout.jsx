@@ -87,10 +87,10 @@ const SellerLayout = ({ children }) => {
         </nav>
       </aside>
 
-      <main className="dashboard-content">
-        <div className="dashboard-topbar">
-          <div className="topbar-icons" ref={dropdownRef}>
-            <div className="profile-toggle" onClick={() => setShowProfile(!showProfile)}>
+      <main className="dashboard-content-seller">
+       {/* <div className="dashboard-topbar-seller">
+          <div className="topbar-icons-seller" ref={dropdownRef}>
+            <div className="profile-toggle-seller" onClick={() => setShowProfile(!showProfile)}>
               <img src={`https://ui-avatars.com/api/?name=${user?.name}`} alt="User Avatar" />
               {showProfile && (
                 <div className="profile-dropdown-seller">
@@ -105,7 +105,7 @@ const SellerLayout = ({ children }) => {
               )}
             </div>
           </div>
-        </div>
+        </div>*/}
          <Outlet />
       </main>
     </div>

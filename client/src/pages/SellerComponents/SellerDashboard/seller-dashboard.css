@@ -216,18 +216,14 @@ html, body {
 
 
 .kpi-container {
-  display: flex;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* Exactly 3 in one row */
+  gap: 1.5rem;
+  width: 100%;
+  padding: 30px;
 }
-
-
 .kpi-card {
-  flex: 1 1 calc(25% - 1.5rem);
-  min-width: 220px;
-  max-width: 280px;
-
+  width: 100%;
   background: rgba(255, 255, 255, 0.795) !important;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -240,6 +236,7 @@ padding: 2rem;
   align-items: center;
   gap: 1.5rem;
   transition: all 0.2s ease-in-out;
+  
 }
 
 .kpi-card:hover {
@@ -372,4 +369,16 @@ padding: 2rem;
   font-size: 1.4rem;
   font-weight: bold;
   color: #1f1c2c;
+}
+
+@media (max-width: 900px) {
+  .kpi-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .kpi-container {
+    grid-template-columns: 1fr;
+  }
 }

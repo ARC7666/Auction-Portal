@@ -195,13 +195,6 @@ function SellerDashboard() {
             </div>
           </div>
           <div className="kpi-card">
-            <Eye size={24} />
-            <div>
-              <h4>Total Views</h4>
-              <p>{kpis.totalViews}</p>
-            </div>
-          </div>
-          <div className="kpi-card">
             <Hammer size={24} />
             <div>
               <h4>Bids Received</h4>
