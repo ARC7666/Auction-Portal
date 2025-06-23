@@ -57,7 +57,7 @@ export const Header = () => {
 
        
           <div className="left-section">
-            <div className="logo">
+            <div className="logo-header">
               <Link to="/">
                 <img src={logo} alt="Logo" style={{ cursor: "pointer" }} />
               </Link>
@@ -112,19 +112,25 @@ export const Header = () => {
         </nav>
 
        
-        <ul ref={menuRef} className={`mobile-menu ${isOpen ? "open" : "closed"}`}>
-          {menulists.map((list) => (
-            <li key={list.id}>
-              <button
-                onClick={() => handleMenuClick(list.path)}
-                className="text-white"
-                style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }}
-              >
-                {list.link}
-              </button>
-            </li>
-          ))}
-        </ul>
+<ul ref={menuRef} className={`mobile-menu ${isOpen ? "open" : "closed"}`}>
+  {menulists.map((list) => (
+    <li key={list.id}>
+      <button
+        onClick={() => handleMenuClick(list.path)}
+        className="text-white"
+        style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }}
+      >
+        {list.link}
+      </button>
+    </li>
+   ))}
+  <li>
+    <NavLink to="/login" className="text-white mobile-auth-link">Sign in</NavLink>
+  </li>
+  <li>
+    <NavLink to="/signup" className="join-btn green ">Join</NavLink>
+  </li>
+</ul>
       </div>
     </header>
   );

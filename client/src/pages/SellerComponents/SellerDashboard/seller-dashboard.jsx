@@ -23,6 +23,7 @@ function SellerDashboard() {
     topProduct: '—'
   });
   const dropdownRef = useRef(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -97,6 +98,16 @@ function SellerDashboard() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+  const handleOutsideClick = (e) => {
+    if (!e.target.closest('.sidebar') && !e.target.closest('.hamburger-icon')) {
+      setSidebarOpen(false);
+    }
+  };
+  document.addEventListener('click', handleOutsideClick);
+  return () => document.removeEventListener('click', handleOutsideClick);
+}, []);
+
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -124,8 +135,8 @@ function SellerDashboard() {
 
   return (
     <div className="seller-dashboard">
-      <aside className="sidebar">
-        <div className="logo">
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+        <div className="logo-seller">
           <Link to="/seller-dashboard">
             <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
           </Link>
@@ -163,6 +174,14 @@ function SellerDashboard() {
 
       <main className="dashboard-content">
         <div className="dashboard-topbar">
+
+    <div className="hamburger-icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
+         <List />
+          <div className="welcome-section-mobile">
+            <h2>Hey {user?.name},</h2>
+            <p>Welcome back to Auctania — your auction HQ </p>
+          </div>
+    </div>
           <div className="welcome-section">
             <h2>Hey {user?.name},</h2>
             <p>Welcome back to Auctania — your auction HQ </p>
@@ -178,7 +197,11 @@ function SellerDashboard() {
                     <p className="profile-email">{user?.email}</p>
                   </div>
                   <button className="dropdown-btn"><Settings size={16} /> Settings</button>
-                  <button className="dropdown-btn"><User size={16} /> Profile</button>
+                  <Link to="/seller-dashboard-layout/profile">
+                        <button className="dropdown-btn">
+                           <User size={16} /> Profile
+                         </button>
+                  </Link>
                   <button className="dropdown-btn" onClick={handleLogout}><LogOut size={16} /> Sign Out</button>
                 </div>
               )}

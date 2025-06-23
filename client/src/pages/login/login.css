@@ -234,3 +234,62 @@
   color: red;
   margin-top: 10px;
 }
+
+@media screen and (max-width: 768px) {
+  .loginBoxd {
+    flex-direction: column;
+    height: auto;
+    min-height: 70vh;
+    width: 100%;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 1.5rem 1rem;
+    margin-top: 150px;
+  }
+
+  .imageIllustration1 {
+    display: none;
+  }
+
+  .signInContent1 {
+    width: 100%;
+    padding: 0;
+    padding-top: 1rem;
+    align-items: center;
+  }
+
+  .titleText-login {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .input1,
+  .button1 {
+    width: 100%;
+  }
+
+  .googleWrapper1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .divider1 {
+    margin-top: 1.2rem;
+  }
+
+  .loginLink1 {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .backThemedn {
+    padding: 0;
+    background-size: cover;
+    overflow-y: auto;
+  }
+
+ 
+}

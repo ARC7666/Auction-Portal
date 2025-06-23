@@ -75,7 +75,7 @@ html, body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   border-radius: 12px 0 12px 12px;
   overflow: hidden;
-  width: 160px;
+  width: 180px;
   padding: 5px 5px ;
   z-index: 99;
 }
@@ -155,5 +155,14 @@ html, body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+
+@media screen and (min-width: 1400px) {
+  .auction-grid-buyer {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 2rem;
+    gap: 1.5rem;
   }
 }

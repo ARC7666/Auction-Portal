@@ -21,6 +21,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import MyBids from "./pages/BuyerComponents/MyBids/MyBids";
 import { ProductList } from "./components/ProductList/ProductList";
 import PaymentPage from "./pages/BuyerComponents/BuyerPayment/PaymentPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -41,7 +42,7 @@ function App() {
            <Route path="my-bids" element={<MyBids />} />  
             <Route path="live-auctions" element={<LiveAuctions />} />  
            <Route path="auction/:auctionId" element={<AuctionDetails />} />
-          
+           <Route path="profile" element={<ProfilePage />} /> 
          </Route>
           <Route path="payment/:auctionId" element={<PaymentPage />} />
 
@@ -66,6 +67,7 @@ function App() {
          <Route path="seller-auctions" element={<SellerAuctions />} />
          <Route path="chat" element={<SellerChats />} />
           <Route path="chat/:auctionId" element={<ChatRoom />} />
+          <Route path="profile" element={<ProfilePage />} /> 
        </Route>
         
         <Route path="/seller-analytics" element={<SellerAnalytics />} /> 

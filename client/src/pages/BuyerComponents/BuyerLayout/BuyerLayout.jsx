@@ -20,6 +20,7 @@ function BuyerLayout() {
   const [auctions, setAuctions] = useState([]);
   const [loading, setLoading] = useState(true);
   const dropdownRef = useRef(null);
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -28,7 +29,7 @@ function BuyerLayout() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists() && docSnap.data().role === "buyer") {
           const userData = docSnap.data();
-          setUser({ ...user, name: userData.name, role: userData.role });
+          setUser({ ...user, name: userData.name, role: userData.role ,  profileImageUrl: userData.profileImageUrl || "" });
           setLoading(false);
         } else {
           navigate("/unauthorized", { replace: true });
@@ -125,30 +126,47 @@ function BuyerLayout() {
           </Link>
         </div>
 
-      <nav className="nav-buttons-header">
-  <button
-    className={location.pathname === "/buyer-dashboard" ? "active" : ""}
-    onClick={() => navigate("/buyer-dashboard")}
-  >
-    <Home size={18} />
-    <span>Home</span>
-  </button>
+<nav className="nav-buttons-header">
+  {/* Visible only on desktop */}
+  <div className="desktop-nav">
+    <button
+      className={location.pathname === "/buyer-dashboard" ? "active" : ""}
+      onClick={() => navigate("/buyer-dashboard")}
+    >
+      <Home size={18} />
+      <span>Home</span>
+    </button>
+    <button
+      className={location.pathname === "/buyer-dashboard/my-bids" ? "active" : ""}
+      onClick={() => navigate("/buyer-dashboard/my-bids")}
+    >
+      <Gavel size={18} />
+      <span>My Bids</span>
+    </button>
+    <button
+      className={location.pathname === "/buyer-dashboard/live-auctions" ? "active" : ""}
+      onClick={() => navigate("/buyer-dashboard/live-auctions")}
+    >
+      <Radio size={18} />
+      <span>Live</span>
+    </button>
+  </div>
 
-  <button
-    className={location.pathname === "/buyer-dashboard/my-bids" ? "active" : ""}
-    onClick={() => navigate("/buyer-dashboard/my-bids")}
-  >
-    <Gavel size={18} />
-    <span>My Bids</span>
-  </button>
-
-  <button
-    className={location.pathname === "/buyer-dashboard/live-auctions" ? "active" : ""}
-    onClick={() => navigate("/buyer-dashboard/live-auctions")}
-  >
-    <Radio size={18} />
-    <span>Live</span>
-  </button>
+  {/* Mobile Hamburger Menu */}
+  <div className="mobile-nav">
+    <button className="hamburger-icon" onClick={() => setShowMenu(prev => !prev)}>
+      <svg width="24" height="24" fill="#fff" viewBox="0 0 24 24">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
+      </svg>
+    </button>
+    {showMenu && (
+      <div className="hamburger-menu-dropdown">
+        <button onClick={() => navigate("/buyer-dashboard")}><Home size={16} /> Home</button>
+        <button onClick={() => navigate("/buyer-dashboard/my-bids")}><Gavel size={16} /> My Bids</button>
+        <button onClick={() => navigate("/buyer-dashboard/live-auctions")}><Radio size={16} /> Live</button>
+      </div>
+    )}
+  </div>
 </nav>
 
 
@@ -172,15 +190,21 @@ function BuyerLayout() {
           </div>
 
           <div className="profile-toggle-buyer" onClick={() => setShowProfile(!showProfile)}>
-            <img src={`https://ui-avatars.com/api/?name=${user?.name || "User"}`} alt="User Avatar" />
+           <img
+            src={
+                  user?.profileImageUrl ? user.profileImageUrl : `https://ui-avatars.com/api/?name=${user?.name || "User"}`}alt="User Avatar"/>
             {showProfile && (
               <div className="profile-dropdown-buyer">
-                <div className="profile-info">
-                  <p className="profile-name">{user?.name || "No Name"}</p>
-                  <p className="profile-email">{user?.email}</p>
+                <div className="profile-info-buyer">
+                  <p className="profile-name-buyer">{user?.name || "No Name"}</p>
+                  <p className="profile-email-buyer">{user?.email}</p>
                 </div>
                 <button className="dropdown-btn"><Settings size={16} /> Settings</button>
-                <button className="dropdown-btn"><User size={16} /> Profile</button>
+                 <Link to="/buyer-dashboard/profile">
+                      <button className="dropdown-btn">
+                           <User size={16} /> Profile
+                      </button>
+                 </Link>
                 <button className="dropdown-btn" onClick={handleLogout}><LogOut size={16} /> Sign Out</button>
               </div>
             )}

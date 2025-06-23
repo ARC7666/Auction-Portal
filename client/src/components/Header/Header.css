@@ -46,13 +46,14 @@ body {
   margin-top: 20px;
 }
 
-.logo img {
-  height: 40px;
-  display: block;
+.logo-header img {
+  height: auto;
+  width: auto;
+  max-height: 32px;
   object-fit: contain;
-  margin: 0;
+  margin-top: -5px;
+  margin-left: 10px;
 }
-
 
 .menu-list {
   display: flex;
@@ -132,7 +133,7 @@ body {
 }
 
 .mobile-menu-button button {
-  background: black;
+  background: rgba(0, 0, 0, 0);
   color: white;
   border: none;
   padding: 8px;
@@ -146,7 +147,7 @@ body {
   top: 70px;
   right: 0;
   width: 100%;
-  background-color: #1d4ed8;
+  background-color: #1d4fd81b;
   padding: 16px;
   display: none;
   flex-direction: column;
@@ -185,4 +186,107 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* iPad & Tablet View */
+@media screen and (max-width: 1024px) {
+  .menu-list,
+  .desktop-icons {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .header-container {
+    padding: 0 12px;
+  }
+
+  .nav-bar {
+    height: 70px;
+    gap: 12px;
+  }
+
+  .mobile-menu {
+    padding: 20px 16px;
+    background: linear-gradient(to bottom, #1f1c2c, #302b63);
+  }
+
+  .mobile-menu li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .mobile-menu li:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-menu a,
+  .mobile-menu button {
+    font-size: 18px;
+    text-align: left;
+    width: 100%;
+  }
+
+
+}
+
+/* Mobile View (phones) */
+@media screen and (max-width: 768px) {
+  .header-container {
+    padding: 0 10px;
+  }
+
+  .logo-header img {
+    height: 32px;
+  }
+
+  .icon {
+    font-size: 18px;
+  }
+
+  .join-btn {
+    padding: 6px 14px;
+    font-size: 14px;
+  }
+
+  .mobile-menu-button button {
+    padding: 6px;
+    font-size: 20px;
+  }
+
+  .profile-pic {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Extra small devices (very small phones) */
+@media screen and (max-width: 480px) {
+  .mobile-menu {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .mobile-menu-button button {
+    font-size: 18px;
+    padding: 4px;
+  }
+
+ 
+
+  .logo-header img {
+    max-height: 28px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.mobile-auth-link {
+  display: block;
+  font-size: 16px;
+  margin-top: 8px;
+  font-weight: 600;
+  text-align: left;
 }

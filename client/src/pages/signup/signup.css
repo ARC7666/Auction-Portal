@@ -352,3 +352,62 @@ select {
   opacity: 1;
   visibility: visible;
 }
+
+@media screen and (max-width: 900px) {
+  .loginBox {
+    flex-direction: column;
+    height: auto;
+    min-height: 90vh;
+    width: 100%;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 1.5rem 1rem;
+    margin-top: 50px;
+    margin-bottom: -30px;
+  }
+
+  .imageIllustration {
+    display: none;
+  }
+
+  .signupContent {
+    width: 100%;
+    padding: 0;
+    padding-top: 1rem;
+    align-items: center;
+  }
+
+  .titleText-signup {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .form {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .name-fields {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+
+
+  .divider {
+    margin-top: 1.2rem;
+  }
+
+  .loginLink {
+    text-align: center;
+  }
+
+  .backTheme {
+    padding: 0;
+    background-size: cover;
+    overflow-y: auto;
+  }
+
+}
