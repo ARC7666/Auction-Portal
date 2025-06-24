@@ -161,7 +161,7 @@ const handleRemovePhoto = async () => {
 
         {profileData.role === "seller" && (
           <div className="bank-details">
-            <h3>Bank Details</h3>
+            <h3>Your Bank Details</h3>
             <div className="field">
               <label>Account Number:</label>
               <input

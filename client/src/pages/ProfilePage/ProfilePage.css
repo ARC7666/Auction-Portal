@@ -75,13 +75,13 @@
 
 .profile-info h2 {
   margin-left: 60px;
-    margin-top: 40px;
+   margin-top: 40px;
   font-size: 1.8rem;
   color: #1f2937;
 }
 
 .profile-info p {
-    margin-left: 60px;
+margin-left: 60px;
   font-size: 1rem;
   color: #6b7280;
   margin-top: 4px;
@@ -176,4 +176,34 @@
 
 .save-btn:hover {
   background-color: #584bdf;
+}
+
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .profile-info {
+    align-items: center;
+    text-align: center;
+    padding: 0;
+  }
+
+  .profile-info h2 {
+    font-size: 1.5rem;
+    margin-left: -5px;
+  }
+
+  .profile-info p {
+    font-size: 13px;
+
+    margin-left: 15px;
+  }
+
+  .remove-photo-btn {
+    margin-left: 0;
+  }
 }

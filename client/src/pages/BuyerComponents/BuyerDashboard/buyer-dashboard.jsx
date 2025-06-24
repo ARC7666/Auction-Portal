@@ -89,6 +89,10 @@ function BuyerDashboard() {
   const filteredListings = listings.filter(listing => {
     const start = new Date(listing.startTime);
     const end = new Date(listing.endTime);
+    const ended12HoursAgo = new Date(end.getTime() + 12 * 60 * 60 * 1000);
+
+
+    if (now > ended12HoursAgo) return false;
     if (filter === 'all') return true;
     if (filter === 'live') return start <= now && now <= end;
     if (filter === 'past') return end < now;

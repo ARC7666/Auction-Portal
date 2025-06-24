@@ -17,6 +17,7 @@ const SellerLayout = ({ children }) => {
   const [showProfile, setShowProfile] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -48,6 +49,27 @@ const SellerLayout = ({ children }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setShowProfile(false);
+        }
+      };
+  
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+  
+    useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (!e.target.closest('.sidebar') && !e.target.closest('.hamburger-icon')) {
+        setSidebarOpen(false);
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, []);
+
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -60,34 +82,51 @@ const SellerLayout = ({ children }) => {
 
   return (
     <div className="seller-dashboard-layout">
-      <aside className="sidebar-seller">
-        <div className="logo">
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+        <div className="logo-seller">
           <Link to="/seller-dashboard">
-            <img src={logo} alt="Logo" />
+            <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
           </Link>
         </div>
-        <div className="dashboard-title-seller">
+
+        <div className="dashboard-title">
           <hr />
           <span>Seller Dashboard</span>
           <hr />
         </div>
+
         <nav className="nav-buttons-seller">
           <Link to="/create-auction">
-            <button className="nav-btn-seller"><Gavel className="nav-icon" /><span>Create Auction</span></button>
+            <button className="nav-btn-seller">
+              <Gavel className="nav-icon" />
+              <span>Create Auction</span>
+            </button>
           </Link>
+
           <Link to="/seller-dashboard-layout/seller-auctions">
-              <button className="nav-btn-seller">
-                <List className="nav-icon" />
-                  <span>View Listings</span>
-               </button>
-        </Link>
+            <button className="nav-btn-seller">
+              <List className="nav-icon" />
+              <span>View Listings</span>
+            </button>
+          </Link>
+
           <Link to="/seller-dashboard-layout/chat">
-            <button className="nav-btn-seller"><MessageSquare className="nav-icon" /><span>Chat</span></button>
+            <button className="nav-btn-seller">
+              <MessageSquare className="nav-icon" />
+              <span>Chat</span>
+            </button>
           </Link>
         </nav>
       </aside>
 
+
+
+
       <main className="dashboard-content-seller">
+        <div className="hamburger-icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
+           <List />
+        </div>
+
        {/* <div className="dashboard-topbar-seller">
           <div className="topbar-icons-seller" ref={dropdownRef}>
             <div className="profile-toggle-seller" onClick={() => setShowProfile(!showProfile)}>
