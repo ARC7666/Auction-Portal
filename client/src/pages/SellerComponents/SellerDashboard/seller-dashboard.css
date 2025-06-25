@@ -176,10 +176,12 @@ html, body {
   font-family: 'Poppins', sans-serif;
 }
 
-.profile-info {
+.profile-info-seller {
   border-bottom: 1px solid #e0e0e0;
   padding-bottom: 10px;
   margin-bottom: 10px;
+  margin-left: 10px;
+
 }
 
 .profile-name {
@@ -390,7 +392,7 @@ html, body {
 
 }
 
-/* Hide hamburger icon by default */
+
 .hamburger-icon {
   display: none;
   font-size: 50px;
@@ -400,12 +402,10 @@ html, body {
   margin-left: 1.5rem;
 }
 
-/* Sidebar default */
 .sidebar {
   transition: transform 0.3s ease-in-out;
 }
 
-/* Small screen: sidebar slides in/out */
 @media (max-width: 900px) {
   .hamburger-icon {
     display: block;

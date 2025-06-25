@@ -22,6 +22,10 @@ import MyBids from "./pages/BuyerComponents/MyBids/MyBids";
 import { ProductList } from "./components/ProductList/ProductList";
 import PaymentPage from "./pages/BuyerComponents/BuyerPayment/PaymentPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import AdminUsers from "./pages/AdminDashboard/users/AdminUsers";
+import AdminLogs from "./pages/AdminDashboard/logs/AdminLogs";
+//import AdminAuctions from "./pages/AdminDashboard/auctions/AdminAuctions";
+//import AdminReports from "./pages/AdminDashboard/reports/AdminReports";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -72,6 +76,10 @@ function App() {
         
         <Route path="/seller-analytics" element={<SellerAnalytics />} /> 
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-dashboard/logs" element={ <ProtectedRoute requiredRole="admin"><AdminLogs /></ProtectedRoute>} />
+        <Route path="/admin/users" element={<ProtectedRoute requiredRole="admin"><AdminUsers /></ProtectedRoute>} />
+      {/*  <Route path="/admin/auctions" element={<AdminAuctions />} />*?}
+      {/*  <Route path="/admin/reports" element={<AdminReports />} />*/}
         <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
     </Router>

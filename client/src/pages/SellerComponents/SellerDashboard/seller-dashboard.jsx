@@ -192,7 +192,7 @@ function SellerDashboard() {
               <img src={`https://ui-avatars.com/api/?name=${user?.name || "User"}`} alt="User Avatar" />
               {showProfile && (
                 <div className="profile-dropdown-seller">
-                  <div className="profile-info">
+                  <div className="profile-info-seller">
                     <p className="profile-name">{user?.name || "No Name"}</p>
                     <p className="profile-email">{user?.email}</p>
                   </div>

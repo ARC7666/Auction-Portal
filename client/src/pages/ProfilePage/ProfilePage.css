@@ -206,4 +206,15 @@ margin-left: 60px;
   .remove-photo-btn {
     margin-left: 0;
   }
+
+  .avatar-preview {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #6c63ff;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
 }
