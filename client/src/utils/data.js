@@ -7,26 +7,26 @@ export const menulists = [
 {
   id: 2,
   path: "#product-section",
-  link: "Product",
+  link: "Products",
 },
   {
     id: 3,
-    path: "/blog",
-    link: "Blog",
+    path: "#process",
+    link: "Process",
   },
   {
     id: 4,
-    path: "/about",
+    path: "#content-home",
     link: "about",
   },
   {
     id: 5,
-    path: "/services",
+    path: "#content-home",
     link: "Services",
   },
   {
     id: 6,
-    path: "/contact",
+    path: "#content-home",
     link: "Contact",
   },
 ];

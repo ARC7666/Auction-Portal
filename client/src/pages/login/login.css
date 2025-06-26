@@ -239,12 +239,12 @@
   .loginBoxd {
     flex-direction: column;
     height: auto;
-    min-height: 70vh;
+    min-height: 90vh;
     width: 100%;
     box-shadow: none;
     background-color: transparent;
     padding: 1.5rem 1rem;
-    margin-top: 150px;
+    margin-top: 80px;
   }
 
   .imageIllustration1 {

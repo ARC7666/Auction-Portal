@@ -96,11 +96,6 @@ export const Header = () => {
               <NavLink to="/signup" className={`join-btn ${!isHomePage || isScrolled ? "green" : "white"}`}>
                 Join
               </NavLink>
-              <NavLink to="/">
-                <div className="profile-pic">
-                  <img src={User1} alt="User" />
-                </div>
-              </NavLink>
             </div>
 
             <div className="mobile-menu-button">

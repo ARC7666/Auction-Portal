@@ -17,6 +17,9 @@ function AdminDashboard() {
  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [totalAuctions, setTotalAuctions] = useState(0);
+  const [verifiedSellerCount, setVerifiedSellerCount] = useState(0);
+
 
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -47,10 +50,11 @@ useEffect(() => {
     }
   });
 
+  document.body.style.overflowY = 'auto';
   return () => unsubscribe();
 }, []);
 
-
+//for total users
 useEffect(() => {
 const fetchUserStats = async () => {
   const snapshot = await getDocs(collection(db, "users"));
@@ -60,6 +64,28 @@ const fetchUserStats = async () => {
 fetchUserStats();
 }, []);
 
+//for total auctions
+useEffect(() => {
+const fetchUserStats = async () => {
+  const snapshot = await getDocs(collection(db, "auctions"));
+  setTotalAuctions(snapshot.size);
+};
+
+fetchUserStats();
+}, []);
+
+//for total verified seller
+useEffect(() => {
+  const fetchVerifiedSellers = async () => {
+    const snapshot = await getDocs(collection(db, "users"));
+    const verifiedSellers = snapshot.docs.filter(
+      doc => doc.data().role === "seller" && doc.data().isVerified === true
+    );
+    setVerifiedSellerCount(verifiedSellers.length);
+  };
+
+  fetchVerifiedSellers();
+}, []);
 
   if (loading) {
     return <LoaderScreen />;
@@ -104,14 +130,14 @@ fetchUserStats();
           <BarChart3 size={24} />
           <div>
             <h4>Active Auctions</h4>
-            <p>128</p>
+            <p>{totalAuctions}</p>
           </div>
         </div>
         <div className="kpi-card">
           <ShieldCheck size={24} />
           <div>
             <h4>Verified Sellers</h4>
-            <p>435</p>
+            <p>{verifiedSellerCount}</p>
           </div>
         </div>
         <div className="kpi-card">

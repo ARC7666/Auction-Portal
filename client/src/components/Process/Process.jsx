@@ -10,13 +10,13 @@ export const Process = () => {
       <section className="process">
         <div className="top-wave"></div>
 
-        <Container className="py-16 pt-24 text-white">
+        <Container >
           <Heading
                title={<span style={{ color: "white" }}>How It Works</span>}
                subtitle={<span style={{ color: "#d1d5db" }}>Easy 4 steps to win</span>}
         />
 
-          <div className="content">
+          <div className="content-home">
             {processList.map((item, index) => (
               <div key={index} className="card">
                 <img src={item.cover} alt="" />

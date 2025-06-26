@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, updateDoc, doc, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc, addDoc, serverTimestamp , deleteDoc } from "firebase/firestore";
 import { auth, db } from '../../../firebase/firebaseConfig';
 import Swal from 'sweetalert2';
 import "./AdminUsers.css";
@@ -23,67 +23,141 @@ useEffect(() => {
       setLoading(false);
     }
   };
-
+  document.body.style.overflowY = "scroll";
   fetchUsers();
 }, []);
 
 const handleToggleVerify = async (userId, current) => {
-  try {
-    // 1. Update the user's verification status
-    await updateDoc(doc(db, "users", userId), {
-      isVerified: !current
-    });
+  const action = current ? "Unverify" : "Verify";
 
-    // 2. Log the action into `adminLogs`
-    await addDoc(collection(db, "adminLogs"), {
-      userId,
-      type: "verify-toggle",
-      verified: !current,
-      performedBy: auth.currentUser.email, // the admin's email
-      timestamp: serverTimestamp()
-    });
+  const result = await Swal.fire({
+    title: `${action} User?`,
+    text: `Are you sure you want to ${action.toLowerCase()} this user?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#6c63ff",
+    cancelButtonColor: "#d33",
+    confirmButtonText: `Yes, ${action}`,
+  });
 
-    // 3. Update UI
-    setUsers((prev) =>
-      prev.map((u) => (u.id === userId ? { ...u, isVerified: !current } : u))
-    );
-  } catch (err) {
-    console.error("Failed to toggle verification or log:", err);
+  if (result.isConfirmed) {
+    try {
+      // Update Firestore user doc
+      await updateDoc(doc(db, "users", userId), {
+        isVerified: !current
+      });
+
+      // Log to adminLogs
+      await addDoc(collection(db, "adminLogs"), {
+        userId,
+        type: "verify-toggle",
+        verified: !current,
+        performedBy: auth.currentUser.email,
+        timestamp: serverTimestamp()
+      });
+
+      // Update UI state
+      setUsers((prev) =>
+        prev.map((u) => (u.id === userId ? { ...u, isVerified: !current } : u))
+      );
+
+      await Swal.fire({
+        icon: "success",
+        title: `User ${!current ? "verified" : "unverified"} successfully!`,
+        showConfirmButton: false,
+        timer: 1400
+      });
+
+    } catch (err) {
+      console.error("Failed to toggle verification or log:", err);
+      Swal.fire({
+        icon: "error",
+        title: "Action Failed",
+        text: "Could not update verification status.",
+      });
+    }
   }
 };
+
+const handleBanUser = async (userId, userName) => {
+  const result = await Swal.fire({
+    title: `Ban ${userName}?`,
+    text: "This will permanently remove the user account.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#6c63ff",
+    confirmButtonText: "Yes, Ban User",
+  });
+
+  if (result.isConfirmed) {
+    try {
+      await deleteDoc(doc(db, "users", userId));
+
+      await addDoc(collection(db, "adminLogs"), {
+        userId,
+        type: "ban-user",
+        performedBy: auth.currentUser.email,
+        timestamp: serverTimestamp()
+      });
+ 
+setUsers((prev) => prev.filter((u) => u.id !== userId));
+
+      await Swal.fire({
+        icon: "success",
+        title: `User ${userName} has been banned.`,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } catch (err) {
+      console.error("Failed to ban user:", err);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Could not delete user.",
+      });
+    }
+  }
+};
+
 
   const filteredUsers = users.filter((user) => {
     if (filter === "all") return true;
     return user.role === filter;
   }).filter(user =>
     user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email?.toLowerCase().includes(searchTerm.toLowerCase())
+    user.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.role?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="admin-users-page">
-      <div className="admin-users-header">
+    <div className="admin-users-page-admin">
+      <div className="admin-users-header-admin">
         <h2>Manage Users</h2>
-        <div className="admin-users-controls">
+       <ul>
+        <div className="admin-users-controls-admin">
           <input
             type="text"
             placeholder="Search by name or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-            <option value="all">All</option>
-            <option value="buyer">Buyers</option>
-            <option value="seller">Sellers</option>
-            <option value="admin">Admins</option>
-          </select>
-        </div>
-      </div>
+            <div className="admin-user-filter-controls">
+             <select className="admin-user-select" value={filter} onChange={(e) => setFilter(e.target.value)}>
+                <option value="all">All</option>
+                <option value="buyer">Buyers</option>
+                <option value="seller">Sellers</option>
+                <option value="admin">Admins</option>
+              </select>
+            </div>
+         </div>
+         </ul>
+     </div>
 
       {loading ? (
         <p>Loading users...</p>
       ) : (
-        <table className="admin-users-table">
+        <table className="admin-users-table-admin">
           <thead>
             <tr>
               <th>Name</th>
@@ -101,21 +175,34 @@ const handleToggleVerify = async (userId, current) => {
                 <td>{user.role}</td>
                 <td>{user.isVerified ? "✅" : "❌"}</td>
                 <td>
-                  {user.role === "seller" && (
-                    <button
-                      onClick={() => handleToggleVerify(user.id, user.isVerified)}
-                      className={`verify-btn ${user.isVerified ? "unverify" : "verify"}`}
-                    >
-                      {user.isVerified ? "Unverify" : "Verify"}
-                    </button>
-                  )}
+                    {user.role && (
+                      <div className="admin-action-btns">
+                        {user.role === "seller" && (
+                          <button
+                            onClick={() => handleToggleVerify(user.id, user.isVerified)}
+                            className={`verify-btn-admin ${user.isVerified ? "unverify" : "verify"}`}
+                          >
+                            {user.isVerified ? "Unverify" : "Verify"}
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleBanUser(user.id, user.name)}
+                          className="ban-btn-admin"
+                        >
+                          ban user
+                        </button>
+                       </div>
+                    )}
                 </td>
+                
               </tr>
             ))}
           </tbody>
         </table>
       )}
+
     </div>
+
   );
 }
 

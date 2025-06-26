@@ -19,17 +19,18 @@
 }
 
 .process .bottom-wave {
-  width: 100%;
-  background-color: white;
-  padding: 4rem 0;
+  width: 100.2%;
+  background: rgba(243, 243, 245);
+  padding: 64px 0;
   border-top-left-radius: 60px;
   border-top-right-radius: 60px;
   position: absolute;
   bottom: -5rem;
+  margin-left: -1px;
   z-index: 10;
 }
 
-.process .content {
+.process .content-home {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 2rem;
@@ -37,7 +38,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .process .content {
+  .process .content-home {
     grid-template-columns: repeat(4, 1fr);
   }
 }

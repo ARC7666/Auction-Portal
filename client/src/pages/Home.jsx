@@ -4,6 +4,7 @@ import Hero from "../components/Hero/Hero";
 import { CategorySlider } from "../components/CategorySlider/CategorySlider";
 import { ProductList } from "../components/ProductList/ProductList";
 import { Process } from "../components/Process/Process";
+import  Footer  from "../components/Footer/Footer";
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
@@ -35,8 +36,16 @@ function Home() {
       <CategorySlider />
       <section id="product-section">
          <ProductList />
-    </section>
-      <Process />
+      </section>
+
+      <section id="process">
+         <Process />
+      </section>
+
+      <section id="content-home">
+         <Footer />
+      </section>
+
     </div>
   );
 }

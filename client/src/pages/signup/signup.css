@@ -357,13 +357,13 @@ select {
   .loginBox {
     flex-direction: column;
     height: auto;
-    min-height: 90vh;
+    min-height: 95vh;
     width: 100%;
     box-shadow: none;
     background-color: transparent;
     padding: 1.5rem 1rem;
-    margin-top: 50px;
-    margin-bottom: -30px;
+    margin-top: 20px;
+    margin-bottom: 30px;
   }
 
   .imageIllustration {

@@ -55,8 +55,8 @@
   color: #d9363e;
 }
 .avatar-preview {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   border: 3px solid #6c63ff;
   object-fit: cover;
@@ -150,6 +150,7 @@ margin-left: 60px;
 /* Seller's Bank Details */
 .bank-details {
   margin-top: 2rem;
+  margin-left: 20px;
 }
 
 .bank-details h3 {
@@ -217,4 +218,33 @@ margin-left: 60px;
   transition: transform 0.2s;
 }
 
+}
+
+
+.edit-bank-btn {
+  margin-top: 12px;
+  padding: 10px 16px;
+  color: #6c63ff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  background: transparent;
+  margin-left: -10px;
+
+}
+
+.edit-bank-btn:hover {
+  text-decoration: underline;
+}
+
+.edit-bank-btn.cancel {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.edit-bank-btn.cancel:hover {
+  background-color: #fde68a;
 }
