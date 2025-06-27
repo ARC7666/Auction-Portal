@@ -167,4 +167,28 @@
     margin-left: 10px;
     margin-bottom: 10px;
   }
+
+  .footer-input {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  font-size: 13px;
+  outline: none;
+  flex-grow: 1;
+  color: black;
+  margin-right: -30px;
+}
+
+
+.footer-submit {
+  background-color: #4f46e5;
+  color: white;
+  padding: 8px 10px;
+  font-size: 13px;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
 }

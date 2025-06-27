@@ -38,7 +38,7 @@ const Hero = () => {
 
         <div className="hero-right">
           <div className="hero-circle-glow"></div>
-          <img src="../images/home/hero.webp" alt="Hero Visual" className="hero-img drop-in" />
+          <img src="../images/home/hero.webp" alt="image bg" className="hero-img drop-in" />
 
           <div className="floating-box box-top-left">
             <Box title="Quality Assured" desc="Secured Listings" />

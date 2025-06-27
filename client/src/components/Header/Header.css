@@ -262,7 +262,7 @@ html {
   }
 }
 
-/* Extra small devices (very small phones) */
+
 @media screen and (max-width: 480px) {
   .mobile-menu {
     font-size: 16px;

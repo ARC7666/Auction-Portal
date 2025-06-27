@@ -2,13 +2,25 @@ import { initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import { onDocumentUpdated , onDocumentCreated} from 'firebase-functions/v2/firestore';
 import { onSchedule } from 'firebase-functions/v2/scheduler'; 
-import { defineSecret } from 'firebase-functions/params';  // required if using secrets
+import { defineSecret } from 'firebase-functions/params';  
 import nodemailer from 'nodemailer';
+import { defineSecret } from 'firebase-functions/params';
+import Stripe from 'stripe';
 
 const gmailPass = defineSecret('GMAIL_PASS');
+const myPaymentApiKey = defineSecret('MY_PAYMENT_API_KEY');
 
 initializeApp();
 const db = getFirestore();
+
+// 🔒 Test secret use
+export const yourFunction = onRequest(
+  { secrets: [myPaymentApiKey] },
+  async (req, res) => {
+    const apiKey = myPaymentApiKey.value();
+    res.send(`✅ Secret accessed: ${apiKey.slice(0, 4)}...`);
+  }
+);
 
 export const sendAuctionWinEmail = onDocumentUpdated(
   {
