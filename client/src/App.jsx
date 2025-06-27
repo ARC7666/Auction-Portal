@@ -20,10 +20,11 @@ import Unauthorized from './components/Unauthorized';
 import ProtectedRoute from './components/ProtectedRoute'; 
 import MyBids from "./pages/BuyerComponents/MyBids/MyBids";
 import { ProductList } from "./components/ProductList/ProductList";
-import PaymentPage from "./pages/BuyerComponents/BuyerPayment/PaymentPage";
+//import PaymentPage from "./pages/BuyerComponents/BuyerPayment/PaymentPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import AdminUsers from "./pages/AdminDashboard/users/AdminUsers";
 import AdminLogs from "./pages/AdminDashboard/logs/AdminLogs";
+import PaymentSuccess from "./pages/BuyerComponents/BuyerPayment/PaymentSuccess";
 //import AdminAuctions from "./pages/AdminDashboard/auctions/AdminAuctions";
 //import AdminReports from "./pages/AdminDashboard/reports/AdminReports";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -48,7 +49,7 @@ function App() {
            <Route path="auction/:auctionId" element={<AuctionDetails />} />
            <Route path="profile" element={<ProfilePage />} /> 
          </Route>
-          <Route path="payment/:auctionId" element={<PaymentPage />} />
+          <Route path="/payment-success/:auctionId" element={<PaymentSuccess />} />
 
         {/* Protected seller route */}
         <Route

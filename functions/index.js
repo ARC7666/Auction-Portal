@@ -2,18 +2,21 @@ import { initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import { onDocumentUpdated , onDocumentCreated} from 'firebase-functions/v2/firestore';
 import { onSchedule } from 'firebase-functions/v2/scheduler'; 
+import { onRequest } from 'firebase-functions/v2/https';
 import { defineSecret } from 'firebase-functions/params';  
-import nodemailer from 'nodemailer';
-import { defineSecret } from 'firebase-functions/params';
+import cors from "cors";
 import Stripe from 'stripe';
+import nodemailer from 'nodemailer';
+
 
 const gmailPass = defineSecret('GMAIL_PASS');
 const myPaymentApiKey = defineSecret('MY_PAYMENT_API_KEY');
+const corsHandler = cors({ origin: true });
 
 initializeApp();
 const db = getFirestore();
 
-// 🔒 Test secret use
+//  Test secret use
 export const yourFunction = onRequest(
   { secrets: [myPaymentApiKey] },
   async (req, res) => {
@@ -21,6 +24,7 @@ export const yourFunction = onRequest(
     res.send(`✅ Secret accessed: ${apiKey.slice(0, 4)}...`);
   }
 );
+
 
 export const sendAuctionWinEmail = onDocumentUpdated(
   {
@@ -50,7 +54,7 @@ export const sendAuctionWinEmail = onDocumentUpdated(
           service: 'gmail',
           auth: {
             user: 'team.auctania@gmail.com',
-            pass: gmailPass.value(), // ✅ Access secret value here
+            pass: gmailPass.value(), 
           },
         });
 
@@ -201,6 +205,48 @@ export const notifyAdminsOnVerifyRequest = onDocumentCreated(
 
     await transporter.sendMail(mailOptions);
     console.log("✅ Email sent to admins: ", adminEmails);
+  }
+);
+
+
+export const createCheckoutSession = onRequest(
+  { secrets: [myPaymentApiKey] },
+  async (req, res) => {
+    return corsHandler(req, res, async () => {
+      const stripe = new Stripe(myPaymentApiKey.value(), { apiVersion: "2023-10-16" });
+
+      const { amount, auctionId, userId, userEmail, auctionTitle } = req.body;
+
+      if (!amount || !auctionId || !userId || !userEmail) {
+        return res.status(400).send({ error: "Missing required fields" });
+      }
+
+      try {
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ["card"],
+          mode: "payment",
+          customer_email: userEmail,
+          line_items: [
+            {
+              price_data: {
+                currency: "inr",
+                product_data: { name: `Auction: ${auctionTitle}` },
+                unit_amount: amount * 100,
+              },
+              quantity: 1,
+            },
+          ],
+          success_url: `https://auction-portal-in.web.app/payment-success/${auctionId}?uid=${userId}`,
+          cancel_url: `https://auction-portal-in.web.app/buyer-dashboard/my-bids`,
+          metadata: { auctionId, userId },
+        });
+
+        return res.status(200).send({ id: session.id });
+      } catch (err) {
+        console.error("Stripe session error:", err.message);
+        return res.status(500).send({ error: err.message });
+      }
+    });
   }
 );
 

@@ -3,38 +3,75 @@ import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from "../../../firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
 import "./MyBids.css";
 
 const MyBids = () => {
   const [userBids, setUserBids] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const stripePromise = loadStripe("pk_test_51RegLwRuwQBUbxUX0Cxwm5qV6X6BuIvOLssOUtf0Tnq5DatithtpTFlxWYRLS9mL3Iy75Mi7fJkrRqJHLWOKitF100MDenEND2");
 
-  useEffect(() => {
-    const fetchMyBids = async () => {
-      onAuthStateChanged(auth, async (user) => {
-        if (!user) return;
 
-        setCurrentUser(user);
-        const uid = user.uid;
-        const snapshot = await getDocs(collection(db, "auctions"));
-        const filtered = [];
+  const initiateStripePayment = async (item, user) => {
+  try {
+    const res = await fetch("https://us-central1-auction-portal-in.cloudfunctions.net/createCheckoutSession", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: item.currentBid,
+        auctionId: item.id,
+        userId: user.uid,
+        userEmail: user.email,
+        auctionTitle: item.title,
+      }),
+    });
 
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          const hasUserBid = data?.bids?.some((bid) => bid.userId === uid);
-          if (hasUserBid) {
-            filtered.push({ id: doc.id, ...data });
-          }
-        });
+    const data = await res.json();
+    if (data.id) {
+        const stripe = await stripePromise;
+        await stripe.redirectToCheckout({ sessionId: data.id });
+    } else {
+      alert("❌ Could not initiate payment session.");
+    }
+  } catch (err) {
+    console.error("❌ Stripe payment error:", err);
+    alert("Payment failed. Please try again.");
+  }
 
-        setUserBids(filtered);
-        setLoading(false);
-      });
-    };
+if (item.paymentStatus === "paid") {
+  return <p className="status paid">Paid ✅</p>;
+} 
 
-    fetchMyBids();
-  }, []);
+}; 
+
+
+
+useEffect(() => {
+  const fetchMyBids = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    setCurrentUser(user);
+    const uid = user.uid;
+
+    const snapshot = await getDocs(collection(db, "auctions"));
+    const filtered = [];
+
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      const hasUserBid = data?.bids?.some((bid) => bid.userId === uid);
+      if (hasUserBid) {
+        filtered.push({ id: doc.id, ...data });
+      }
+    });
+
+    setUserBids(filtered);
+    setLoading(false);
+  };
+
+  fetchMyBids();
+}, []); 
 
   return (
     <div className="my-bids-wrapper">
@@ -96,12 +133,17 @@ const MyBids = () => {
 
                 <div className="my-bid-cell">
                   <p className="label">Status</p>
-                  {isWinner ? (
+                    {item.paymentStatus === "paid" ? (
+                     <p className="status paid">Paid ✅</p>
+                    ) : isWinner ? (
                     <>
                       <p className="status won">Won</p>
-                      <Link to={`/payment/${item.id}`} className="payment-link">
-                         Make Payment →
-                         </Link>
+                      <button
+                        className="payment-link"
+                        onClick={() => initiateStripePayment(item, currentUser)}
+                       >
+                           Make Payment →
+                     </button>
                     </>
                   ) : (
                     <p className={`status ${status.toLowerCase().replace(" ", "-")}`}>{status}</p>
