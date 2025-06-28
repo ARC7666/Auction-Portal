@@ -1,7 +1,7 @@
 // SellerAnalytics.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SellerAnalytics.css'; 
+import './SellerAnalytics.css';
 
 function SellerAnalytics() {
   const navigate = useNavigate();
@@ -12,8 +12,8 @@ function SellerAnalytics() {
 
   return (
     <div className="analytics-karlo">
-      <img 
-        src="https://img.freepik.com/free-vector/flat-construction-template_23-2147745724.jpg" 
+      <img
+        src="https://img.freepik.com/free-vector/flat-construction-template_23-2147745724.jpg"
         alt="Coming Soon"
         className="analytics-image"
       />

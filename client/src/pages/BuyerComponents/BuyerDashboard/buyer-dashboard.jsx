@@ -27,31 +27,31 @@ function BuyerDashboard() {
     setFilter(type);
   };
 
- useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const role = docSnap.data().role;
+        if (docSnap.exists()) {
+          const role = docSnap.data().role;
 
-        if (role !== "buyer") {
-          navigate("/unauthorized", { replace: true });
+          if (role !== "buyer") {
+            navigate("/unauthorized", { replace: true });
+          } else {
+            setUser(user);
+            setLoading(false);
+          }
         } else {
-          setUser(user);
-          setLoading(false);
+          navigate("/unauthorized", { replace: true });
         }
       } else {
-        navigate("/unauthorized", { replace: true });
+        navigate("/", { replace: true });
       }
-    } else {
-      navigate("/", { replace: true });
-    }
-  });
+    });
 
-  return () => unsubscribe();
-}, [navigate]);
+    return () => unsubscribe();
+  }, [navigate]);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -72,17 +72,17 @@ function BuyerDashboard() {
 
 
   useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (filterRef.current && !filterRef.current.contains(event.target)) {
-      setShowDropdown(false);
-    }
-  };
+    const handleClickOutside = (event) => {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
 
   const now = new Date();
@@ -102,60 +102,60 @@ function BuyerDashboard() {
 
 
 
-return (
+  return (
 
-  <>
-  <main>
-   <div><h2 className="my-bids-heading">Explore Bids</h2>
-    <div className="filter-container" ref={filterRef}>
-      <button className="filter-toggle" onClick={toggleDropdown}>
-        ☰ Filter
-      </button>
-     {showDropdown && (
-     <div className="filter-dropdown">
-       <button onClick={() => applyFilter("all")}>
-        <ListFilter size={16} style={{ marginRight: '8px' }} />
-        Show All Auctions
-       </button>
-       <button onClick={() => applyFilter("live")}>
-        <Radio size={16} style={{ marginRight: '8px' }} />
-         Live Now
-       </button>
-       <button onClick={() => applyFilter("past")}>
-        <Archive size={16} style={{ marginRight: '8px' }} />
-        Closed Auctions
-       </button>
-       <button onClick={() => applyFilter("future")}>
-        <Clock size={16} style={{ marginRight: '8px' }} />
-        Upcoming 
-        </button>
-    </div>
-   
- 
-  )}
-  </div>
-</div>
+    <>
+      <main>
+        <div><h2 className="my-bids-heading">Explore Bids</h2>
+          <div className="filter-container" ref={filterRef}>
+            <button className="filter-toggle" onClick={toggleDropdown}>
+              ☰ Filter
+            </button>
+            {showDropdown && (
+              <div className="filter-dropdown">
+                <button onClick={() => applyFilter("all")}>
+                  <ListFilter size={16} style={{ marginRight: '8px' }} />
+                  Show All Auctions
+                </button>
+                <button onClick={() => applyFilter("live")}>
+                  <Radio size={16} style={{ marginRight: '8px' }} />
+                  Live Now
+                </button>
+                <button onClick={() => applyFilter("past")}>
+                  <Archive size={16} style={{ marginRight: '8px' }} />
+                  Closed Auctions
+                </button>
+                <button onClick={() => applyFilter("future")}>
+                  <Clock size={16} style={{ marginRight: '8px' }} />
+                  Upcoming
+                </button>
+              </div>
 
-    {loading ? (
-      <p>Loading auctions...</p>
-    ) : filteredListings.length === 0 ? (
-      <p className="no-auctions">No auctions found.</p>
-    ) : (
-      <div className="auction-grid-buyer">
-        {filteredListings.map((listing, index) => (
-         <div
-              key={listing.id}
-              className="animated-card-buyer"
-               style={{ animationDelay: `${index * 100}ms` }}
-          >
-         <ListingCard listing={listing} />
+
+            )}
           </div>
-        ))}
-      </div>
-    )}
-  </main>
-</>
-);
+        </div>
+
+        {loading ? (
+          <p>Loading auctions...</p>
+        ) : filteredListings.length === 0 ? (
+          <p className="no-auctions">No auctions found.</p>
+        ) : (
+          <div className="auction-grid-buyer">
+            {filteredListings.map((listing, index) => (
+              <div
+                key={listing.id}
+                className="animated-card-buyer"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <ListingCard listing={listing} />
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+    </>
+  );
 }
 
 

@@ -17,7 +17,7 @@ const SellerLayout = ({ children }) => {
   const [showProfile, setShowProfile] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -49,18 +49,18 @@ const SellerLayout = ({ children }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setShowProfile(false);
-        }
-      };
-  
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-  
-    useEffect(() => {
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowProfile(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
     const handleOutsideClick = (e) => {
       if (!e.target.closest('.sidebar') && !e.target.closest('.hamburger-icon')) {
         setSidebarOpen(false);
@@ -124,10 +124,10 @@ const SellerLayout = ({ children }) => {
 
       <main className="dashboard-content-seller">
         <div className="hamburger-icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
-           <List />
+          <List />
         </div>
 
-       {/* <div className="dashboard-topbar-seller">
+        {/* <div className="dashboard-topbar-seller">
           <div className="topbar-icons-seller" ref={dropdownRef}>
             <div className="profile-toggle-seller" onClick={() => setShowProfile(!showProfile)}>
               <img src={`https://ui-avatars.com/api/?name=${user?.name}`} alt="User Avatar" />
@@ -145,7 +145,7 @@ const SellerLayout = ({ children }) => {
             </div>
           </div>
         </div>*/}
-         <Outlet />
+        <Outlet />
       </main>
     </div>
   );

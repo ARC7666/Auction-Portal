@@ -17,6 +17,7 @@ import {
   deleteObject
 } from "firebase/storage";
 import Swal from "sweetalert2";
+import ReminderCalendar from "../../components/ReminderCalendar/ReminderCalendar";
 import "./ProfilePage.css";
 
 function ProfilePage() {
@@ -89,37 +90,37 @@ function ProfilePage() {
     }
   };
 
-const requestVerification = async () => {
-  if (requestingVerification || !user) return;
+  const requestVerification = async () => {
+    if (requestingVerification || !user) return;
 
-  setRequestingVerification(true); // ✅ prevent repeated clicks
+    setRequestingVerification(true); 
 
-  try {
-    await addDoc(collection(db, "adminLogs"), {
-      type: "verify-request",
-      userId: user.uid,
-      performedBy: user.email,
-      timestamp: serverTimestamp(),
-    });
+    try {
+      await addDoc(collection(db, "adminLogs"), {
+        type: "verify-request",
+        userId: user.uid,
+        performedBy: user.email,
+        timestamp: serverTimestamp(),
+      });
 
-    await Swal.fire({
-      icon: "info",
-      title: "Request Sent",
-      text: "Your verification request has been submitted to the admin.",
-      timer: 2500,
-      showConfirmButton: false
-    });
-  } catch (err) {
-    console.error("Failed to request verification:", err);
-    Swal.fire({
-      icon: "error",
-      title: "Failed",
-      text: "Could not send verification request."
-    });
-  } finally {
-    setRequestingVerification(false);
-  }
-};
+      await Swal.fire({
+        icon: "info",
+        title: "Request Sent",
+        text: "Your verification request has been submitted to the admin.",
+        timer: 2500,
+        showConfirmButton: false
+      });
+    } catch (err) {
+      console.error("Failed to request verification:", err);
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: "Could not send verification request."
+      });
+    } finally {
+      setRequestingVerification(false);
+    }
+  };
 
   const saveChanges = async () => {
     if (!user) return;
@@ -180,24 +181,24 @@ const requestVerification = async () => {
 
             {profileData.role === "seller" && (
               <p
-  style={{
-    marginTop: "8px",
-    fontWeight: 500,
-    color: profileData.isVerified ? "green" : requestingVerification ? "gray" : "red",
-    cursor: profileData.isVerified || requestingVerification ? "default" : "pointer"
-  }}
-  onClick={() =>
-    !profileData.isVerified &&
-    !requestingVerification &&
-    requestVerification()
-  }
->
-  {profileData.isVerified
-    ? "✅ Verified Seller"
-    : requestingVerification
-      ? "⏳ Sending Verification Request..."
-      : "⚠️ Not Verified (Click to Request)"}
-</p>
+                style={{
+                  marginTop: "8px",
+                  fontWeight: 500,
+                  color: profileData.isVerified ? "green" : requestingVerification ? "gray" : "red",
+                  cursor: profileData.isVerified || requestingVerification ? "default" : "pointer"
+                }}
+                onClick={() =>
+                  !profileData.isVerified &&
+                  !requestingVerification &&
+                  requestVerification()
+                }
+              >
+                {profileData.isVerified
+                  ? "✅ Verified Seller"
+                  : requestingVerification
+                    ? "⏳ Sending Verification Request..."
+                    : "⚠️ Not Verified (Click to Request)"}
+              </p>
             )}
           </div>
         </div>
@@ -278,11 +279,11 @@ const requestVerification = async () => {
               </>
             )}
             <button
-             onClick={() => setEditing((prev) => ({ ...prev, bank: !prev.bank }))}
-             className={`edit-bank-btn ${editing.bank ? "cancel" : ""}`}
+              onClick={() => setEditing((prev) => ({ ...prev, bank: !prev.bank }))}
+              className={`edit-bank-btn ${editing.bank ? "cancel" : ""}`}
             >
-                  {editing.bank ? "Cancel" : "Edit Bank Details"}
-             </button>
+              {editing.bank ? "Cancel" : "Edit Bank Details"}
+            </button>
           </div>
         )}
 

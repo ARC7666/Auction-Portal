@@ -33,7 +33,7 @@ const SellerChatDashboard = ({ user }) => {
         <p>No auctions found where you are seller.</p>
       ) : (
         auctions.map(auction => (
-          <div key={auction.id} style={{border: '1px solid #ddd', margin: '10px', padding: '10px'}}>
+          <div key={auction.id} style={{ border: '1px solid #ddd', margin: '10px', padding: '10px' }}>
             <h3>{auction.title || "Untitled Auction"}</h3>
             <button onClick={() => navigate(`/chat/${auction.id}`)}>Open Chat</button>
           </div>

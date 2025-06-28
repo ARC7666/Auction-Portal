@@ -1,0 +1,63 @@
+.calendar-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar {
+  width: 100%;
+  height: 110%;
+  border: none;
+  font-family: 'Arial', sans-serif;
+}
+
+.react-calendar__tile {
+  position: relative;
+  padding: 10px 6px;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+.react-calendar__tile--now {
+  background: #e0e0e0;
+  font-weight: bold;
+}
+
+.react-calendar__tile--active {
+  background: #6c63ff !important;
+  color: white;
+}
+
+.reminder-date::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #6c63ff;
+  border-radius: 50%;
+}
+
+.events-list {
+  margin-top: 1.5rem;
+  padding-left: 1rem;
+}
+
+.events-list h4 {
+  margin-bottom: 0.5rem;
+}
+
+.events-list ul {
+  list-style-type: disc;
+  padding-left: 1rem;
+}
+
+.events-list li {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: #333;
+}

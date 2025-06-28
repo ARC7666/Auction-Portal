@@ -124,7 +124,7 @@ function EditAuction() {
         </div>
       )}
       <div className="dashboard-content-3">
-        
+
         <div className="form-wrapper">
           <h2 style={{ fontSize: 35 }}>Edit Auction</h2>
           <form onSubmit={handleSubmit} className="auction-form">

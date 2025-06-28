@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import { auth, provider, db } from '../../firebase/firebaseConfig';
 import { createUserWithEmailAndPassword, updateProfile, signInWithPopup } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './signup.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import image1 from '../../assets/images/image1.jpg';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { motion } from "framer-motion";
 
 function Signup() {
@@ -31,7 +31,7 @@ function Signup() {
         if (role === "buyer") navigate("/buyer-dashboard", { replace: true });
         else if (role === "seller") navigate("/seller-dashboard", { replace: true });
         else if (role === "admin") navigate("/admin-dashboard", { replace: true });
-  
+
       }
     });
 
@@ -41,13 +41,13 @@ function Signup() {
   function redirectToDashboard(userRole) {
     switch (userRole) {
       case 'admin':
-        navigate('/admin-dashboard',{ replace: true });
+        navigate('/admin-dashboard', { replace: true });
         break;
       case 'seller':
-        navigate('/seller-dashboard',{ replace: true });
+        navigate('/seller-dashboard', { replace: true });
         break;
       default:
-        navigate('/buyer-dashboard',{ replace: true });
+        navigate('/buyer-dashboard', { replace: true });
         break;
     }
   }
@@ -96,32 +96,32 @@ function Signup() {
       });
   }
 
-function handleGoogleContinue(e) {
-  e.preventDefault(); // 🛑 Prevent page reload on button click
+  function handleGoogleContinue(e) {
+    e.preventDefault(); // 🛑 Prevent page reload on button click
 
-  if (googleUser === null) return;
+    if (googleUser === null) return;
 
-  const userDoc = doc(db, 'users', googleUser.uid);
+    const userDoc = doc(db, 'users', googleUser.uid);
 
-  getDoc(userDoc).then((snapshot) => {
-    if (!snapshot.exists()) {
-      let nameToSave = firstName || googleUser.displayName || googleUser.email.split('@')[0];
-      if (firstName && lastName) nameToSave = `${firstName} ${lastName}`;
+    getDoc(userDoc).then((snapshot) => {
+      if (!snapshot.exists()) {
+        let nameToSave = firstName || googleUser.displayName || googleUser.email.split('@')[0];
+        if (firstName && lastName) nameToSave = `${firstName} ${lastName}`;
 
-      setDoc(userDoc, {
-        name: nameToSave,
-        email: googleUser.email,
-        role: role,
-        createdAt: new Date()
-      }).then(() => {
-        redirectToDashboard(role);
-      });
-    } else {
-      const userRole = snapshot.data().role || 'buyer';
-      redirectToDashboard(userRole);
-    }
-  });
-}
+        setDoc(userDoc, {
+          name: nameToSave,
+          email: googleUser.email,
+          role: role,
+          createdAt: new Date()
+        }).then(() => {
+          redirectToDashboard(role);
+        });
+      } else {
+        const userRole = snapshot.data().role || 'buyer';
+        redirectToDashboard(userRole);
+      }
+    });
+  }
 
   return (
     <div className="backTheme">

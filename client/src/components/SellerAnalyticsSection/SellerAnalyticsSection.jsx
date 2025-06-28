@@ -16,8 +16,8 @@ function SellerAnalyticsSection() {
   const [conversionRate, setConversionRate] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const q = query(collection(db, 'auctions'), where('sellerId', '==', auth.currentUser.uid));
+    const fetchData = async (user) => {
+      const q = query(collection(db, 'auctions'), where('sellerId', '==', user.uid));
       const snapshot = await getDocs(q);
       const docs = snapshot.docs.map(doc => doc.data());
 
@@ -28,50 +28,55 @@ function SellerAnalyticsSection() {
       let totalSales = 0;
       let allViews = 0;
 
-      const currentMonth = new Date().getMonth(); 
+      const currentMonth = new Date().getMonth();
       for (let i = 3; i >= 0; i--) {
         const monthIndex = (currentMonth - i + 12) % 12;
         const label = new Date(0, monthIndex).toLocaleString('default', { month: 'short' });
         monthly[label] = 0;
       }
 
-docs.forEach(doc => {
-  const status = doc.status?.toLowerCase();
+      docs.forEach(doc => {
+        const status = doc.status?.toLowerCase();
 
-  if (status === 'sold') {
-    soldCount++;
-    totalSales += parseFloat(doc.currentBid) || 0;
-  } else {
-    unsoldCount++;
-  }
+        if (doc.paymentStatus === 'paid') {
+          soldCount++;
+          totalSales += parseFloat(doc.currentBid) || 0;
+        } else {
+          unsoldCount++;
+        }
 
-  const month = new Date(doc.createdAt?.toDate?.() || Date.now()).toLocaleString('default', { month: 'short' });
-  if (monthly.hasOwnProperty(month)) {
-    monthly[month]++;
-  }
+        const month = new Date(doc.createdAt?.toDate?.() || Date.now()).toLocaleString('default', { month: 'short' });
+        if (monthly.hasOwnProperty(month)) {
+          monthly[month]++;
+        }
 
-if (doc.bids?.length) {
-  bidStats.push({ title: doc.title, count: doc.bids.length });
-}
+        if (doc.bids?.length) {
+          bidStats.push({ title: doc.title, count: doc.bids.length });
+        }
 
-  if (doc.views) {
-    allViews += doc.views;
-  }
-});
+        if (doc.views) {
+          allViews += doc.views;
+        }
+      });
 
-const totalListed = soldCount + unsoldCount;
-setSold(soldCount);
-setUnsold(unsoldCount);
-setMonthlyStats(monthly);
-setTopBids(bidStats.sort((a, b) => b.count - a.count).slice(0, 5));
-setTotalRevenue(totalSales);
-setAvgPrice(soldCount > 0 ? (totalSales / soldCount).toFixed(2) : 0);
-setConversionRate(totalListed > 0 ? ((soldCount / totalListed) * 100).toFixed(2) : 0);
+      const totalListed = soldCount + unsoldCount;
+      setSold(soldCount);
+      setUnsold(unsoldCount);
+      setMonthlyStats(monthly);
+      setTopBids(bidStats.sort((a, b) => b.count - a.count).slice(0, 5));
+      setTotalRevenue(totalSales);
+      setAvgPrice(soldCount > 0 ? (totalSales / soldCount).toFixed(2) : 0);
+      setConversionRate(totalListed > 0 ? ((soldCount / totalListed) * 100).toFixed(2) : 0);
     };
 
-    fetchData();
-  }, []);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        fetchData(user);
+      }
+    });
 
+    return () => unsubscribe();
+  }, []);
   return (
     <div className="analytics-container">
       <h2>Your Analytics</h2>

@@ -48,7 +48,7 @@ function SellerAuctions() {
         confirmButton: 'custom-swal-confirm',
         cancelButton: 'custom-swal-cancel'
       },
-      buttonsStyling: false 
+      buttonsStyling: false
     });
 
     if (!result.isConfirmed) return;
@@ -83,61 +83,61 @@ function SellerAuctions() {
       ) : auctions.length === 0 ? (
         <p className="seller-auctions-empty">No listings yet.</p>
       ) : (
-      <div className="auction-grid">
-     {auctions.map((auction , index) => (
-         <div
-            className="auction-card-modern animated-card-seller"
-           key={auction.id}
-           style={{ animationDelay: `${index * 100}ms` }}
-        >
-         <img
-           src={auction.media?.[0] || "/placeholder.jpg"}
-           alt={auction.title}
-           className="auction-image"
-         />
+        <div className="auction-grid">
+          {auctions.map((auction, index) => (
+            <div
+              className="auction-card-modern animated-card-seller"
+              key={auction.id}
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <img
+                src={auction.media?.[0] || "/placeholder.jpg"}
+                alt={auction.title}
+                className="auction-image"
+              />
 
-         <div className="auction-info">
-           <div className="auction-header">
-             <h3 className="auction-title">{auction.title}</h3>
-             <button
-               className="desc-toggle-btn"
-               onClick={() => setAuctions(prev =>
-                 prev.map(a =>
-                   a.id === auction.id ? { ...a, showDesc: !a.showDesc } : a
-                 )
-               )}
-             >
-               {auction.showDesc ? "Hide Details ▲" : "Show Details ▼"}
-             </button>
-           </div>
-   
-           {auction.showDesc && (
-             <p className="auction-description">{auction.description}</p>
-           )}
+              <div className="auction-info">
+                <div className="auction-header">
+                  <h3 className="auction-title">{auction.title}</h3>
+                  <button
+                    className="desc-toggle-btn"
+                    onClick={() => setAuctions(prev =>
+                      prev.map(a =>
+                        a.id === auction.id ? { ...a, showDesc: !a.showDesc } : a
+                      )
+                    )}
+                  >
+                    {auction.showDesc ? "Hide Details ▲" : "Show Details ▼"}
+                  </button>
+                </div>
 
-        <div className="auction-details-grid">
-          <p><strong>Start Price:</strong> ₹{auction.startPrice}</p>
-          <p><strong>Current Bid:</strong> ₹{auction.currentBid || "--"}</p>
-          <p><strong>Status:</strong> {auction.status}</p>
+                {auction.showDesc && (
+                  <p className="auction-description">{auction.description}</p>
+                )}
+
+                <div className="auction-details-grid">
+                  <p><strong>Start Price:</strong> ₹{auction.startPrice}</p>
+                  <p><strong>Current Bid:</strong> ₹{auction.currentBid || "--"}</p>
+                  <p><strong>Status:</strong> {auction.status}</p>
+                </div>
+
+                <div className="auction-actions">
+                  <button onClick={() => handleDelete(auction.id)} className="delete-btn">❌ Delete</button>
+                </div>
+
+                {auction.status !== 'live' && (
+                  <div className="auction-actions">
+                    <Link to={`/seller-dashboard-layout/edit-auction/${auction.id}`} className='edit-link' >✏️ ‎‎ ‎    Edit</Link>
+                    <button onClick={() => handleDelete(auction.id)} className="delete-btn">❌ Delete</button>
+                  </div>
+
+
+                )}
+              </div>
+            </div>
+
+          ))}
         </div>
-
-         <div className="auction-actions">
-            <button onClick={() => handleDelete(auction.id)} className="delete-btn">❌ Delete</button>
-          </div>
-
-        {auction.status !== 'live' && (
-          <div className="auction-actions">
-            <Link to={`/seller-dashboard-layout/edit-auction/${auction.id}`} className='edit-link' >✏️ ‎‎ ‎    Edit</Link>
-            <button onClick={() => handleDelete(auction.id)} className="delete-btn">❌ Delete</button>
-          </div>
-
-   
-        )}
-      </div>
-    </div>
-    
-  ))}
-</div>
       )}
     </div>
   );

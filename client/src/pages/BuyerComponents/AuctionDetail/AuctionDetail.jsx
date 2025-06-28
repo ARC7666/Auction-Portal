@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db , auth } from '../../../firebase/firebaseConfig';
+import { db, auth } from '../../../firebase/firebaseConfig';
 import { arrayUnion } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { MessageSquare, Gavel, Radio, Settings, User, LogOut, BellRing } from "lucide-react";
@@ -53,36 +53,36 @@ const AuctionDetails = () => {
     return () => clearInterval(interval);
   }, [auction]);
 
-const handleBid = async () => {
-  const user = auth.currentUser;
-  if (!user) return;
+  const handleBid = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
 
-  if (bidAmount && parseFloat(bidAmount) > auction.currentBid) {
-    const bidData = {
-      userId: user.uid,
-      amount: parseFloat(bidAmount),
-      timestamp: new Date().toISOString(),
-    };
+    if (bidAmount && parseFloat(bidAmount) > auction.currentBid) {
+      const bidData = {
+        userId: user.uid,
+        amount: parseFloat(bidAmount),
+        timestamp: new Date().toISOString(),
+      };
 
-    const docRef = doc(db, 'auctions', auction.id);
+      const docRef = doc(db, 'auctions', auction.id);
 
-    await updateDoc(docRef, {
-      currentBid: bidData.amount,
-      bids: arrayUnion(bidData)  
-    });
+      await updateDoc(docRef, {
+        currentBid: bidData.amount,
+        bids: arrayUnion(bidData)
+      });
 
-  
-    setAuction(prev => ({
-      ...prev,
-      currentBid: bidData.amount,
-      bids: [...(prev.bids || []), bidData]
-    }));
 
-    setBidAmount('');
+      setAuction(prev => ({
+        ...prev,
+        currentBid: bidData.amount,
+        bids: [...(prev.bids || []), bidData]
+      }));
 
-        setBidSuccess(true);
-        setTimeout(() => setBidSuccess(false), 1500);
-}
+      setBidAmount('');
+
+      setBidSuccess(true);
+      setTimeout(() => setBidSuccess(false), 1500);
+    }
   };
 
   const handleNextImage = () => {
@@ -109,54 +109,54 @@ const handleBid = async () => {
     <div className="auction-detail-page">
       <div className="auction-detail-container">
         <div className="auction-gallery">
-  {auction.media && auction.media.length > 0 ? (
-    <div className="carousel-wrapper">
-      {auction.media.map((img, index) => (
-        <img
-          key={index}
-          src={img}
-          alt={`Auction ${index}`}
-          className={`auction-main-img ${index === currentImage ? 'visible' : 'hidden'}`}
-        />
-      ))}
+          {auction.media && auction.media.length > 0 ? (
+            <div className="carousel-wrapper">
+              {auction.media.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`Auction ${index}`}
+                  className={`auction-main-img ${index === currentImage ? 'visible' : 'hidden'}`}
+                />
+              ))}
 
-      <button
-        className="carousel-btn left"
-        onClick={handlePrevImage}
-        disabled={currentImage === 0}
-      >
-        ◀
-      </button>
-      <button
-        className="carousel-btn right"
-        onClick={handleNextImage}
-        disabled={currentImage === auction.media.length - 1}
-      >
-        ▶
-      </button>
+              <button
+                className="carousel-btn left"
+                onClick={handlePrevImage}
+                disabled={currentImage === 0}
+              >
+                ◀
+              </button>
+              <button
+                className="carousel-btn right"
+                onClick={handleNextImage}
+                disabled={currentImage === auction.media.length - 1}
+              >
+                ▶
+              </button>
 
-      <div className="dot-container">
-        {auction.media.map((_, index) => (
-          <span
-            key={index}
-            className={`dot ${index === currentImage ? 'active' : ''}`}
-            onClick={() => setCurrentImage(index)}
-          />
-        ))}
-      </div>
-    </div>
-  ) : (
-    <div style={{ textAlign: 'center', color: '#777' }}>
-      <p>No images available</p>
-    </div>
-  )}
-</div>
+              <div className="dot-container">
+                {auction.media.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`dot ${index === currentImage ? 'active' : ''}`}
+                    onClick={() => setCurrentImage(index)}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', color: '#777' }}>
+              <p>No images available</p>
+            </div>
+          )}
+        </div>
 
         <div className="auction-details">
           <h2>{auction.title}</h2>
           <p className="auction-description">{auction.description}</p>
 
-             {bidSuccess && <div className="bid-success-msg">✅ Your bid was placed!</div>}
+          {bidSuccess && <div className="bid-success-msg">✅ Your bid was placed!</div>}
 
           {status === 'live' && (
             <div className="bidding-section">
@@ -172,13 +172,13 @@ const handleBid = async () => {
               <button onClick={handleBid} className="bid-now-btn">Bid Now</button>
             </div>
           )}
-         
 
-         <Link to={`/buyer-dashboard/chat/${auction.id}`}>
-           <button className="chat-btn-buyer"><MessageSquare className="nav-icon" /><span>Chat</span></button>
+
+          <Link to={`/buyer-dashboard/chat/${auction.id}`}>
+            <button className="chat-btn-buyer"><MessageSquare className="nav-icon" /><span>Chat</span></button>
           </Link>
 
-   
+
 
           {status === 'notStarted' && (
             <button className="bid-status-btn" disabled>Not Started</button>

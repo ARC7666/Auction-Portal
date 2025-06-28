@@ -1,5 +1,5 @@
 // SellerDashboard.jsx (Updated with dynamic KPIs)
-import React, { useEffect, useState , useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from '../../../firebase/firebaseConfig';
@@ -99,14 +99,14 @@ function SellerDashboard() {
   }, []);
 
   useEffect(() => {
-  const handleOutsideClick = (e) => {
-    if (!e.target.closest('.sidebar') && !e.target.closest('.hamburger-icon')) {
-      setSidebarOpen(false);
-    }
-  };
-  document.addEventListener('click', handleOutsideClick);
-  return () => document.removeEventListener('click', handleOutsideClick);
-}, []);
+    const handleOutsideClick = (e) => {
+      if (!e.target.closest('.sidebar') && !e.target.closest('.hamburger-icon')) {
+        setSidebarOpen(false);
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, []);
 
   const handleLogout = () => {
     signOut(auth)
@@ -175,13 +175,13 @@ function SellerDashboard() {
       <main className="dashboard-content">
         <div className="dashboard-topbar">
 
-    <div className="hamburger-icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
-         <List />
-          <div className="welcome-section-mobile">
-            <h2>Hey {user?.name},</h2>
-            <p>Welcome back to Auctania — your auction HQ </p>
+          <div className="hamburger-icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
+            <List />
+            <div className="welcome-section-mobile">
+              <h2>Hey {user?.name},</h2>
+              <p>Welcome back to Auctania — your auction HQ </p>
+            </div>
           </div>
-    </div>
           <div className="welcome-section">
             <h2>Hey {user?.name},</h2>
             <p>Welcome back to Auctania — your auction HQ </p>
@@ -198,9 +198,9 @@ function SellerDashboard() {
                   </div>
                   <button className="dropdown-btn"><Settings size={16} /> Settings</button>
                   <Link to="/seller-dashboard-layout/profile">
-                        <button className="dropdown-btn">
-                           <User size={16} /> Profile
-                         </button>
+                    <button className="dropdown-btn">
+                      <User size={16} /> Profile
+                    </button>
                   </Link>
                   <button className="dropdown-btn" onClick={handleLogout}><LogOut size={16} /> Sign Out</button>
                 </div>
@@ -233,7 +233,7 @@ function SellerDashboard() {
           </div>
         </div>
 
-<SellerAnalyticsSection />
+        <SellerAnalyticsSection />
       </main>
     </div>
   );

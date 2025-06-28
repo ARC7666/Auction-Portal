@@ -22,6 +22,7 @@ import MyBids from "./pages/BuyerComponents/MyBids/MyBids";
 import { ProductList } from "./components/ProductList/ProductList";
 //import PaymentPage from "./pages/BuyerComponents/BuyerPayment/PaymentPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import CalenderPage from "./pages/Calender/CalenderPage";
 import AdminUsers from "./pages/AdminDashboard/users/AdminUsers";
 import AdminLogs from "./pages/AdminDashboard/logs/AdminLogs";
 import PaymentSuccess from "./pages/BuyerComponents/BuyerPayment/PaymentSuccess";
@@ -48,7 +49,8 @@ function App() {
             <Route path="live-auctions" element={<LiveAuctions />} />  
            <Route path="auction/:auctionId" element={<AuctionDetails />} />
            <Route path="profile" element={<ProfilePage />} /> 
-         </Route>
+           <Route path="calender" element={<CalenderPage/>} />
+          </Route>
           <Route path="/payment-success/:auctionId" element={<PaymentSuccess />} />
 
         {/* Protected seller route */}
