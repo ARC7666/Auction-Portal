@@ -75,7 +75,7 @@ useEffect(() => {
 
   return (
     <div className="my-bids-wrapper">
-      <h2 className="my-bids-heading">Your Bids</h2>
+     
 
       {loading ? (
         <p className="my-bids-loading">Loading your bids...</p>

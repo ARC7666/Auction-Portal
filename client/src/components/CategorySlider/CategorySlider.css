@@ -308,6 +308,133 @@
   
 }
 
+@media screen and (min-width: 1900px) and (max-width: 1920px) {
+  .iphone-shell {
+    width: 1900px;
+    height: 850px;
+  }
+
+  .iphone-frame-img {
+    width: 37%;
+  }
+   .iphone-screen-content {
+    width: 64%;
+    height: 72%;
+    top: 13%;
+    left: 20%;
+  }
+  
+}
+
+
+@media screen and (min-width: 1500px) and (max-width: 1600px) {
+  .iphone-shell {
+    width: 1900px;
+    height: 850px;
+  }
+
+  .iphone-frame-img {
+    width: 37%;
+  }
+   .iphone-screen-content {
+    width: 64%;
+    height: 65%;
+    top: 17%;
+    left: 20%;
+  }
+  
+}
+
+@media screen and (min-width: 1600px) and (max-width: 1700px) {
+  .iphone-shell {
+    width: 1900px;
+    height: 850px;
+  }
+
+  .iphone-frame-img {
+    width: 37%;
+  }
+   .iphone-screen-content {
+    width: 64%;
+    height: 65%;
+    top: 17%;
+    left: 20%;
+  }
+  
+}
+
+@media screen and (min-width: 1700px) and (max-width: 1800px) {
+  .iphone-shell {
+    width: 1900px;
+    height: 850px;
+  }
+
+  .iphone-frame-img {
+    width: 37%;
+  }
+   .iphone-screen-content {
+    width: 64%;
+    height: 68%;
+    top: 15%;
+    left: 20%;
+  }
+  
+}
+
+@media screen and (min-width: 1800px) and (max-width: 1900px) {
+  .iphone-shell {
+    width: 1900px;
+    height: 850px;
+  }
+
+  .iphone-frame-img {
+    width: 37%;
+  }
+   .iphone-screen-content {
+    width: 64%;
+    height: 72%;
+    top: 13%;
+    left: 20%;
+  }
+  
+}
+
+
+@media screen and (min-width: 1900px) and (max-width: 2000px) {
+  .iphone-shell {
+    width: 1900px;
+    height: 850px;
+  }
+
+  .iphone-frame-img {
+    width: 37%;
+  }
+   .iphone-screen-content {
+    width: 64%;
+    height: 72%;
+    top: 13%;
+    left: 20%;
+  }
+  
+}
+
+@media screen and (min-width: 2000px) and (max-width: 2100px) {
+  .iphone-shell {
+    width: 1900px;
+    height: 850px;
+  }
+
+  .iphone-frame-img {
+    width: 37%;
+  }
+   .iphone-screen-content {
+    width: 64%;
+    height: 72%;
+    top: 13%;
+    left: 20%;
+  }
+  
+}
 
 
 /* For Tablets (iPads) */

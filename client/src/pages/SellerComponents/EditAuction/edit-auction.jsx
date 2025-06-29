@@ -39,6 +39,7 @@ function EditAuction() {
           const start = new Date(data.startTime);
           setStartTime(start);
           setIsEditable(now < start);
+          category: data.category || "Others";
         } else {
           alert('Auction not found');
           navigate('/');
@@ -88,6 +89,7 @@ function EditAuction() {
         endTime: end.toISOString(),
         media: mediaURLs,
         duration: auction.duration,
+        category: auction.category,
         updatedAt: serverTimestamp(),
       });
       navigate('/seller-dashboard-layout/seller-auctions');
@@ -136,7 +138,21 @@ function EditAuction() {
 
             <input type="number" placeholder="Start Price" value={auction.startPrice}
               onChange={(e) => setAuction({ ...auction, startPrice: e.target.value })} required />
-
+            <select
+              value={auction.category}
+              onChange={(e) => setAuction({ ...auction, category: e.target.value })}
+              required
+              className="auction-category-dropdown"
+            >
+              <option value="">Select Category</option>
+              <option value="Vehicle">Vehicle</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Luxury">Luxury</option>
+              <option value="Antique">Antique</option>
+              <option value="Jewellery">Jewellery</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Others">Others</option>
+            </select>
             <DatePicker
               selected={startTime}
               onChange={(date) => setStartTime(date)}

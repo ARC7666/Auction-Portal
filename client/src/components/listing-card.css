@@ -193,3 +193,9 @@
   opacity: 1;
 
 }
+
+.listing-image:hover {
+  transform: scale(1.06);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.14);
+  transition: all 0.3s ease;
+}

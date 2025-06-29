@@ -8,7 +8,7 @@ import { auth, db } from '../../../firebase/firebaseConfig';
 import { doc, getDoc } from "firebase/firestore";
 import ListingCard from '../../../components/ListingCard';
 import './buyer-dashboard.css';
-import { ListFilter, Radio, Archive, Clock } from 'lucide-react';
+import { ListFilter, Radio, Archive, Clock, Car, Laptop, Gem, Crown, Watch, Shirt, Package, Menu } from 'lucide-react';
 
 
 function BuyerDashboard() {
@@ -20,6 +20,9 @@ function BuyerDashboard() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const filterRef = useRef(null);
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+  const categoryRef = useRef(null);
 
   const toggleDropdown = () => setShowDropdown(!showDropdown);
   const applyFilter = (type) => {
@@ -84,6 +87,19 @@ function BuyerDashboard() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClickOutsideCategory = (event) => {
+      if (categoryRef.current && !categoryRef.current.contains(event.target)) {
+        setShowCategoryDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutsideCategory);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideCategory);
+    };
+  }, []);
+
 
   const now = new Date();
   const filteredListings = listings.filter(listing => {
@@ -91,48 +107,104 @@ function BuyerDashboard() {
     const end = new Date(listing.endTime);
     const ended12HoursAgo = new Date(end.getTime() + 12 * 60 * 60 * 1000);
 
+    if (new Date() > ended12HoursAgo) return false;
 
-    if (now > ended12HoursAgo) return false;
-    if (filter === 'all') return true;
-    if (filter === 'live') return start <= now && now <= end;
-    if (filter === 'past') return end < now;
-    if (filter === 'future') return start > now;
-    return true;
+    const matchesTime =
+      filter === 'all' ||
+      (filter === 'live' && start <= now && now <= end) ||
+      (filter === 'past' && end < now) ||
+      (filter === 'future' && start > now);
+
+    const matchesCategory =
+      categoryFilter === 'all' || listing.category?.toLowerCase() === categoryFilter;
+
+    return matchesTime && matchesCategory;
   });
 
 
+  const categoryIcons = {
+    all: Menu,
+    vehicle: Car,
+    electronics: Laptop,
+    luxury: Crown,
+    antique: Watch,
+    jewellery: Gem,
+    lifestyle: Shirt,
+    others: Package
+  };
 
   return (
 
     <>
       <main>
         <div><h2 className="my-bids-heading">Explore Bids</h2>
-          <div className="filter-container" ref={filterRef}>
-            <button className="filter-toggle" onClick={toggleDropdown}>
-              ☰ Filter
-            </button>
-            {showDropdown && (
-              <div className="filter-dropdown">
-                <button onClick={() => applyFilter("all")}>
-                  <ListFilter size={16} style={{ marginRight: '8px' }} />
-                  Show All Auctions
-                </button>
-                <button onClick={() => applyFilter("live")}>
-                  <Radio size={16} style={{ marginRight: '8px' }} />
-                  Live Now
-                </button>
-                <button onClick={() => applyFilter("past")}>
-                  <Archive size={16} style={{ marginRight: '8px' }} />
-                  Closed Auctions
-                </button>
-                <button onClick={() => applyFilter("future")}>
-                  <Clock size={16} style={{ marginRight: '8px' }} />
-                  Upcoming
-                </button>
-              </div>
+          <div className="filter-container-wrapper">
+            <div className="filter-block" ref={filterRef}>
+              <button className="filter-toggle" onClick={toggleDropdown}>
+                ☰ Filter
+              </button>
+              {showDropdown && (
+                <div className="filter-dropdown">
+                  <button
+                    className={filter === "all" ? "active-option" : ""}
+                    onClick={() => applyFilter("all")}
+                  >
+                    <ListFilter size={16} style={{ marginRight: '8px' }} />
+                    Show All Auctions
+                  </button>
+                  <button
+                    className={filter === "live" ? "active-option" : ""}
+                    onClick={() => applyFilter("live")}
+                  >
+                    <Radio size={16} style={{ marginRight: '8px' }} />
+                    Live Now
+                  </button>
+                  <button
+                    className={filter === "future" ? "active-option" : ""}
+                    onClick={() => applyFilter("future")}
+                  >
+                    <Clock size={16} style={{ marginRight: '8px' }} />
+                    Upcoming
+                  </button>
+                  <button
+                    className={filter === "past" ? "active-option" : ""}
+                    onClick={() => applyFilter("past")}
+                  >
+                    <Archive size={16} style={{ marginRight: '8px' }} />
+                    Closed Auctions
+                  </button>
 
+                </div>
+              )}
+            </div>
 
-            )}
+            <div className="filter-block" ref={categoryRef}>
+              <button className="filter-toggle" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
+                🗂 Category
+              </button>
+              {showCategoryDropdown && (
+                <div className="filter-dropdown">
+                  {["all", "Vehicle", "Electronics", "Luxury", "Antique", "Jewellery", "Lifestyle", "Others"].map(cat => {
+                    const lowerCat = cat.toLowerCase();
+                    const IconComponent = categoryIcons[lowerCat];
+
+                    return (
+                      <button
+                        key={cat}
+                        className={categoryFilter === lowerCat ? "active-option" : ""}
+                        onClick={() => {
+                          setCategoryFilter(lowerCat);
+                          setShowCategoryDropdown(false);
+                        }}
+                      >
+                        {IconComponent && <IconComponent size={16} style={{ marginRight: '8px' }} />}
+                        {cat}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

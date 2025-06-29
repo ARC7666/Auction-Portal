@@ -10,6 +10,13 @@ body {
 
 }
 
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -144,4 +151,12 @@ body::-webkit-scrollbar-track {
 .react-datepicker__time-list::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, #6a63d8, #8274c8);
   border-radius: 4px;
+}
+
+iframe[name^="__privateStripeMetricsController"] {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
 }

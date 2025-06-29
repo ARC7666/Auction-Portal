@@ -28,7 +28,7 @@ function CreateAuction() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [requestingVerification, setRequestingVerification] = useState(false);
-
+  const [category, setCategory] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -129,6 +129,7 @@ function CreateAuction() {
       await addDoc(collection(db, 'auctions'), { //iska matlab hai Add a new document to the ‘auctions’ collection
         title,
         description,
+        category,
         media: mediaURLs, // ye firebase storage sai download url mila .[remember cloudinary use krne sai ye chnage karna hai]
         startPrice: parseFloat(startPrice.replace(/[^\d.]/g, "")), //parse is converting string data ( jo hum enter karenge) to numbers which is to be stored in database
         currentBid: parseFloat(startPrice.replace(/[^\d.]/g, "")),
@@ -268,6 +269,29 @@ function CreateAuction() {
             onChange={(e) => setStartPrice(e.target.value)}
             required
           />
+          <select
+           className="auction-category-select-cretae"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+            style={{
+              padding: "10px",
+              marginBottom: "1rem",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              fontSize: "16px",
+              color: category ? "#000" : "#777"
+            }}
+          >
+            <option value="" disabled hidden>Select Category</option>
+            <option value="Vehicle">Vehicle</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Luxury">Luxury</option>
+            <option value="Antique">Antique</option>
+            <option value="Jewellery">Jewellery</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Others">Others</option>
+          </select>
 
           <DatePicker
             selected={startTime}

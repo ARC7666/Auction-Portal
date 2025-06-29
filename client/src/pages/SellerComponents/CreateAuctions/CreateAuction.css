@@ -23,6 +23,7 @@ html, body {
   background-attachment: fixed;
   background-size: cover;
 
+
 }
 
 .sidebar1 {
@@ -129,7 +130,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 30px;
+  margin-top: -10px;
 }
 
 
@@ -151,7 +152,8 @@ html, body {
 
 .auction-form input,
 .auction-form textarea,
-.custom-datepicker {
+.custom-datepicker,
+.auction-category-select-cretae {
   padding: 14px 20px;
   border: none;
   border-radius: 12px;
@@ -186,12 +188,16 @@ html, body {
   box-shadow: 0 0 5px #4a91e200;
 }
 
+.custom-datepicker {
+  margin-top: -20px;
+}
 .auction-form input:hover,
 .auction-form textarea:hover,
-.custom-datepicker:hover {
+.custom-datepicker:hover
+.auction-category-select-cretae:hover {
   outline: none;
   border: 1.5px solid rgb(176, 153, 208);
-    background-color: rgb(247, 245, 255);
+  background-color: rgb(247, 245, 255);
   box-shadow: 0 0 5px #4a91e200;
 }
 
@@ -252,4 +258,27 @@ input[type="file"]::-webkit-file-upload-button:hover {
   background: rgb(134, 133, 133) !important;
   height: 6px !important;
   border-radius: 3px;
+}
+
+.auction-category-select-cretae {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  font-size: 16px;
+  color: #00000000;
+  background-color: #ffffff27;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.auction-category-select:invalid {
+  color: #777;
+}
+
+.auction-category-select option {
+  color: #000000a4;
 }

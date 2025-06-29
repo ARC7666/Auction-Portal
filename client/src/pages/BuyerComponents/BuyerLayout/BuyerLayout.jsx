@@ -199,7 +199,7 @@ function BuyerLayout() {
                   <p className="profile-name-buyer">{user?.name || "No Name"}</p>
                   <p className="profile-email-buyer">{user?.email}</p>
                 </div>
-                <button className="dropdown-btn"><Settings size={16} /> Settings</button>
+               {/*<button className="dropdown-btn"><Settings size={16} /> Settings</button>*/}
                 <Link to="/buyer-dashboard/profile">
                   <button className="dropdown-btn">
                     <User size={16} /> Profile
