@@ -219,6 +219,8 @@ input::placeholder {
   margin-top: 12px;
   margin-bottom: 8px;
   transition: all 0.2s ease-in-out;
+  width: 30%;
+  margin-bottom: 0px;
 }
 
 .chat-btn-buyer:hover {
@@ -242,5 +244,95 @@ input::placeholder {
   to {
     opacity: 0;
     transform: translateY(-10px);
+  }
+}
+
+
+@media screen and (max-width: 1024px) {
+  .auction-detail-container {
+    flex-direction: column;
+    max-width: 95%;
+  }
+
+  .auction-gallery {
+    order: 1;
+    padding: 1rem;
+  }
+
+  .carousel-wrapper {
+    height: 300px;
+  }
+
+  .auction-details {
+    order: 2;
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .auction-detail-container {
+    max-width: 98%;
+    border-radius: 12px;
+  }
+
+  .carousel-wrapper {
+    height: 250px;
+  }
+
+  .auction-main-img {
+    object-fit: cover;
+  }
+
+  .auction-details {
+    padding: 1rem;
+  }
+
+  .auction-title {
+    font-size: 1.4rem;
+  }
+
+  .auction-description {
+    font-size: 0.95rem;
+  }
+
+  .bid-now-btn,
+  .bid-status-btn,
+  .chat-btn-buyer {
+    width: 50%;
+    font-size: 0.95rem;
+  }
+
+  .bid-input {
+    font-size: 0.95rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .carousel-wrapper {
+    height: 200px;
+  }
+
+  .auction-title {
+    font-size: 1.2rem;
+  }
+
+  .auction-description {
+    font-size: 0.9rem;
+  }
+
+  .current-bid,
+  .countdown {
+    font-size: 0.9rem;
+  }
+
+  .bid-input {
+    font-size: 0.9rem;
+  }
+
+  .bid-now-btn,
+  .bid-status-btn,
+  .chat-btn-buyer {
+    font-size: 0.9rem;
+    padding: 8px 12px;
   }
 }

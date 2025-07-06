@@ -8,7 +8,7 @@ import { auth, db } from '../../../firebase/firebaseConfig';
 import { doc, getDoc } from "firebase/firestore";
 import ListingCard from '../../../components/ListingCard';
 import './buyer-dashboard.css';
-import { ListFilter, Radio, Archive, Clock, Car, Laptop, Gem, Crown, Watch, Shirt, Package, Menu } from 'lucide-react';
+import { ListFilter, Radio, Archive, Clock, Car, Laptop, Gem, Crown, Watch, Shirt, Package, Menu , Paintbrush, Home} from 'lucide-react';
 
 
 function BuyerDashboard() {
@@ -87,6 +87,19 @@ function BuyerDashboard() {
     };
   }, []);
 
+
+  useEffect(() => {
+  window.history.pushState(null, "", window.location.href);
+  const handlePopState = () => {
+    window.history.pushState(null, "", window.location.href);
+  };
+  window.addEventListener("popstate", handlePopState);
+
+  return () => {
+    window.removeEventListener("popstate", handlePopState);
+  };
+}, []);
+
   useEffect(() => {
     const handleClickOutsideCategory = (event) => {
       if (categoryRef.current && !categoryRef.current.contains(event.target)) {
@@ -130,6 +143,8 @@ function BuyerDashboard() {
     antique: Watch,
     jewellery: Gem,
     lifestyle: Shirt,
+    painting: Paintbrush,
+    realestate: Home,
     others: Package
   };
 
@@ -184,7 +199,7 @@ function BuyerDashboard() {
               </button>
               {showCategoryDropdown && (
                 <div className="filter-dropdown">
-                  {["all", "Vehicle", "Electronics", "Luxury", "Antique", "Jewellery", "Lifestyle", "Others"].map(cat => {
+                  {["all", "Vehicle", "Electronics", "Luxury", "Antique", "Jewellery", "Lifestyle", "Painting" , "RealEstate", "Others"].map(cat => {
                     const lowerCat = cat.toLowerCase();
                     const IconComponent = categoryIcons[lowerCat];
 

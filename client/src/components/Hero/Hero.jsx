@@ -2,13 +2,16 @@ import React from "react";
 import "./Hero.css";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { CiCirclePlus } from "react-icons/ci";
-
+import { useNavigate } from "react-router-dom";
 export const User1 = "https://cdn-icons-png.flaticon.com/128/6997/6997662.png";
 export const User2 = "https://cdn-icons-png.flaticon.com/128/236/236832.png";
 export const User3 = "https://cdn-icons-png.flaticon.com/128/236/236831.png";
 export const User4 = "https://cdn-icons-png.flaticon.com/128/1154/1154448.png";
 
+
 const Hero = () => {
+
+   const navigate = useNavigate(); 
   return (
     <section className="hero-section">
       <div className="hero-container">
@@ -34,18 +37,20 @@ const Hero = () => {
               <p>Categories</p>
             </div>
           </div>
+
         </div>
+
 
         <div className="hero-right">
           <div className="hero-circle-glow"></div>
-          <img src="../images/home/hero.webp" alt="image bg" className="hero-img drop-in" />
+
 
           <div className="floating-box box-top-left">
             <Box title="Quality Assured" desc="Secured Listings" />
           </div>
 
           <div className="floating-box box-bottom-right">
-            <Box title="Safe and Secure" desc="Trusted by 58M users" />
+            <Box title="Safe and Secure" desc="Trusted by 58k+ users" />
           </div>
 
           <div className="client-box vert-move">
@@ -72,7 +77,7 @@ const Box = ({ title, desc }) => {
   return (
     <div className="info-box">
       <div className="info-icon">
-        <AiOutlineSafetyCertificate size={27} />
+        <AiOutlineSafetyCertificate size={30} color="#1f2937" />
       </div>
       <div>
         <h4>{title}</h4>

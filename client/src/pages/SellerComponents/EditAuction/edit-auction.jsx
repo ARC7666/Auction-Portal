@@ -151,6 +151,8 @@ function EditAuction() {
               <option value="Antique">Antique</option>
               <option value="Jewellery">Jewellery</option>
               <option value="Lifestyle">Lifestyle</option>
+               <option value="Painting">Painting</option>
+            <option value="RealEstate">Real Estate</option>
               <option value="Others">Others</option>
             </select>
             <DatePicker

@@ -27,10 +27,10 @@ function SellerChats() {
 
   return (
     <div className="dashboard-content">
-      <h2 className="chat-heading">Messages for Your Listings</h2>
       {listings.length === 0 ? (
         <p className="seller-chat-msg">No auctions found.</p>
       ) : (
+       <div className="my-bids-table-scroll">
         <div className="seller-chat-table">
           <div className="seller-chat-header">
             <span>Thumbnail</span>
@@ -78,6 +78,7 @@ function SellerChats() {
             </div>
 
           ))}
+        </div>
         </div>
       )}
     </div>

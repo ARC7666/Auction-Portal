@@ -235,6 +235,21 @@
   margin-top: 10px;
 }
 
+.loginLink2 {
+  margin-bottom: -7px;
+  color: rgba(43, 38, 55, 0.586);
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.loginLink23 {
+  margin-bottom: -7px;
+  color: rgba(43, 38, 55, 0.586);
+  font-size: 16px;
+  margin-left: 35px;
+  margin-top: 15px;
+}
+
 @media screen and (max-width: 768px) {
   .loginBoxd {
     flex-direction: column;

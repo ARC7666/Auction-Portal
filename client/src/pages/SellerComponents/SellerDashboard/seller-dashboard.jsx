@@ -88,6 +88,18 @@ function SellerDashboard() {
   };
 
   useEffect(() => {
+    window.history.pushState(null, "", window.location.href);
+    const handlePopState = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowProfile(false);
@@ -196,7 +208,6 @@ function SellerDashboard() {
                     <p className="profile-name">{user?.name || "No Name"}</p>
                     <p className="profile-email">{user?.email}</p>
                   </div>
-                  <button className="dropdown-btn"><Settings size={16} /> Settings</button>
                   <Link to="/seller-dashboard-layout/profile">
                     <button className="dropdown-btn">
                       <User size={16} /> Profile

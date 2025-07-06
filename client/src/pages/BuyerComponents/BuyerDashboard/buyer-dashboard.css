@@ -75,15 +75,19 @@ html, body {
 
 .auction-grid-buyer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, max-content));
-
-  margin-right: 15px;
-  gap:1.5rem;
-  margin-left: 15px;
-  justify-content: start;  
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
   padding: 2rem;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+ position: relative;
+  z-index: 1;
+  /* ADD THIS 👇 */
+  align-items: start;
 }
-
 
 .card .status-badge {
   position: absolute;
@@ -209,3 +213,4 @@ html, body {
     gap: 1.5rem;
   }
 }
+

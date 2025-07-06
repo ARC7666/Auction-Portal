@@ -23,13 +23,13 @@ html, body {
   width: 100%;
   max-width: 800px;
   background-color: #f0f0f0;
-  border-radius: 8px;
+  border-radius: 0 0 12px 12px;
   overflow: hidden;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.406);
 }
 
 .chat-heading {
-  background-color: #075e54;
+  background-color: #075e54 ;
   color: white;
   padding: 1rem 1.5rem;
   font-size: 1.1rem;
@@ -148,16 +148,16 @@ html, body {
 }
 
 .messages::-webkit-scrollbar {
-  width: 4px; /* scrollbar ki width */
+  width: 4px; 
 }
 
 .messages::-webkit-scrollbar-track {
-  background: #f1f1f100; /* track color */
+  background: #f1f1f100; 
   border-radius: 8px;
 }
 
 .messages::-webkit-scrollbar-thumb {
-  background: #88888827; /* scrollbar thumb */
+  background: #88888827; 
   border-radius: 8px;
   transition: background 0.3s ease;
 }
@@ -168,7 +168,7 @@ html, body {
 
 
 .messages::-webkit-scrollbar-thumb:hover {
-  background: #555; /* hover effect on thumb */
+  background: #555; 
 }
 
 .messages {

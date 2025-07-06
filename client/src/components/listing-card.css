@@ -27,16 +27,21 @@
 }
 
 .listing-card {
-  position: relative;
-  background: rgb(255, 255, 255);
+  background: white;
   border-radius: 16px;
   border: 5px solid white;
   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.045);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
+  height: 100%; 
+  min-height: 420px;
+   position: relative;
+  z-index: 1;
+  overflow: hidden;
+    justify-content: space-between;
 }
+
 
 .listing-card:hover {
   transform: translateY(0px);
@@ -44,10 +49,12 @@
 
 .listing-image {
   width: 100%;
-  height: 28vh;
+  height: 180px;
   object-fit: cover;
+position: relative;
+z-index: 0;
+border-radius: 8px 8px 0 0;
 }
-
 .listing-details {
   padding: 16px;
   flex-grow: 1;
@@ -60,6 +67,9 @@
   font-weight: 700;
   font-size: 1.1rem;
   color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .listing-card-divider-up {
@@ -136,22 +146,24 @@
 }
 
 .listing-details p.desc {
-  margin: 4px 0 8px 0;
+  margin: 4px 0 4px 0;
   font-size: 0.95rem;
   color: #444;
 }
 
 .listing-details p.countdown {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-top: 2px;
+  margin-bottom: 4px;  /* reduced from 10px */
+  line-height: 1.2;
 }
 
 .card-actions {
+  margin-top: auto;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-top: 0.5rem;
+  align-items: center;
 }
 
 .calendar-icon svg {
@@ -199,3 +211,129 @@
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.14);
   transition: all 0.3s ease;
 }
+
+@media screen and (max-width: 600px) {
+  .listing-card {
+    border-radius: 12px;
+    padding: 0;
+    font-size: 0.85rem;
+  }
+
+  .listing-details {
+    padding: 12px;
+  }
+
+  .listing-details h3 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .listing-details .desc {
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+
+  .desc-toggle-btn {
+    font-size: 0.8rem;
+    padding: 4px 0;
+  }
+
+  .listing-details .desc-content {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .bid-now {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    margin-bottom: -14px;
+  }
+
+  .calendar-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .tooltip-text {
+    font-size: 10px;
+    padding: 4px 6px;
+    margin-left: -16px;
+  }
+
+  .listing-image {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .card-actions {
+    margin-top: 0.3rem;
+  }
+
+  .listing-details .desc {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+
+
+}
+
+.desc-popover-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+z-index: 1000;
+}
+
+.desc-toggle-btn {
+  background: none;
+  border: none;
+  color: #6C63FF;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.desc-icon {
+  font-size: 0.8rem;
+}
+
+.desc-popover-float {
+  font-family: 'Inter', 'Poppins', 'Segoe UI', sans-serif; /* Match your app font */
+  font-size: 0.88rem;
+  color: #333;
+  line-height: 1.5;
+  background-color: #fff;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  max-width: 320px;
+  word-wrap: break-word;
+  z-index: 9999;
+}
+
+.desc-popover-float p {
+  margin: 0;
+  font-weight: 400;
+  text-align: left;
+}
+
+.desc-arrow {
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #fff;
+  filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.05));
+}
+

@@ -7,8 +7,9 @@
   min-height: calc(95vh - 70px); 
   display: flex;
   align-items: center; 
-  
+  margin-top: -10px;
 }
+
 
 
 .hero-container {
@@ -64,13 +65,13 @@
 }
 
 .box-top-left {
-  top: 4rem;
-  left: 0;
+  top: -1rem;
+  left: 18rem;
 }
 
 .box-bottom-right {
-  bottom: 6rem;
-  right: 0;
+  bottom: 2.4rem;
+  right: 18rem;
 }
 
 .client-box {
@@ -80,7 +81,8 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-left: 1rem;
+  margin-left: 6rem;
+  margin-top: 40px;
   width: 60%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -115,43 +117,6 @@
 
 .add-profile {
   background: #d1fae5;
-}
-
-.search-form {
-  margin-top: 1rem;
-}
-
-.search-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.search-icon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.search-input {
-  width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
-  border-radius: 999px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-}
-
-.search-btn {
-  position: absolute;
-  right: 10px;
-  bottom: 6px;
-  padding: 0.5rem 1rem;
-  background: #4f46e5;
-  color: white;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
 }
 
 .info-box {
@@ -231,17 +196,6 @@
 }
 
 
-.hero-circle-glow {
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent 70%);
-  position: absolute;
-  top: -40px;
-  left: -40px;
-  z-index: 0;
-  filter: blur(20px);
-}
 
 
 @keyframes dropIn {
@@ -324,7 +278,7 @@
   }
 
   .floating-box {
-    display: none; /* Hide floating cards on mobile/tablet to avoid layout break */
+    display: none;
   }
 }
 

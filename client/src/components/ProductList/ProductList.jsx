@@ -33,9 +33,6 @@ const ProductCard = ({ item }) => {
         
         <div className="product-card-top">
           <div className="product-badge-row">
-            <Caption className={`product-badge ${item?.isSoldout ? "badge-red" : "badge-green"}`}>
-              {item?.isSoldout ? "Sold Out" : "On Stock"}
-            </Caption>
           </div>
         </div>
       </div>
@@ -65,7 +62,7 @@ const ProductCard = ({ item }) => {
 
         <div className="product-card-actions">
           <button className="product-btn" onClick={() => navigate("/signup")}>Place Bid</button>
-          <button className="product-btn-icon">
+          <button className="product-btn-icon" onClick={() => navigate("/signup")}>
             <MdOutlineFavorite className="favorite-icon" size={20} />
           </button>
         </div>

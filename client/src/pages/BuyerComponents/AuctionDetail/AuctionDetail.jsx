@@ -4,8 +4,9 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../../../firebase/firebaseConfig';
 import { arrayUnion } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import { MessageSquare, Gavel, Radio, Settings, User, LogOut, BellRing } from "lucide-react";
+import { MessageSquare, Share2, Gavel, Radio, Settings, User, LogOut, BellRing } from "lucide-react";
 import './AuctionDetail.css';
+import { useNavigate } from 'react-router-dom';
 import LoaderScreen from '../../../components/LoaderScreen';
 
 const AuctionDetails = () => {
@@ -16,6 +17,7 @@ const AuctionDetails = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [timeLeft, setTimeLeft] = useState(null);
   const [bidSuccess, setBidSuccess] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAuction = async () => {
@@ -55,7 +57,10 @@ const AuctionDetails = () => {
 
   const handleBid = async () => {
     const user = auth.currentUser;
-    if (!user) return;
+    if (!user) {
+      navigate(`/login?redirect=/buyer-dashboard/auction/${auction.id}`);
+      return;
+    }
 
     if (bidAmount && parseFloat(bidAmount) > auction.currentBid) {
       const bidData = {
@@ -96,6 +101,45 @@ const AuctionDetails = () => {
       setCurrentImage(currentImage - 1);
     }
   };
+
+
+const shareAuction = async () => {
+  const url = `${window.location.origin}/buyer-dashboard/auction/${auction.id}`;
+
+  // Native share support (for mobile or modern browsers)
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: auction.title || "Auctania Auction",
+        text: "Check out this auction on Auctania!",
+        url,
+      });
+    } catch (error) {
+      console.error("Share failed:", error);
+    }
+  } else {
+    // Desktop fallback: copy link to clipboard
+    try {
+      await navigator.clipboard.writeText(url);
+      
+      // SweetAlert confirmation for user feedback
+      import('sweetalert2').then(Swal => {
+        Swal.default.fire({
+          icon: 'success',
+          title: 'Link copied!',
+          text: 'Paste it anywhere to share.',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+        });
+      });
+
+    } catch (err) {
+      console.error("Clipboard copy failed:", err);
+      alert("Copy failed. Please copy manually.");
+    }
+  }
+};
 
   const now = new Date();
   const start = new Date(auction?.startTime);
@@ -174,10 +218,27 @@ const AuctionDetails = () => {
           )}
 
 
-          <Link to={`/buyer-dashboard/chat/${auction.id}`}>
-            <button className="chat-btn-buyer"><MessageSquare className="nav-icon" /><span>Chat</span></button>
-          </Link>
-
+          <button
+            className="chat-btn-buyer"
+            onClick={() => {
+              const user = auth.currentUser;
+              if (!user) {
+                navigate(`/login?redirect=/buyer-dashboard/auction/${auction.id}`);
+              } else {
+                navigate(`/buyer-dashboard/chat/${auction.id}`);
+              }
+            }}
+          >
+            <MessageSquare className="nav-icon" />
+            <span>Chat</span>
+          </button>
+          <button
+            className="chat-btn-buyer"
+            onClick={shareAuction}
+          >
+            <Share2 className="nav-icon" />
+            <span>Share</span>
+          </button>
 
 
           {status === 'notStarted' && (
