@@ -13,8 +13,8 @@ const PaymentSuccess = () => {
 
   useEffect(() => {
     const markAsPaid = async () => {
-      console.log("🔍 auctionId:", auctionId);
-      console.log("🔍 uid:", uid);
+      console.log("auctionId:", auctionId);
+      console.log(" uid:", uid);
 
       if (!auctionId || !uid) {
         console.error("❌ Missing auctionId or uid, redirecting...");

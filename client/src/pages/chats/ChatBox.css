@@ -49,34 +49,51 @@ html, body {
 }
 
 .chat-input {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem;
   background-color: #f0f0f0;
   border-top: 1px solid #ccc;
-  flex-shrink: 0;
+  z-index: 10;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  flex-wrap: nowrap; 
+  overflow: hidden; 
 }
-
 /* Input and button styles remain the same */
 .chat-input input {
-  flex-grow: 1;
-  padding: 0.65rem 1rem;
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 1rem;
   font-size: 1rem;
-  border-radius: 30px;
-  border: none;
+  border-radius: 25px;
+  border: 1px solid #ccc;
   outline: none;
   background-color: white;
-  margin-right: 10px;
 }
 
 .chat-input button {
+  flex-shrink: 0;
   background-color: #075e54;
   color: white;
-  padding: 0.6rem 1rem;
+  padding: 0.55rem 1rem;
   border: none;
-  border-radius: 30px;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
   cursor: pointer;
-  font-weight: 500;
+}
+
+.chat-input button:hover {
+  background-color: #064e47;
 }
 
 .msg {
@@ -174,4 +191,22 @@ html, body {
 .messages {
   scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f100; 
+}
+
+
+@media (max-width: 600px) {
+  .chat-input {
+    padding: 0.5rem;
+    gap: 0.4rem;
+  }
+
+  .chat-input input {
+    font-size: 0.95rem;
+  }
+
+  .chat-input button {
+    width: 42px;
+    height: 42px;
+    font-size: 0.85rem;
+  }
 }

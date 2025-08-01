@@ -1,4 +1,4 @@
-// SellerDashboard.jsx (Updated with dynamic KPIs)
+
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut, onAuthStateChanged } from "firebase/auth";
@@ -32,6 +32,7 @@ function SellerDashboard() {
           const docRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists() && docSnap.data().role === "seller") {
+            
             const userData = docSnap.data();
             setUser({ ...user, name: userData.name, role: userData.role });
             await fetchKpis(user.uid);
@@ -156,12 +157,14 @@ function SellerDashboard() {
 
         <div className="dashboard-title">
           <hr />
-          <span>Seller Dashboard</span>
+          <Link to="/seller-dashboard">
+            <span>Seller Dashboard</span>
+          </Link>
           <hr />
         </div>
 
         <nav className="nav-buttons-seller">
-          <Link to="/create-auction">
+          <Link to="/seller-dashboard-layout/create-auction">
             <button className="nav-btn-seller">
               <Gavel className="nav-icon" />
               <span>Create Auction</span>

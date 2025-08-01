@@ -194,10 +194,10 @@ function ProfilePage() {
                 }
               >
                 {profileData.isVerified
-                  ? "✅ Verified Seller"
+                  ? " Verified Seller"
                   : requestingVerification
                     ? "⏳ Sending Verification Request..."
-                    : "⚠️ Not Verified (Click to Request)"}
+                    : " Not Verified (Click to Request)"}
               </p>
             )}
           </div>

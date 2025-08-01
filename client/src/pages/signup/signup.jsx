@@ -97,7 +97,7 @@ function Signup() {
   }
 
   function handleGoogleContinue(e) {
-    e.preventDefault(); // 🛑 Prevent page reload on button click
+    e.preventDefault(); // Prevent page reload on button click
 
     if (googleUser === null) return;
 

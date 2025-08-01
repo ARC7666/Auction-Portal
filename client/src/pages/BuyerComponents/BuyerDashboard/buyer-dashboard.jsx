@@ -152,7 +152,7 @@ function BuyerDashboard() {
 
     <>
       <main>
-        <div><h2 className="my-bids-heading">Explore Bids</h2>
+        <div>
           <div className="filter-container-wrapper">
             <div className="filter-block" ref={filterRef}>
               <button className="filter-toggle" onClick={toggleDropdown}>

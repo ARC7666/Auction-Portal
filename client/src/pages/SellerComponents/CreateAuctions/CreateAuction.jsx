@@ -56,22 +56,10 @@ function CreateAuction() {
     return () => unsubscribe();
   }, []);
 
-  if (loading) {
+   if (loading) {
     return (
-      <div
-        style={{
-          height: "100vh",
-          width: "100vw",
-          backgroundImage: 'url("/images/back.jpg")',
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <ClipLoader color="#6c63ff" size={60} />
+      <div className="spinner-overlay">
+        <div className="spinned" />
       </div>
     );
   }
@@ -214,116 +202,147 @@ function CreateAuction() {
   }
 
   return (
-    <div className="auction-container">
-      <aside className="sidebar1">
-        <div className="logo">
-          <Link to="/seller-dashboard">
-            <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
-          </Link>
+
+
+    <main className="dashboard-contented">
+      {/*}   <h2 style={{fontSize: 35,}}>List Your Item</h2>*/}
+      <form onSubmit={handleSubmit} className="auction-form">
+        <input type="text" placeholder="Title" value={title}
+          onChange={(e) => setTitle(e.target.value)} required />
+
+        <textarea placeholder="Description" value={description}
+          onChange={(e) => setDescription(e.target.value)} required />
+
+        <input
+          type="text"
+          placeholder="Start Price"
+          value={formatIndianCurrency(startPrice)}
+          onChange={(e) => setStartPrice(e.target.value)}
+          required
+        />
+        <select
+          className="auction-category-select-cretae"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+          style={{
+            padding: "10px",
+            marginBottom: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+            fontSize: "16px",
+            color: category ? "#000" : "#777"
+          }}
+        >
+          <option value="" disabled hidden>Select Category</option>
+          <option value="Vehicle">Vehicle</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Luxury">Luxury</option>
+          <option value="Antique">Antique</option>
+          <option value="Jewellery">Jewellery</option>
+          <option value="Lifestyle">Lifestyle</option>
+          <option value="Painting">Painting</option>
+          <option value="RealEstate">Real Estate</option>
+          <option value="Others">Others</option>
+        </select>
+
+        <DatePicker
+          selected={startTime}
+          onChange={(date) => setStartTime(date)}
+          showTimeSelect
+          placeholderText="dd/mm/yyyy ,  --:--  🗓️"
+          timeFormat="HH:mm"
+          timeIntervals={1}
+          timeCaption="Time"
+          dateFormat="dd/MM/yyyy h:mm aa"
+          className="custom-datepicker"
+          minDate={new Date()}
+          popperPlacement="bottom-start"
+          popperModifiers={[
+            {
+              name: "preventOverflow",
+              options: {
+                boundary: "viewport",
+              },
+            },
+            {
+              name: "offset",
+              options: {
+                offset: [0, 10],
+              },
+            },
+          ]}
+        />
+
+
+        <input type="number" placeholder="Duration (in minutes)" value={duration}
+          onChange={(e) => setDuration(e.target.value)} required />
+
+        <div className="media-upload-section">
+          {mediaFiles.length === 0 && (
+            <label className="media-upload-label">
+              Upload Photos/Videos
+              <input
+                type="file"
+                multiple
+                accept="image/*,video/*"
+                onChange={handleMediaChange}
+                className="media-input"
+              />
+            </label>
+          )}
+
+          {mediaFiles.length > 0 && (
+            <>
+              <label className="add-more-label">
+                + Add More Photos/Videos
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*,video/*"
+                  onChange={(e) =>
+                    setMediaFiles((prev) => [...prev, ...Array.from(e.target.files)])
+                  }
+                  className="media-input"
+                />
+              </label>
+
+              <div className="media-preview-grid">
+                {mediaFiles.map((file, index) => {
+                  const url = URL.createObjectURL(file);
+                  const isImage = file.type.startsWith("image");
+
+                  return (
+                    <div key={index} className="media-preview-card">
+                      <span
+                        className="remove-media-btn"
+                        onClick={() => {
+                          const updated = [...mediaFiles];
+                          updated.splice(index, 1);
+                          setMediaFiles(updated);
+                        }}
+                      >
+                        &times;
+                      </span>
+                      {isImage ? (
+                        <img src={url} alt={`media-${index}`} />
+                      ) : (
+                        <video src={url} controls />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
-        <div className="dashboard-title1">
-          <hr />
-          <span>Create Auction</span>
-          <hr />
-        </div>
 
+        <button type="submit" disabled={uploading} style={{ fontWeight: 700, fontSize: 20 }}>
+          {uploading ? 'Uploading...' : 'Create Auction'}
+        </button>
+      </form>
+    </main>
 
-        <nav className="nav-buttons-seller">
-          <Link to="/seller-dashboard">
-            <button className="nav-btn-seller">
-              <Home className="nav-icon" />
-              <span>Home</span>
-            </button>
-          </Link>
-          <Link to="/seller-dashboard-layout/seller-auctions">
-            <button className="nav-btn-seller">
-              <List className="nav-icon" />
-              <span>View Listings</span>
-            </button>
-          </Link>
-
-          <Link to="/seller-dashboard-layout/chat">
-            <button className="nav-btn-seller">
-              <MessageSquare className="nav-icon" />
-              <span>Chat</span>
-            </button>
-          </Link>
-        </nav>
-
-
-      </aside>
-
-      <main className="dashboard-contented">
-        {/*}   <h2 style={{fontSize: 35,}}>List Your Item</h2>*/}
-        <form onSubmit={handleSubmit} className="auction-form">
-          <input type="text" placeholder="Title" value={title}
-            onChange={(e) => setTitle(e.target.value)} required />
-
-          <textarea placeholder="Description" value={description}
-            onChange={(e) => setDescription(e.target.value)} required />
-
-          <input
-            type="text"
-            placeholder="Start Price"
-            value={formatIndianCurrency(startPrice)}
-            onChange={(e) => setStartPrice(e.target.value)}
-            required
-          />
-          <select
-           className="auction-category-select-cretae"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-            style={{
-              padding: "10px",
-              marginBottom: "1rem",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              fontSize: "16px",
-              color: category ? "#000" : "#777"
-            }}
-          >
-            <option value="" disabled hidden>Select Category</option>
-            <option value="Vehicle">Vehicle</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Luxury">Luxury</option>
-            <option value="Antique">Antique</option>
-            <option value="Jewellery">Jewellery</option>
-            <option value="Lifestyle">Lifestyle</option>
-            <option value="Painting">Painting</option>
-            <option value="RealEstate">Real Estate</option>
-            <option value="Others">Others</option>
-          </select>
-
-          <DatePicker
-            selected={startTime}
-            onChange={(date) => setStartTime(date)}
-            showTimeSelect
-            placeholderText=" dd/mm/yyyy ,  --:--                                                                                   🗓️"
-            timeFormat="HH:mm"
-
-            timeIntervals={1}
-            timeCaption="Time"
-            dateFormat="dd/MM/yyyy h:mm aa"
-            className="custom-datepicker"
-            minDate={new Date()}
-          />
-
-
-          <input type="number" placeholder="Duration (in minutes)" value={duration}
-            onChange={(e) => setDuration(e.target.value)} required />
-
-          <input type="file" multiple accept="image/*,video/*"
-            onChange={handleMediaChange} style={{ color: '#545353b5', }} />
-
-          <button type="submit" disabled={uploading} style={{ fontWeight: 700, fontSize: 20 }}>
-            {uploading ? 'Uploading...' : 'Create Auction'}
-          </button>
-        </form>
-      </main>
-
-
-    </div>
   );
 }
 

@@ -74,6 +74,11 @@ body {
 .menu-list li a.active {
   font-weight: bold;
   text-decoration: underline;
+  border-bottom: 2px solid #7e75ff; 
+}
+
+.menu-list li:hover{
+   border-bottom: 2px solid #7e75ff; 
 }
 
 

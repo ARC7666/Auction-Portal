@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { auth, db } from '../../firebase/firebaseConfig';
+import { Send } from "lucide-react";
 import {
   collection,
   addDoc,
@@ -172,7 +173,9 @@ const ChatRoom = () => {
             onChange={(e) => setNewMsg(e.target.value)}
             placeholder="Type your message..."
           />
-          <button type="submit">Send</button>
+          <button type="submit">
+            <Send size={18} />
+          </button>
         </form>
 
         <p className="go-back-chat">

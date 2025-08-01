@@ -48,6 +48,28 @@
   color: white;
 }
 
+
+
+
+
+.commonman {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  color: white;
+  box-shadow: 0 0 0 transparent;
+}
+
+.commonman:hover {
+  transform: translateY(0px);
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.25);
+  border: 1px solid rgba(108, 99, 255, 0.6);
+}
+
 .hero-right {
   flex: 1 1 500px;
   position: relative;

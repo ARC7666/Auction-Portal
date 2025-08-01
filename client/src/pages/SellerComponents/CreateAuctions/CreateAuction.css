@@ -26,100 +26,8 @@ html, body {
 
 }
 
-.sidebar1 {
-  width: 250px;
-  height: 100vh;
-  background: linear-gradient(to bottom, #1f1c2c, #302b63);
-  display: flex;
-  flex-direction: column;
-  padding: 24px 16px;
-  position: relative;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
-  border-right: 3px solid #6c63ff;
-  font-family: 'Poppins', sans-serif;
-}
 
-.logo {
-  width: 11vw;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  justify-content: center;
-}
 
-.logo img {
-  width: 180px; 
-  height: 80px; 
-  object-fit: contain;
-  margin-top: 20px;
-}
-
-.dashboard-title1 {
-  display: flex;
-  align-items: center;
-  margin-top: -20px;
-  font-weight: 500;
-  font-size: 14px;
-  color: rgb(151, 151, 153);
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.dashboard-title1 hr {
-  flex: 1;
-  border: none;
-  border-top: 1px solid rgb(151, 151, 153);
-}
-
-.dashboard-title1 span {
-  margin: 0 10px;
-}
-
-.nav-buttons {
-  display: flex;
-  color: #ccc;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.nav-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 12px 18px;
-  background: linear-gradient(135deg, #7e75ff, #a594ff);
-  border: none;
-  border-radius: 12px;
-  color: white;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.35);
-}
-
-.nav-btn:hover {
-  transform: scale(1.03);
-  background: linear-gradient(135deg, #6c63ff, #8e76ff);
-  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
-  color: white;
-}
-
-.nav-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.nav-btn span {
-  color: white;
-}
-
-.nav-buttons a,
-.nav-buttons a:visited,
-.nav-buttons a:hover {
-  text-decoration: none;
-}
 
 .dashboard-contented {
   flex-grow: 1;
@@ -282,3 +190,186 @@ input[type="file"]::-webkit-file-upload-button:hover {
 .auction-category-select option {
   color: #000000a4;
 }
+
+@media (max-width: 600px) {
+  .dashboard-contented {
+    padding: 20px;
+  }
+
+  .auction-form-create {
+    padding: 20px;
+    gap: 16px;
+    border-radius: 12px;
+  }
+
+  .auction-form input,
+  .auction-form textarea,
+  .custom-datepicker,
+  .auction-category-select-cretae {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .auction-form button {
+    padding: 14px;
+    font-size: 16px;
+  }
+}
+
+.media-upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.media-upload-label,
+.add-more-label {
+  background-color: #6c63ff;
+  color: white;
+  font-weight: bold;
+  padding: 12px 16px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  width: fit-content;
+  transition: background-color 0.3s;
+}
+
+.media-upload-label:hover,
+.add-more-label:hover {
+  background-color: #5848e5;
+}
+
+.media-input {
+  display: none;
+}
+
+.media-preview {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.media-upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.media-upload-label,
+.add-more-label {
+  background-color: #6c63ff;
+  color: white;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  width: fit-content;
+  transition: background-color 0.3s;
+}
+
+.media-upload-label:hover,
+.add-more-label:hover {
+  background-color: #5848e5;
+}
+
+.media-input {
+  display: none;
+}
+
+.media-preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.media-preview-card {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-preview-card img,
+.media-preview-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-media-btn {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font-size: 18px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+/* Fix react-datepicker on mobile */
+@media (max-width: 600px) {
+  .react-datepicker {
+    width: 80% !important;
+    font-size: 14px;
+  }
+
+  .react-datepicker__triangle {
+    display: none; 
+  }
+
+  .react-datepicker__header {
+    padding-top: 8px;
+  }
+
+  .react-datepicker__month-container {
+    width: 100% !important;
+  }
+
+  .react-datepicker__time-container {
+    width: 100% !important;
+    border-left: none;
+    margin-top: 10px;
+  }
+
+  .react-datepicker__time {
+    width: 100% !important;
+  }
+
+  .react-datepicker__time-box {
+    width: 100% !important;
+  }
+
+  .react-datepicker-popper {
+    width: 90vw !important;
+    left: 5% !important;
+    transform: none !important;
+    z-index: 9999;
+  }
+  .react-datepicker__navigation--previous {
+  left: 8px !important;
+}
+
+.react-datepicker__navigation--next {
+  right: 8px !important;
+  left: auto !important;
+}
+}
+

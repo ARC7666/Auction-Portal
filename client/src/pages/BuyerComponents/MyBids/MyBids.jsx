@@ -11,6 +11,7 @@ const MyBids = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [expandedItems, setExpandedItems] = useState({});
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const stripePromise = loadStripe("pk_test_51RegLwRuwQBUbxUX0Cxwm5qV6X6BuIvOLssOUtf0Tnq5DatithtpTFlxWYRLS9mL3Iy75Mi7fJkrRqJHLWOKitF100MDenEND2");
 
   const initiateStripePayment = async (item, user) => {
@@ -39,6 +40,17 @@ const MyBids = () => {
       alert("Payment failed. Please try again.");
     }
   };
+
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchMyBids = async () => {
@@ -106,66 +118,113 @@ const MyBids = () => {
 
               return (
                 <div className="my-bids-table-row" key={item.id}>
-                  <img src={item.media[0]} alt={item.title} className="my-bid-thumbnail" />
-
-                  <div className="my-bid-cell">
-                    <h4 className="my-bid-title">{item.title}</h4>
-                  </div>
-
-
-                  <button
-                    className="toggle-details-btn"
-                    onClick={() => toggleExpand(item.id)}
-                  >
-                    {expandedItems[item.id] ? "Hide Details ↑" : "Show Details ↓"}
-                  </button>
-
-                  <div className={`expanded-details ${expandedItems[item.id] ? 'show' : ''}`}>
-                    <div className="my-bid-cell">
-                      <p className="label">Current</p>
-                      <p>₹{item.currentBid}</p>
-                    </div>
-
-                    <div className="my-bid-cell">
-                      <p className="label">Your Bid</p>
-                      <p>₹{userBid?.amount || "--"}</p>
-                    </div>
-
-                    <div className="my-bid-cell">
-                      <p className="label">Start</p>
-                      <p>₹{item.startPrice}</p>
-                    </div>
-
-                    <div className="my-bid-cell">
-                      <p className="label">Status</p>
-                      {item.paymentStatus === "paid" ? (
-                        <p className="status paid">Paid ✅</p>
-                      ) : isWinner ? (
-                        <>
-                          <p className="status won">Won</p>
+                  {isMobile ? (
+                    <>
+                      <div className="my-bid-top-row">
+                        <img src={item.media[0]} alt={item.title} className="my-bid-thumbnail" />
+                        <div className="my-bid-title-wrapper">
+                          <h4 className="my-bid-title">{item.title}</h4>
                           <button
-                            className="payment-link-auctania"
-                            onClick={() => initiateStripePayment(item, currentUser)}
+                            className="toggle-details-btn"
+                            onClick={() => toggleExpand(item.id)}
                           >
-                            Make Payment →
+                            {expandedItems[item.id] ? "Hide Details ↑" : "Show Details ↓"}
                           </button>
-                        </>
-                      ) : (
-                        <div>
-                        <p className={`status ${status.toLowerCase().replace(" ", "-")}`}>{status}</p>
-                        {status === "Ongoing" && (
-                        <button
-                          className="go-to-auction-btn"
-                          onClick={() => navigate(`/buyer-dashboard/auction/${item.id}`)}
-                        >
-                          Go to Auction →
-                        </button>
-                      )}
-                
-                    </div>
-                      )}
-                    </div>  
-                  </div>
+                        </div>
+                      </div>
+
+                      <div className={`expanded-details ${expandedItems[item.id] ? "show" : ""}`}>
+                        <div className="my-bid-cell">
+                          <p className="label">Current</p>
+                          <p>₹{item.currentBid}</p>
+                        </div>
+                        <div className="my-bid-cell">
+                          <p className="label">Your Bid</p>
+                          <p>₹{userBid?.amount || "--"}</p>
+                        </div>
+                        <div className="my-bid-cell">
+                          <p className="label">Start</p>
+                          <p>₹{item.startPrice}</p>
+                        </div>
+                        <div className="my-bid-cell">
+                          <p className="label">Status</p>
+                          {item.paymentStatus === "paid" ? (
+                            <p className="status paid">Paid ✅</p>
+                          ) : isWinner ? (
+                            <>
+                              <p className="status won">Won</p>
+                              <button
+                                className="payment-link-auctania"
+                                onClick={() => initiateStripePayment(item, currentUser)}
+                              >
+                                Make Payment →
+                              </button>
+                            </>
+                          ) : (
+                            <div>
+                              <p className={`status ${status.toLowerCase().replace(" ", "-")}`}>{status}</p>
+                              {status === "Ongoing" && (
+                                <button
+                                  className="go-to-auction-btn"
+                                  onClick={() => navigate(`/buyer-dashboard/auction/${item.id}`)}
+                                >
+                                  Go to Auction →
+                                </button>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* DESKTOP VERSION (Grid Layout) */}
+                      <div>
+                        <img src={item.media[0]} alt={item.title} className="my-bid-thumbnail" />
+                      </div>
+                      <div className="my-bid-title">{item.title}</div>
+                      <div>
+                        <p className="label">Current</p>
+                        <p>₹{item.currentBid}</p>
+                      </div>
+                      <div>
+                        <p className="label">Your Bid</p>
+                        <p>₹{userBid?.amount || "--"}</p>
+                      </div>
+                      <div>
+                        <p className="label">Start</p>
+                        <p>₹{item.startPrice}</p>
+                      </div>
+                      <div>
+                        <p className="label">Status</p>
+                        {item.paymentStatus === "paid" ? (
+                          <p className="status paid">Paid ✅</p>
+                        ) : isWinner ? (
+                          <>
+                            <p className="status won">Won</p>
+                            <button
+                              className="payment-link-auctania"
+                              onClick={() => initiateStripePayment(item, currentUser)}
+                            >
+                              Make Payment →
+                            </button>
+                          </>
+                        ) : (
+                          <div>
+                            <p className={`status ${status.toLowerCase().replace(" ", "-")}`}>{status}</p>
+                            {status === "Ongoing" && (
+                              <button
+                                className="go-to-auction-btn"
+                                onClick={() => navigate(`/buyer-dashboard/auction/${item.id}`)}
+                              >
+                                Go to Auction →
+                              </button>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               );
             })}

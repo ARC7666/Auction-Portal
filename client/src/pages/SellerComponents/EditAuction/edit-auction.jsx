@@ -9,6 +9,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import 'react-datepicker/dist/react-datepicker.css';
 import LoaderScreen from "../../../components/LoaderScreen";
 import './edit-auctions.css';
+import { deleteObject } from 'firebase/storage';
+import { X } from 'lucide-react';
 
 function EditAuction() {
   const { id } = useParams();
@@ -39,7 +41,6 @@ function EditAuction() {
           const start = new Date(data.startTime);
           setStartTime(start);
           setIsEditable(now < start);
-          category: data.category || "Others";
         } else {
           alert('Auction not found');
           navigate('/');
@@ -55,6 +56,18 @@ function EditAuction() {
 
   const handleMediaChange = (e) => {
     setMediaFiles(Array.from(e.target.files));
+  };
+
+
+  const handleDeleteImage = (urlToDelete) => {
+    const updatedMedia = auction.media.filter((url) => url !== urlToDelete);
+    setAuction({ ...auction, media: updatedMedia });
+  };
+
+  const handleRemoveLocalFile = (index) => {
+    const updatedFiles = [...mediaFiles];
+    updatedFiles.splice(index, 1);
+    setMediaFiles(updatedFiles);
   };
 
   const handleSubmit = async (e) => {
@@ -126,7 +139,6 @@ function EditAuction() {
         </div>
       )}
       <div className="dashboard-content-3">
-
         <div className="form-wrapper">
           <h2 style={{ fontSize: 35 }}>Edit Auction</h2>
           <form onSubmit={handleSubmit} className="auction-form">
@@ -138,6 +150,7 @@ function EditAuction() {
 
             <input type="number" placeholder="Start Price" value={auction.startPrice}
               onChange={(e) => setAuction({ ...auction, startPrice: e.target.value })} required />
+
             <select
               value={auction.category}
               onChange={(e) => setAuction({ ...auction, category: e.target.value })}
@@ -151,10 +164,11 @@ function EditAuction() {
               <option value="Antique">Antique</option>
               <option value="Jewellery">Jewellery</option>
               <option value="Lifestyle">Lifestyle</option>
-               <option value="Painting">Painting</option>
-            <option value="RealEstate">Real Estate</option>
+              <option value="Painting">Painting</option>
+              <option value="RealEstate">Real Estate</option>
               <option value="Others">Others</option>
             </select>
+
             <DatePicker
               selected={startTime}
               onChange={(date) => setStartTime(date)}
@@ -171,8 +185,101 @@ function EditAuction() {
             <input type="number" placeholder="Duration (in minutes)" value={auction.duration}
               onChange={(e) => setAuction({ ...auction, duration: e.target.value })} required />
 
-            <input type="file" multiple accept="image/*,video/*"
-              onChange={handleMediaChange} />
+            
+            {auction.media && auction.media.length > 0 && (
+              <div className="preview-gallery">
+                {auction.media.map((url, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      marginBottom: '16px',
+                      padding: '8px',
+                      border: '1px solid #e5e7eb',
+                      borderRadius: '8px',
+                    }}
+                  >
+                    {url.includes('video') ? (
+                      <video src={url} controls width="120px" height="90px" style={{ borderRadius: '8px' }} />
+                    ) : (
+                      <img src={url} alt={`media-${idx}`} width="120px" height="90px" style={{ objectFit: 'cover', borderRadius: '8px' }} />
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteImage(url)}
+                      style={{
+                        padding: '6px 12px',
+                        fontSize: '14px',
+                        backgroundColor: '#ffe4e6',
+                        color: '#321b1bff',
+                        border: '1px solid #ffffffff',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      ❌ Delete
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+
+            {mediaFiles.length > 0 && (
+              <div className="preview-gallery">
+                {mediaFiles.map((file, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      marginBottom: '16px',
+                      padding: '8px',
+                      border: '1px solid #e5e7eb',
+                      borderRadius: '8px',
+                    }}
+                  >
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`local-${idx}`}
+                      width="120px"
+                      height="90px"
+                      style={{ objectFit: 'cover', borderRadius: '8px' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveLocalFile(idx)}
+                      style={{
+                        padding: '6px 12px',
+                        fontSize: '14px',
+                        backgroundColor: '#ffe4e6',
+                        color: '#321b1bff',
+                        border: '1px solid #ffffff43',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      ❌ Delete
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+
+            <label htmlFor="media-upload" className="custom-upload-btn">➕ Add More Media</label>
+            <input
+              id="media-upload"
+              type="file"
+              multiple
+              accept="image/*,video/*"
+              onChange={handleMediaChange}
+              style={{ display: 'none' }}
+            />
 
             <button type="submit" disabled={uploading} style={{ fontWeight: 700, fontSize: 20 }}>
               {uploading ? 'Updating...' : 'Update Auction'}

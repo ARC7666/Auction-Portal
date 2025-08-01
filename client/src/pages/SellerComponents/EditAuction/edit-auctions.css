@@ -147,7 +147,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(59, 54, 74, 0.2);
+  background: rgba(203, 199, 214, 0.026);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -183,4 +183,108 @@ input[type="file"]::-webkit-file-upload-button:hover {
   font-size: 16px;
   background-color: #fff;
   color: #333;
+}
+
+.media-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.preview-media {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+
+.preview-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.preview-item {
+  position: relative;
+  width: 120px;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.preview-item img,
+.preview-item video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+
+.remove-media-btn {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 18px;
+  color: red;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+
+.remove-media-btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.remove-media-btn:focus,
+.remove-media-btn:active {
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.custom-upload-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: #37383927;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+
+@media (max-width: 768px) {
+  .dashboard-content-3 {
+    width: 100%;
+    padding: 20px;
+    margin-top: 0;
+  }
+
+  .form-wrapper,
+  .auction-form {
+    padding: 20px;
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .preview-media {
+    width: 80px;
+    height: 80px;
+  }
 }

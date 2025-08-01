@@ -29,7 +29,7 @@ const SellerChatDashboard = ({ user }) => {
   return (
     <div>
       <h2>Your Auctions (Seller)</h2>
-      {auctions.length === 0 ? (
+      {auctions.length == 0 ? (
         <p>No auctions found where you are seller.</p>
       ) : (
         auctions.map(auction => (

@@ -26,7 +26,7 @@
 
 .seller-chat-header {
   display: grid;
-  grid-template-columns: 140px 2fr 120px 150px 120px  120px;  /* Added column for Current Bid */
+  grid-template-columns: 140px 2fr 120px 150px 120px  120px;  
   padding: 12px 20px;
   background-color: #f1f1f1;
   font-weight: 600;
@@ -40,7 +40,7 @@
 
 .seller-chat-row {
   display: grid;
-  grid-template-columns: 140px 2fr 150px 150px 120px 120px;  /* Same structure as header */
+  grid-template-columns: 140px 2fr 150px 150px 120px 120px;  
   align-items: center;
   padding: 12px 20px;
   border-bottom: 1px solid #e0e0e0;
@@ -104,4 +104,153 @@
 
 .dashboard-content::-webkit-scrollbar-thumb:hover {
   background: #4f44e629;  /* darker on hover */
+}
+
+@media (max-width: 1024px) {
+.seller-chat-row {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  gap: 10px;
+  
+}
+
+.seller-chat-top-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+
+}
+
+.seller-chat-thumbnail {
+   width: 120px; /* increase image size */
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-left: 0;         /* force image to start at left */
+    flex-shrink: 0; 
+
+}
+
+.seller-chat-top-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 8px;
+
+
+}
+
+.seller-chat-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #222;
+
+
+}
+
+.seller-chat-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.toggle-details-btn {
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chat-btn {
+  background: #075e54 ;
+  color: white;
+   padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.expanded-details {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.expanded-details.show {
+  display: flex;
+}
+
+.seller-chat-cell {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding: 4px 0;
+  font-size: 0.85rem;
+
+
+}
+
+.seller-chat-cell:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: 500;
+  color: #555;
+}
+
+.seller-chat-header {
+  display: none;
+}
+}
+
+
+@media (min-width: 1025px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+
+.mobile-only {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  padding: 8px;
+}
+
+
+
+.seller-chat-cell .label {
+  font-weight: bold;
+  margin-bottom: 2px;
+  font-size: 0.75rem;
+  color: #888;
+}
+ .chat-thumbnail-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
 }

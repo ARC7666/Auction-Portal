@@ -32,6 +32,8 @@ import RedirectIfLoggedIn from "./components/RedirectIfLoggedIn";
 //import AdminAuctions from "./pages/AdminDashboard/auctions/AdminAuctions";
 //import AdminReports from "./pages/AdminDashboard/reports/AdminReports";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NotFound from "./components/ErrorPage/NotFound";
+
 
 
 function App() {
@@ -92,12 +94,11 @@ function App() {
 
         {/* Other direct routes */}
 
-        <Route path="/create-auction" element={<CreateAuction />} />
-
-
+    
 
         <Route path="/seller-dashboard-layout" element={<SellerLayout />}>
-          <Route path="edit-auction/:id" element={<EditAuction />} />
+          <Route path="create-auction" element={<CreateAuction />} />
+           <Route path="edit-auction/:id" element={<EditAuction />} />
           <Route path="seller-auctions" element={<SellerAuctions />} />
           <Route path="chat" element={<SellerChats />} />
           <Route path="chat/:auctionId" element={<ChatRoom />} />
@@ -111,6 +112,7 @@ function App() {
         {/*  <Route path="/admin/auctions" element={<AdminAuctions />} />*?}
       {/*  <Route path="/admin/reports" element={<AdminReports />} />*/}
         <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

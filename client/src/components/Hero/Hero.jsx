@@ -24,15 +24,15 @@ const Hero = () => {
           </p>
 
           <div className="hero-stats">
-            <div>
+            <div className="commonman">
               <h2>50K+</h2>
               <p>Total Users</p>
             </div>
-            <div>
+            <div className="commonman">
               <h2>100K+</h2>
               <p>Total Auctions</p>
             </div>
-            <div>
+            <div className="commonman">
               <h2>20+</h2>
               <p>Categories</p>
             </div>

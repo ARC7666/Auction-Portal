@@ -24,6 +24,8 @@ function BuyerLayout() {
   const [searchResults, setSearchResults] = useState([]);
   const searchInputRef = useRef(null);
   const [mobileSearchVisible, setMobileSearchVisible] = useState(false);
+  const searchContainerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     window.history.pushState(null, "", window.location.href);
@@ -57,16 +59,29 @@ function BuyerLayout() {
     return () => unsubscribe();
   }, [location.pathname]);
 
+
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowProfile(false);
-        setShowNotifications(false);
-        if (window.innerWidth <= 768) {
-          setMobileSearchVisible(false);
-        }
-      }
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
+  const handleClickOutside = (event) => {
+    const isInsideSearch = searchContainerRef.current?.contains(event.target);
+    const isInsideProfileDropdown = dropdownRef.current?.contains(event.target);
+    const isSearchInputFocused = document.activeElement === searchInputRef.current;
+
+    if (!isInsideSearch && !isInsideProfileDropdown && !isSearchInputFocused) {
+      setShowProfile(false);
+      setShowNotifications(false);
+      if (window.innerWidth <= 768) setMobileSearchVisible(false);
+    }
+  };
+
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -105,19 +120,6 @@ function BuyerLayout() {
     setSearchResults(filtered);
   }, [searchQuery, auctions]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        setMobileSearchVisible(true);
-      } else {
-        setMobileSearchVisible(false);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const upcomingAuctions = auctions
     .filter((auction) => {
       const today = dayjs();
@@ -137,10 +139,6 @@ function BuyerLayout() {
           showConfirmButton: false,
           timer: 1200,
           timerProgressBar: true,
-          customClass: {
-            popup: 'custom-swal-popup',
-            title: 'custom-swal-title',
-          }
         });
         navigate("/");
       })
@@ -149,13 +147,6 @@ function BuyerLayout() {
         alert("Logout failed. Try again.");
       });
   };
-
-  useEffect(() => {
-    const lastBidButton = document.querySelector(".bid-now-button");
-    if (lastBidButton) {
-      lastBidButton.scrollIntoView({ block: "center", behavior: "smooth" });
-    }
-  }, []);
 
   if (loading) return <LoaderScreen />;
 
@@ -173,13 +164,7 @@ function BuyerLayout() {
       <header className="header-bar-buyer" ref={dropdownRef}>
         <div className="logo-section">
           <button
-            onClick={() => {
-              if (!user) {
-                navigate("/", { replace: true });
-              } else {
-                navigate("/buyer-dashboard");
-              }
-            }}
+            onClick={() => navigate(user ? "/buyer-dashboard" : "/")}
             className="unstyled-logo-button"
           >
             <img src={logo} alt="Logo" />
@@ -195,47 +180,62 @@ function BuyerLayout() {
         </nav>
 
         <div className="right-section-header">
-          <div className={`search-container ${mobileSearchVisible ? "visible" : ""}`}>
-            <Search
-              size={20}
-              color="#fff"
-              onClick={(e) => {
-                e.stopPropagation(); 
-                if (window.innerWidth <= 766) {
-                  setMobileSearchVisible(true);
-                  setTimeout(() => {
-                    searchInputRef.current?.focus();
-                  }, 100);
-                } else {
-                  searchInputRef.current?.focus();
-                }
-              }}
-              style={{ cursor: "pointer" }}
-            />
-            <input ref={searchInputRef} type="text" placeholder="Search products..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="search-input-box" style={{ display: mobileSearchVisible || window.innerWidth > 768 ? "block" : "none" }} />
-            {searchQuery && <X size={16} color="#fff" className="clear-search" onClick={() => setSearchQuery("")} />}
-          </div>
-
+          {/* Desktop Search */}
           {window.innerWidth > 768 && (
-            <div className="notification-toggle" onClick={() => setShowNotifications(!showNotifications)}>
-              <BellRing size={24} color="white" />
-              {showNotifications && (
-                <div className="notification-dropdown-buyer">
-                  <p className="dropdown-title">Upcoming Auctions</p>
-                  {upcomingAuctions.length === 0 ? (
-                    <p className="no-auction">No auctions in next 5 days</p>
-                  ) : (
-                    upcomingAuctions.map((item, index) => (
-                      <p key={index} className="auction-item">{item.title} – {dayjs(item.startTime).format("MMM D, h:mm A")}</p>
-                    ))
-                  )}
-                </div>
+            <div className="search-container desktop-search" ref={searchContainerRef}>
+              <Search size={24} color="#fff" onClick={() => searchInputRef.current?.focus()} style={{ cursor: "pointer" }} />
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="search-input-box visible"
+              />
+              {searchQuery && (
+                <X size={16} color="#fff" className="clear-search" onClick={() => setSearchQuery("")} />
               )}
             </div>
           )}
 
+          {/* Mobile Search Icon */}
+          {window.innerWidth <= 768 && (
+            <>
+              <div
+                className="mobile-search-icon"
+                onClick={() => setMobileSearchVisible(prev => !prev)}
+              >
+                <Search size={24} color="#fff" />
+              </div>
+
+              {mobileSearchVisible && (
+                <div className="mobile-search-popup" ref={searchContainerRef}>
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    autoFocus
+                  />
+                  <X
+                    size={28}
+                    color="#555"
+                    className="close-mobile-search"
+                    onClick={() => {
+                      setSearchQuery("");
+                      setMobileSearchVisible(false);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Profile */}
           <div className="profile-toggle-buyer" onClick={() => setShowProfile(!showProfile)}>
-            <img src={user?.profileImageUrl ? user.profileImageUrl : `https://ui-avatars.com/api/?name=${user?.name || "User"}`} alt="User Avatar" />
+            <img src={user?.profileImageUrl || `https://ui-avatars.com/api/?name=${user?.name || "User"}`} alt="User Avatar" />
             {showProfile && (
               <div className="profile-dropdown-buyer">
                 {user ? (
@@ -248,7 +248,7 @@ function BuyerLayout() {
                       <button className="dropdown-btn"> <User size={16} /> Profile </button>
                     </Link>
                     <Link to="/buyer-dashboard/calender">
-                      <button className="dropdown-btn"> <CalendarDays size={16} /> Calender/Reminder </button>
+                      <button className="dropdown-btn"> <CalendarDays size={16} /> Calendar </button>
                     </Link>
                     {window.innerWidth <= 766 && (
                       <>

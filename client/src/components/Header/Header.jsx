@@ -3,7 +3,6 @@ import { NavLink, useLocation, useNavigate, Link } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { IoSearchOutline } from "react-icons/io5";
 import { menulists } from "../../utils/data";
-import { User1 } from "../hero/Hero";
 import "./Header.css";
 import { logo } from '../../assets';
 
@@ -89,7 +88,6 @@ export const Header = () => {
        
           <div className="right-section">
             <div className="desktop-icons">
-              <IoSearchOutline className={`icon ${isScrolled || !isHomePage ? "text-black" : "text-white"}`} />
               <NavLink to="/login" className={isScrolled || !isHomePage ? "text-black" : "text-white"}>
                 Sign in
               </NavLink>

@@ -2,16 +2,33 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import unauthorizedImg from '../assets/images/unauthorized.jpg';
 import './unauthorized.css';
+    import FuzzyText from './FuzzyText';
 
 export default function Unauthorized() {
   const navigate = useNavigate();
 
   return (
-    <div className="unauthorized-container">
-      <img src={unauthorizedImg} alt="403 Access Denied" className="unauthorized-image" />
-      <button onClick={() => navigate(-1)} className="minecraft-btn">
-        Take Me Back
-      </button>
-    </div>
+
+  
+<div
+  style={{
+    width: '100%',
+    height: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+    margin: 0,
+    padding: 0,
+  }}
+>
+  <FuzzyText 
+    baseIntensity={0.2} 
+    hoverIntensity={0.5} 
+    enableHover={true}
+  >
+    403 - Unauthorized
+  </FuzzyText>
+</div>
   );
 }

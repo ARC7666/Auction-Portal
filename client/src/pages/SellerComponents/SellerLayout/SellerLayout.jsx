@@ -4,7 +4,7 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../../firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import {
-  MessageSquare, Gavel, List, Settings, User, LogOut,
+  MessageSquare, Gavel, List, Settings, User, LogOut, Home
 } from "lucide-react";
 import { logo } from "../../../assets";
 import LoaderScreen from "../../../components/LoaderScreen";
@@ -91,12 +91,16 @@ const SellerLayout = ({ children }) => {
 
         <div className="dashboard-title">
           <hr />
+              <Link to="/seller-dashboard">
           <span>Seller Dashboard</span>
+          </Link>
           <hr />
         </div>
 
         <nav className="nav-buttons-seller">
-          <Link to="/create-auction">
+       
+
+          <Link to="/seller-dashboard-layout/create-auction">
             <button className="nav-btn-seller">
               <Gavel className="nav-icon" />
               <span>Create Auction</span>
