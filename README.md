@@ -20,7 +20,7 @@ A full-stack auction web application where buyers and sellers can interact throu
 - **CSS** (modular + global styling)  
 
 ## Live Preview
-[**Auction Portal**](https://auction-portal-in.web.app)
+[**Auctania**](https://auction-portal-in.web.app)
 
 ## Setup Instructions
 
