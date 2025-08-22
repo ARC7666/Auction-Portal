@@ -14,7 +14,6 @@ import SellerAuctions from './pages/SellerComponents/SellerAuction/SellerAuction
 import EditAuction from './pages/SellerComponents/EditAuction/edit-auction.jsx';
 import SellerLayout from './pages/SellerComponents/SellerLayout/SellerLayout.jsx';
 import SellerChats from "./pages/SellerComponents/SellerChats/SellerChats";
-import SellerAnalytics from './pages/SellerComponents/SellerAnalytic/SellerAnalytics.jsx';
 import AuctionDetails from './pages/BuyerComponents/AuctionDetail/AuctionDetail';
 import LiveAuctions from "./pages/BuyerComponents/LiveAuctions/LiveAuctions";
 import ChatRoom from "./pages/chats/ChatRoom.jsx";
@@ -32,7 +31,9 @@ import RedirectIfLoggedIn from "./components/RedirectIfLoggedIn";
 //import AdminAuctions from "./pages/AdminDashboard/auctions/AdminAuctions";
 //import AdminReports from "./pages/AdminDashboard/reports/AdminReports";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AdminAllAuctions from "./pages/AdminDashboard/auctions/AdminAllAuctions";
 import NotFound from "./components/ErrorPage/NotFound";
+import Working from "./pages/AdminDashboard/Working/Working";
 
 
 
@@ -40,7 +41,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Public routes */}
         <Route
           path="/"
           element={
@@ -48,6 +48,7 @@ function App() {
           }
         />
         <Route path="/product" element={<ProductList />} />
+
         <Route
           path="/login"
           element={
@@ -65,7 +66,7 @@ function App() {
             </RedirectIfLoggedIn>
           }
         />
-        {/* Buyer routes using layout */}
+
         <Route path="/buyer-dashboard" element={<BuyerLayout />}>
           <Route index element={<BuyerDashboard />} />
           <Route path="/buyer-dashboard/chat/:auctionId" element={<ChatRoom />} />
@@ -75,6 +76,7 @@ function App() {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="calender" element={<CalenderPage />} />
         </Route>
+
         <Route path="/payment-success/:auctionId" element={<PaymentSuccess />} />
 
         <Route path="/auction/:auctionId" element={
@@ -82,7 +84,7 @@ function App() {
             <AuctionDetails />
           </BuyerLayout>
         } />
-        {/* Protected seller route */}
+        {/*  seller route */}
         <Route
           path="/seller-dashboard"
           element={
@@ -92,10 +94,7 @@ function App() {
           }
         />
 
-        {/* Other direct routes */}
-
-    
-
+  
         <Route path="/seller-dashboard-layout" element={<SellerLayout />}>
           <Route path="create-auction" element={<CreateAuction />} />
            <Route path="edit-auction/:id" element={<EditAuction />} />
@@ -105,10 +104,13 @@ function App() {
           <Route path="profile" element={<ProfilePage />} />
         </Route>
 
-        <Route path="/seller-analytics" element={<SellerAnalytics />} />
+  
+        
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/admin-dashboard/logs" element={<ProtectedRoute requiredRole="admin"><AdminLogs /></ProtectedRoute>} />
         <Route path="/admin/users" element={<ProtectedRoute requiredRole="admin"><AdminUsers /></ProtectedRoute>} />
+        <Route path="/admin/working" element={<ProtectedRoute requiredRole="admin"><Working /></ProtectedRoute>} />
+        <Route path="/admin/auctions" element={<ProtectedRoute requiredRole="admin"><AdminAllAuctions /></ProtectedRoute>} />
         {/*  <Route path="/admin/auctions" element={<AdminAuctions />} />*?}
       {/*  <Route path="/admin/reports" element={<AdminReports />} />*/}
         <Route path="/unauthorized" element={<Unauthorized />} />

@@ -8,7 +8,7 @@ import { auth, db } from '../../../firebase/firebaseConfig';
 import { doc, getDoc } from "firebase/firestore";
 import ListingCard from '../../../components/ListingCard';
 import './buyer-dashboard.css';
-import { ListFilter, Radio, Archive, Clock, Car, Laptop, Gem, Crown, Watch, Shirt, Package, Menu , Paintbrush, Home} from 'lucide-react';
+import { ListFilter, Radio, Archive, Clock, Car, Laptop, Gem, Crown, Watch, Shirt, Package, Menu, Paintbrush, Home, Folder, Book } from 'lucide-react';
 
 
 function BuyerDashboard() {
@@ -60,9 +60,11 @@ function BuyerDashboard() {
     const fetchListings = async () => {
       setLoading(true);
       try {
-        const q = query(collection(db, "auctions"), orderBy("createdAt", "desc"));
+        const q = query(collection(db, "auctions"), orderBy("startTime", "asc"));
         const snapshot = await getDocs(q);
-        const allListings = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const allListings = snapshot.docs
+          .map(doc => ({ id: doc.id, ...doc.data() }))
+          .filter(listing => listing.isBanned !== true); 
         setListings(allListings);
       } catch (err) {
         console.error("Error fetching auctions:", err);
@@ -89,16 +91,16 @@ function BuyerDashboard() {
 
 
   useEffect(() => {
-  window.history.pushState(null, "", window.location.href);
-  const handlePopState = () => {
     window.history.pushState(null, "", window.location.href);
-  };
-  window.addEventListener("popstate", handlePopState);
+    const handlePopState = () => {
+      window.history.pushState(null, "", window.location.href);
+    };
+    window.addEventListener("popstate", handlePopState);
 
-  return () => {
-    window.removeEventListener("popstate", handlePopState);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
 
   useEffect(() => {
     const handleClickOutsideCategory = (event) => {
@@ -145,6 +147,7 @@ function BuyerDashboard() {
     lifestyle: Shirt,
     painting: Paintbrush,
     realestate: Home,
+    books: Book,
     others: Package
   };
 
@@ -195,11 +198,12 @@ function BuyerDashboard() {
 
             <div className="filter-block" ref={categoryRef}>
               <button className="filter-toggle" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-                🗂 Category
+                <Folder size={18} className="mr-2" />
+                Category
               </button>
               {showCategoryDropdown && (
                 <div className="filter-dropdown">
-                  {["all", "Vehicle", "Electronics", "Luxury", "Antique", "Jewellery", "Lifestyle", "Painting" , "RealEstate", "Others"].map(cat => {
+                  {["all", "Vehicle", "Electronics", "Luxury", "Antique", "Jewellery", "Lifestyle", "Painting", "RealEstate", "Books", "Others"].map(cat => {
                     const lowerCat = cat.toLowerCase();
                     const IconComponent = categoryIcons[lowerCat];
 

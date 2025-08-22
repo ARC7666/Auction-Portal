@@ -1,4 +1,4 @@
-// SellerAuctions.jsx
+
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { useNavigate, Link } from 'react-router-dom';
@@ -99,16 +99,7 @@ function SellerAuctions() {
               <div className="auction-info">
                 <div className="auction-header">
                   <h3 className="auction-title">{auction.title}</h3>
-                  <button
-                    className="desc-toggle-btn"
-                    onClick={() => setAuctions(prev =>
-                      prev.map(a =>
-                        a.id === auction.id ? { ...a, showDesc: !a.showDesc } : a
-                      )
-                    )}
-                  >
-                    {auction.showDesc ? "Hide Details ▲" : "Show Details ▼"}
-                  </button>
+                  
                 </div>
 
                 {auction.showDesc && (

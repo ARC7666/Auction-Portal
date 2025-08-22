@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { signInWithPopup, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth';
 import { auth, provider, db } from '../../firebase/firebaseConfig';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './login.css';
 import { onAuthStateChanged } from 'firebase/auth';
-import image1 from '../../assets/images/image1.jpg';
+import image1 from '../../assets/images/image1.webp';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { motion } from "framer-motion";
@@ -22,7 +22,7 @@ function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 
-  /* example to understand the working of .then and .catch (as u r forgetting it more often)
+  /* example to understand the working of .then and .catch (as I am  forgetting it more often)
   orderPizza()
     .then((pizza) => {
       eat(pizza);  // 🍕 Yay! Pizza is here. Time to eat!
@@ -60,9 +60,8 @@ function Login() {
         } else {
           await signOut(auth);
           alert("No account found for this Google account. Please sign up first.");
-          navigate("/"); // or navigate('/signup') depending on your path 
-          // if I make landing page then ye change karna hoga from app.js and here 
-          //WARNING WARNING WARNING 
+          navigate("/"); 
+   
         }
       })
       .catch((error) => {

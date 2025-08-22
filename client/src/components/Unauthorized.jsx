@@ -1,34 +1,17 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import unauthorizedImg from '../assets/images/unauthorized.jpg';
+import { Link } from 'react-router-dom';
 import './unauthorized.css';
-    import FuzzyText from './FuzzyText';
 
-export default function Unauthorized() {
-  const navigate = useNavigate();
-
+export default function NotFound() {
   return (
-
-  
-<div
-  style={{
-    width: '100%',
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'black',
-    margin: 0,
-    padding: 0,
-  }}
->
-  <FuzzyText 
-    baseIntensity={0.2} 
-    hoverIntensity={0.5} 
-    enableHover={true}
-  >
-    403 - Unauthorized
-  </FuzzyText>
-</div>
+    <div className="notfound-container">
+      <div className="glitch-wrapper">
+        <h1 className="glitch" data-text="403">403</h1>
+        <p className="glitch-subtext" data-text="Page Not Found">Access Denied</p>
+      </div>
+      <Link to="/" className="back-home-btn">
+        Go Back Home
+      </Link>
+    </div>
   );
 }

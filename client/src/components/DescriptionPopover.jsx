@@ -35,7 +35,6 @@ function DescriptionPopover({ anchorRect, onClose, description }) {
     <div style={style}>
       <div style={arrowStyle} />
       <p>{description}</p>
-      {/* Optional close logic on background click can be added here */}
     </div>,
     document.body
   );

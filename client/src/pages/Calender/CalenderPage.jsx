@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ReminderCalendar from "../../components/ReminderCalendar/ReminderCalendar";
 import "./CalendarPage.css";
 

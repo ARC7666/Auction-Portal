@@ -1,6 +1,5 @@
-/* EditAuction.css - Styled like CreateAuction */
-
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -20,8 +19,9 @@ html, body {
   align-items: center;
   justify-content: flex-start;
   margin-top: 0px;
- 
+
 }
+
 .dashboard-content-3 h2 {
   color: #333;
 }
@@ -44,7 +44,7 @@ html, body {
 }
 
 .auction-form {
-    width: 100%;
+  width: 100%;
   max-width: 600px;
   background: rgba(255, 255, 255, 0.571);
   padding: 30px;
@@ -57,8 +57,9 @@ html, body {
   flex-direction: column;
   gap: 20px;
   margin-top: -10px;
-  
+
 }
+
 .auction-form input,
 .auction-form textarea,
 .custom-datepicker {
@@ -90,17 +91,17 @@ html, body {
 .custom-datepicker:focus {
 
   outline: none;
-   border: 1.5px solid #7e75ff;
-    background-color: rgb(247, 245, 255);
+  border: 1.5px solid #7e75ff;
+  background-color: rgb(247, 245, 255);
   box-shadow: 0 0 5px #4a91e200;
 }
 
 .auction-form input:hover,
 .auction-form textarea:hover,
 .custom-datepicker:hover {
-  
-   border: 1.5px solid #7e75ff;
-   transform: scale(1.03);
+
+  border: 1.5px solid #7e75ff;
+  transform: scale(1.03);
 }
 
 .auction-form button {
@@ -140,7 +141,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
   background-color: #5848e5;
 }
 
-/* Spinner overlay */
+
 .spinner-overlay {
   position: fixed;
   top: 0;
@@ -164,15 +165,21 @@ input[type="file"]::-webkit-file-upload-button:hover {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
+
 .logo {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0px 0;
-   margin-top: -20px;
+  margin-top: -20px;
 }
 
 .auction-category-dropdown {

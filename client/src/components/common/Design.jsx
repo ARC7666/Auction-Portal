@@ -9,6 +9,9 @@ export const Title = ({ children, className }) => (
   </h3>
 );
 
+  // NO real use in the WEBSITE . 
+  //used it for  testing .
+
 
 export const Caption = ({ children, className }) => (
   <p className={classNames("text-sm text-gray-500", className)}>

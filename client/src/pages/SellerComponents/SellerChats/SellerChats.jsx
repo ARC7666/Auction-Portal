@@ -34,6 +34,10 @@ function SellerChats() {
 
   if (loading) return <p className="seller-chat-msg">Loading chats...</p>;
 
+
+  //NOTE:  React.Fragment is used to group multiple elements without adding an extra node to the DOM
+  //  also written in shorthand as <> 
+  //like in map method unique key dena hota hai , that is not the case in react fragment 
   return (
     <div className="dashboard-content">
       {listings.length === 0 ? (
@@ -51,7 +55,7 @@ function SellerChats() {
             </div>
 
             {listings.map((auction) => (
-              <React.Fragment key={auction.id}>
+              <React.Fragment key={auction.id}> 
 
                 <div className="seller-chat-row desktop-only">
                   <img

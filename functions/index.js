@@ -13,15 +13,14 @@ const gmailPass = defineSecret('GMAIL_PASS');
 const myPaymentApiKey = defineSecret('MY_PAYMENT_API_KEY');
 const corsHandler = cors({ origin: true });
 
-initializeApp();
+initializeApp();``
 const db = getFirestore();
 
-//  Test secret use
 export const yourFunction = onRequest(
   { secrets: [myPaymentApiKey] },
   async (req, res) => {
     const apiKey = myPaymentApiKey.value();
-    res.send(`✅ Secret accessed: ${apiKey.slice(0, 4)}...`);
+    res.send(` Secret accessed: ${apiKey.slice(0, 4)}...`);
   }
 );
 
@@ -35,7 +34,6 @@ export const sendAuctionWinEmail = onDocumentUpdated(
     const before = event.data.before.data();
     const after = event.data.after.data();
 
-    // Trigger only when status changes to "ended"
     if (before.status !== 'ended' && after.status === 'ended') {
       const bids = after.bids || [];
       if (bids.length === 0) return;
@@ -49,7 +47,6 @@ export const sendAuctionWinEmail = onDocumentUpdated(
 
         const user = userSnap.data();
 
-        // ✅ Transporter is created *inside* the function using the secret
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
@@ -66,16 +63,16 @@ export const sendAuctionWinEmail = onDocumentUpdated(
             <h3>Congratulations, ${user.name || 'Bidder'}!</h3>
             <p>You won the auction for <strong>${after.title}</strong>.</p>
             <p>Winning Bid: <strong>₹${winner.amount}</strong></p>
-            <p>Complete your payment <a href="https://auctania.com/payment/${event.params.auctionId}">here</a>.</p>
+            <p>Complete your payment <a href="https://auction-portal-in.web.app/login/${event.params.auctionId}">here</a>.</p>
             <br />
             <p>Thanks for using Auctania!</p>
           `,
         };
 
         await transporter.sendMail(mailOptions);
-        console.log('✅ Mail sent to', user.email);
+        console.log('Mail sent to', user.email);
       } catch (error) {
-        console.error('❌ Email sending failed:', error.message);
+        console.error('Email sending failed:', error.message);
       }
     }
 
@@ -105,7 +102,7 @@ export const autoUpdateAuctionStatus = onSchedule("every 1 minutes", async () =>
   });
 
   await Promise.all(updates);
-  console.log("✅ Auction statuses updated:", updates.length);
+  console.log(" Auction statuses updated:", updates.length);
 });
 
 export const sendUserVerifiedEmail = onDocumentUpdated(
@@ -146,9 +143,9 @@ export const sendUserVerifiedEmail = onDocumentUpdated(
         };
 
         await transporter.sendMail(mailOptions);
-        console.log('✅ Verification email sent to', user.email);
+        console.log('Verification email sent to', user.email);
       } catch (err) {
-        console.error('❌ Failed to send verification email:', err.message);
+        console.error('Failed to send verification email:', err.message);
       }
     }
 
@@ -176,7 +173,7 @@ export const notifyAdminsOnVerifyRequest = onDocumentCreated(
       .filter(Boolean);
 
     if (adminEmails.length === 0) {
-      console.warn("❗ No admins found to notify.");
+      console.warn(" No admins found to notify.");
       return;
     }
 
@@ -250,4 +247,3 @@ export const createCheckoutSession = onRequest(
   }
 );
 
-//Firebase Functions v2 + ES Modules.

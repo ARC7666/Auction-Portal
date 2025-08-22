@@ -11,10 +11,14 @@ const MyBids = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [expandedItems, setExpandedItems] = useState({});
+  const [paymentLoadingId, setPaymentLoadingId] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const stripePromise = loadStripe("pk_test_51RegLwRuwQBUbxUX0Cxwm5qV6X6BuIvOLssOUtf0Tnq5DatithtpTFlxWYRLS9mL3Iy75Mi7fJkrRqJHLWOKitF100MDenEND2");
 
   const initiateStripePayment = async (item, user) => {
+    setPaymentLoadingId(item.id);
+
+   //PAYMENT INTEGRATION WITH STRIPE 
     try {
       const res = await fetch("https://us-central1-auction-portal-in.cloudfunctions.net/createCheckoutSession", {
         method: "POST",
@@ -33,11 +37,13 @@ const MyBids = () => {
         const stripe = await stripePromise;
         await stripe.redirectToCheckout({ sessionId: data.id });
       } else {
-        alert("❌ Could not initiate payment session.");
+        alert(" Could not initiate payment session.");
       }
     } catch (err) {
-      console.error("❌ Stripe payment error:", err);
+      console.error(" Stripe payment error:", err);
       alert("Payment failed. Please try again.");
+    } finally {
+      setPaymentLoadingId(null);
     }
   };
 
@@ -149,7 +155,7 @@ const MyBids = () => {
                         <div className="my-bid-cell">
                           <p className="label">Status</p>
                           {item.paymentStatus === "paid" ? (
-                            <p className="status paid">Paid ✅</p>
+                            <p className="status paid">Paid </p>
                           ) : isWinner ? (
                             <>
                               <p className="status won">Won</p>
@@ -178,7 +184,7 @@ const MyBids = () => {
                     </>
                   ) : (
                     <>
-                      {/* DESKTOP VERSION (Grid Layout) */}
+                    
                       <div>
                         <img src={item.media[0]} alt={item.title} className="my-bid-thumbnail" />
                       </div>
@@ -202,12 +208,16 @@ const MyBids = () => {
                         ) : isWinner ? (
                           <>
                             <p className="status won">Won</p>
-                            <button
-                              className="payment-link-auctania"
-                              onClick={() => initiateStripePayment(item, currentUser)}
-                            >
-                              Make Payment →
-                            </button>
+                            {paymentLoadingId === item.id ? (
+                              <p className="payment-loading-text">Processing Payment...</p>
+                            ) : (
+                              <button
+                                className="payment-link-auctania"
+                                onClick={() => initiateStripePayment(item, currentUser)}
+                              >
+                                Make Payment →
+                              </button>
+                            )}
                           </>
                         ) : (
                           <div>

@@ -6,6 +6,9 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import payment1 from "../../../assets/images/payment1.jpg";
 import "./PaymentPage.css";
 
+
+    //NOTE THIS PAGE IS NO MORE IN USE 
+
 const PaymentPage = () => {
   const { auctionId } = useParams();
   const [loading, setLoading] = useState(true);

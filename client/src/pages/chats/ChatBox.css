@@ -22,14 +22,14 @@ html, body {
   height: 95%;
   width: 100%;
   max-width: 800px;
-  background-color: #f0f0f0;
+  background-color: #f0f0f093;
   border-radius: 0 0 12px 12px;
   overflow: hidden;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.406);
 }
 
 .chat-heading {
-  background-color: #075e54 ;
+  background-color: #312c62 ;
   color: white;
   padding: 1rem 1.5rem;
   font-size: 1.1rem;
@@ -41,7 +41,7 @@ html, body {
 .messages {
   flex: 1;
   padding: 1rem;
-  background-color: #ece5dd;
+  background-color: #f0f0f0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@ html, body {
   flex-wrap: nowrap; 
   overflow: hidden; 
 }
-/* Input and button styles remain the same */
+
 .chat-input input {
   flex: 1;
   min-width: 0;
@@ -78,7 +78,7 @@ html, body {
 
 .chat-input button {
   flex-shrink: 0;
-  background-color: #075e54;
+  background-color: #534bab;
   color: white;
   padding: 0.55rem 1rem;
   border: none;
@@ -93,7 +93,7 @@ html, body {
 }
 
 .chat-input button:hover {
-  background-color: #064e47;
+  background-color: #443e8a;
 }
 
 .msg {
@@ -107,7 +107,7 @@ html, body {
 
 .msg.own {
   align-self: flex-end;
-  background-color: #dcf8c6;
+  background-color: #cfe0f7d8;
 }
 
 .msg.other {
@@ -117,16 +117,18 @@ html, body {
 
 .reply-preview {
   font-size: 0.75rem;
-  background: #f1f1f1;
+  background: #f1f1f1c5;
   padding: 4px 8px;
-  border-left: 4px solid #075e54;
+  border-left: 4px solid #443d8a;
   margin-bottom: 4px;
 
 }
 
 
 .reply-preview-box{
-  margin-left: 20px;
+  
+    background: #f1f1f1c5;
+    border-top: solid 2px #443d8a;
 }
 
 .highlighted {

@@ -17,7 +17,7 @@ const PaymentSuccess = () => {
       console.log(" uid:", uid);
 
       if (!auctionId || !uid) {
-        console.error("❌ Missing auctionId or uid, redirecting...");
+        console.error(" Missing auctionId or uid, redirecting...");
         navigate("/buyer-dashboard/my-bids");
         return;
       }
@@ -35,7 +35,7 @@ const PaymentSuccess = () => {
           setLoading(false);
         }, 1000);
       } catch (error) {
-        console.error("❌ Firestore update failed:", error);
+        console.error("Firestore update failed:", error);
       }
     };
 

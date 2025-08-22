@@ -24,7 +24,7 @@
   background-color: rgba(0, 0, 0, 0.4);
 
   overflow: hidden; /* hides any overflow */
-  box-sizing: border-box; /* includes padding in width */
+  box-sizing: border-box; 
 
 }
 
@@ -82,7 +82,7 @@
 }
 
 .titleText-login h1 {
-  font-size: 29px; /* Explicitly set, not inherited */
+  font-size: 29px; 
   font-weight: 600;
   margin-bottom: 5px;
 }
@@ -116,7 +116,7 @@
 
 .input1::placeholder {
    color: rgba(0, 0, 0, 0.518); 
-  opacity: 2; 
+  opacity: 1; 
   font-weight: 600;
 }
 
@@ -159,7 +159,6 @@
   display: flex;
   align-items: center;
   margin-top: 20px;
-  font-weight: 500;
   font-size: 14px;
   color: rgba(43, 38, 55, 0.586);
   margin-bottom: 15px;

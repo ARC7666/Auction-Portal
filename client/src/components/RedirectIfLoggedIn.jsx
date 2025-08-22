@@ -28,6 +28,7 @@ const RedirectIfLoggedIn = ({ children }) => {
   }, []);
 
   if (redirectTo) return <Navigate to={redirectTo} replace />;
+  //new page is replaced with the new one here in browser history using replace props 
   if (checking) return null;
   return children;
 };

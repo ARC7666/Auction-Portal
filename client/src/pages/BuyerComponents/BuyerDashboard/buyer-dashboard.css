@@ -1,4 +1,4 @@
-/* Reset */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -27,7 +27,7 @@ html, body {
 
 
 .dashboard-main {
-  flex-grow: 1;
+  flex-grow: 1; /*flex box property , tells the element to take up all the available space in its parent */
   height: 100%;
   padding: 30px;
   overflow-y: auto;
@@ -75,7 +75,7 @@ html, body {
 
 .auction-grid-buyer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /*1fr= 1 fraction of available spac*/
   gap: 1.5rem;
   padding: 2rem;
   margin: 0 auto;
@@ -85,7 +85,6 @@ html, body {
   box-sizing: border-box;
  position: relative;
   z-index: 1;
-  /* ADD THIS 👇 */
   align-items: start;
 }
 
@@ -169,7 +168,6 @@ html, body {
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  white-space: nowrap;
   max-width: 100%;
   box-sizing: border-box;
 

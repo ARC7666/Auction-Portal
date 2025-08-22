@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import "./CategorySlider.css";
 import { categorylists } from "../../utils/data";
 import iphoneFrame from "../../assets/iphone-frame.png";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 export const CategorySlider = () => {
   const scrollRef = useRef(null);

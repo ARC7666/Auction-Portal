@@ -95,6 +95,7 @@ function BuyerLayout() {
         for (const docSnap of querySnapshot.docs) {
           const auction = { id: docSnap.id, ...docSnap.data() };
           const endTime = dayjs(auction.endTime);
+          if ((auction.status || "").toLowerCase() === "banned") continue;
           if (auction.status === "ended" && now.diff(endTime, "hour") > 12) continue;
           filtered.push(auction);
         }
@@ -107,18 +108,22 @@ function BuyerLayout() {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.trim() === "") {
-      setSearchResults([]);
-      return;
-    }
-    const q = searchQuery.toLowerCase();
-    const filtered = auctions.filter(
-      (item) =>
-        item.title.toLowerCase().includes(q) ||
-        item.description?.toLowerCase().includes(q)
+  if (searchQuery.trim() === "") {
+    setSearchResults([]);
+    return;
+  }
+  const q = searchQuery.toLowerCase();
+  const filtered = auctions.filter(item => {
+    const status = (item.status || "").toLowerCase();
+    if (status === "banned") return false;
+
+    return (
+      item.title.toLowerCase().includes(q) ||
+      item.description?.toLowerCase().includes(q)
     );
-    setSearchResults(filtered);
-  }, [searchQuery, auctions]);
+  });
+  setSearchResults(filtered);
+}, [searchQuery, auctions]);
 
   const upcomingAuctions = auctions
     .filter((auction) => {
@@ -180,7 +185,7 @@ function BuyerLayout() {
         </nav>
 
         <div className="right-section-header">
-          {/* Desktop Search */}
+          {/* laptop search */}
           {window.innerWidth > 768 && (
             <div className="search-container desktop-search" ref={searchContainerRef}>
               <Search size={24} color="#fff" onClick={() => searchInputRef.current?.focus()} style={{ cursor: "pointer" }} />
@@ -198,8 +203,8 @@ function BuyerLayout() {
             </div>
           )}
 
-          {/* Mobile Search Icon */}
-          {window.innerWidth <= 768 && (
+          {/* mobile search icon*/}
+          {window.innerWidth <= 766 && (
             <>
               <div
                 className="mobile-search-icon"
@@ -254,7 +259,7 @@ function BuyerLayout() {
                       <>
                         <button className="dropdown-btn" onClick={() => handleProtectedNavigation("/buyer-dashboard/my-bids")}> <Gavel size={16} /> My Bids </button>
                         <button className="dropdown-btn" onClick={() => handleProtectedNavigation("/buyer-dashboard/live-auctions")}> <Radio size={16} /> Live </button>
-                        <button className="dropdown-btn" onClick={() => setShowNotifications(true)}> <BellRing size={16} /> Notifications </button>
+
                       </>
                     )}
                     <button className="dropdown-btn" onClick={handleLogout}> <LogOut size={16} /> Sign Out </button>

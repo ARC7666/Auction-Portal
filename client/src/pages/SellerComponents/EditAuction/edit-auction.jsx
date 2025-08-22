@@ -1,4 +1,4 @@
-// EditAuction.jsx
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db, storage, auth } from '../../../firebase/firebaseConfig';
@@ -7,10 +7,9 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import DatePicker from "react-datepicker";
 import { onAuthStateChanged } from "firebase/auth";
 import 'react-datepicker/dist/react-datepicker.css';
-import LoaderScreen from "../../../components/LoaderScreen";
 import './edit-auctions.css';
 import { deleteObject } from 'firebase/storage';
-import { X } from 'lucide-react';
+
 
 function EditAuction() {
   const { id } = useParams();
@@ -145,7 +144,7 @@ function EditAuction() {
             <input type="text" placeholder="Title" value={auction.title}
               onChange={(e) => setAuction({ ...auction, title: e.target.value })} required />
 
-            <textarea placeholder="Description" value={auction.description}
+             <textarea placeholder="Description" value={auction.description}
               onChange={(e) => setAuction({ ...auction, description: e.target.value })} required />
 
             <input type="number" placeholder="Start Price" value={auction.startPrice}
@@ -166,6 +165,7 @@ function EditAuction() {
               <option value="Lifestyle">Lifestyle</option>
               <option value="Painting">Painting</option>
               <option value="RealEstate">Real Estate</option>
+              <option value="Books">Books</option>
               <option value="Others">Others</option>
             </select>
 

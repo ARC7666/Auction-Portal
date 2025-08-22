@@ -66,7 +66,7 @@ useEffect(() => {
   };
 
   document.addEventListener('mousedown', closeOnClickOrScroll);
-  window.addEventListener('scroll', closeOnScroll, true); // `true` ensures it catches all scrolls
+  window.addEventListener('scroll', closeOnScroll, true); 
 
   return () => {
     document.removeEventListener('mousedown', closeOnClickOrScroll);

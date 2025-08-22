@@ -279,7 +279,6 @@
   gap: 1.25rem;
 }
 
-/* Responsive Handling */
 @media screen and (max-width: 768px) {
   .desktop-nav {
     display: none;
@@ -346,14 +345,13 @@
   pointer-events: none;
 }
 
-/* Show full input when visible */
 .search-container.visible .search-input-box {
   width: 150px;
   opacity: 1;
   pointer-events: auto;
 }
 
-/* Always full size on desktop */
+
 @media screen and (min-width: 769px) {
   .search-input-box {
     width: 150px;
@@ -365,7 +363,6 @@
   }
 }
 
-/* Mobile-specific */
 @media screen and (max-width: 768px) {
   .search-container svg {
     width: 24px;
@@ -383,8 +380,6 @@
 .dashboard-main {
   padding-bottom: calc(80px + env(safe-area-inset-bottom));
 }
-
-/* MOBILE SEARCH NEW LAYOUT */
 
 .mobile-search-trigger {
   display: flex;
@@ -449,7 +444,7 @@
 @media screen and (max-width: 768px) {
   .mobile-search-popup {
     position: fixed;
-    top: 64px; /* slightly below the sticky header */
+    top: 64px; 
     left: 50%;
     transform: translateX(-50%);
     width: 92vw;

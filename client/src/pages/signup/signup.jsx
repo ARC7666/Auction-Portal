@@ -5,7 +5,7 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
 import { onAuthStateChanged } from 'firebase/auth';
-import image1 from '../../assets/images/image1.jpg';
+import image1 from '../../assets/images/image1.webp';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { motion } from "framer-motion";
 

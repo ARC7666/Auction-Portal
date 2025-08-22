@@ -121,6 +121,12 @@
   color: #332e90;
 }
 
+.payment-loading-text {
+  color: #0077ff;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
 @media (max-width: 1024px) {
   .my-bids-table-header {
     display: none;
@@ -243,7 +249,7 @@
 }
 }
 
-/* Desktop Fix */
+
 @media (min-width: 1025px) {
   .my-bids-table-row {
     grid-template-columns: 150px 1fr 150px 150px 150px 120px;

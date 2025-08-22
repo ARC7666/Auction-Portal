@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, useLocation, useNavigate, Link } from "react-router-dom";
+import { Link, useLocation, useNavigate, Link } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { IoSearchOutline } from "react-icons/io5";
 import { menulists } from "../../utils/data";
@@ -88,12 +88,12 @@ export const Header = () => {
        
           <div className="right-section">
             <div className="desktop-icons">
-              <NavLink to="/login" className={isScrolled || !isHomePage ? "text-black" : "text-white"}>
+              <Link to="/login" className={isScrolled || !isHomePage ? "text-black" : "text-white"}>
                 Sign in
-              </NavLink>
-              <NavLink to="/signup" className={`join-btn ${!isHomePage || isScrolled ? "green" : "white"}`}>
+              </Link>
+              <Link to="/signup" className={`join-btn ${!isHomePage || isScrolled ? "green" : "white"}`}>
                 Join
-              </NavLink>
+              </Link>
             </div>
 
             <div className="mobile-menu-button">
@@ -118,10 +118,10 @@ export const Header = () => {
     </li>
    ))}
   <li>
-    <NavLink to="/login" className="text-white mobile-auth-link">Sign in</NavLink>
+    <Link to="/login" className="text-white mobile-auth-link">Sign in</Link>
   </li>
   <li>
-    <NavLink to="/signup" className="join-btn green ">Join</NavLink>
+    <Link to="/signup" className="join-btn green ">Join</Link>
   </li>
 </ul>
       </div>

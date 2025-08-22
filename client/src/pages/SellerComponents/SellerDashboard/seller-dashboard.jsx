@@ -32,9 +32,9 @@ function SellerDashboard() {
           const docRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists() && docSnap.data().role === "seller") {
-            
+
             const userData = docSnap.data();
-            setUser({ ...user, name: userData.name, role: userData.role });
+            setUser({ ...user, name: userData.name, role: userData.role , profileImageUrl: userData.profileImageUrl || null });
             await fetchKpis(user.uid);
             setLoading(false);
           } else {
@@ -129,7 +129,7 @@ function SellerDashboard() {
           title: 'Logout Successful',
           text: 'You have been logged out.',
           showConfirmButton: false,
-          timer: 1200,
+          timer: 1000,
           timerProgressBar: true,
           customClass: {
             popup: 'custom-swal-popup',
@@ -204,7 +204,10 @@ function SellerDashboard() {
 
           <div className="topbar-icons" ref={dropdownRef}>
             <div className="profile-toggle" onClick={() => setShowProfile(!showProfile)}>
-              <img src={`https://ui-avatars.com/api/?name=${user?.name || "User"}`} alt="User Avatar" />
+              <img
+                src={user?.profileImageUrl || `https://ui-avatars.com/api/?name=${user?.name || "User"}`}
+                alt="User Avatar"
+              />
               {showProfile && (
                 <div className="profile-dropdown-seller">
                   <div className="profile-info-seller">

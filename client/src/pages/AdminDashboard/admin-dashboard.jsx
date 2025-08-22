@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from '../../firebase/firebaseConfig';
 import { Users, FileText, BarChart3, ShieldCheck, AlertTriangle, LogOut } from 'lucide-react';
+import { logo } from "../../assets";
 import { Link } from 'react-router-dom';
 import AdminUsers from './users/AdminUsers';
 import LoaderScreen from '../../components/LoaderScreen';
@@ -105,11 +106,20 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="admin-dashboard">
-      <header className="admin-header">
+
+    <>
+      <header className="header-bar-admin" >
+        <div className="logo-section">
+          <button
+            onClick={() => navigate(user ? "/admin-dashboard" : "/")}
+            className="unstyled-logo-button"
+          >
+            <img src={logo} alt="Logo" />
+          </button>
+
+        </div>
         <div>
           <h1>Admin Dashboard</h1>
-          <p className="welcome-msg">Welcome back, {adminUser.name} 👋</p>
         </div>
 
         <button className="logout-btn" onClick={handleLogout}>
@@ -118,65 +128,66 @@ function AdminDashboard() {
         </button>
       </header>
 
-      <div className="admin-kpis">
-        <div className="kpi-card">
-          <Users size={24} />
-          <div>
-            <h4>Total Users</h4>
-            <p>{totalUsers}</p>
+      <div className="admin-dashboard">
+
+        <div className="admin-kpis">
+          <div className="kpi-card">
+            <Users size={24} />
+            <div>
+              <h4>Total Users</h4>
+              <p>{totalUsers}</p>
+            </div>
+          </div>
+          <div className="kpi-card">
+            <BarChart3 size={24} />
+            <div>
+              <h4>Active Auctions</h4>
+              <p>{totalAuctions}</p>
+            </div>
+          </div>
+          <div className="kpi-card">
+            <ShieldCheck size={24} />
+            <div>
+              <h4>Verified Sellers</h4>
+              <p>{verifiedSellerCount}</p>
+            </div>
+          </div>
+          <div className="kpi-card">
+            <AlertTriangle size={24} />
+            <div>
+              <h4>Reports</h4>
+              <p>12 New</p>
+            </div>
           </div>
         </div>
-        <div className="kpi-card">
-          <BarChart3 size={24} />
-          <div>
-            <h4>Active Auctions</h4>
-            <p>{totalAuctions}</p>
-          </div>
-        </div>
-        <div className="kpi-card">
-          <ShieldCheck size={24} />
-          <div>
-            <h4>Verified Sellers</h4>
-            <p>{verifiedSellerCount}</p>
-          </div>
-        </div>
-        <div className="kpi-card">
-          <AlertTriangle size={24} />
-          <div>
-            <h4>Reports</h4>
-            <p>12 New</p>
-          </div>
+
+        <div className="admin-sections">
+          <section className="admin-section">
+            <h3>User Management</h3>
+            <p>Manage sellers, buyers, and permissions.</p>
+            <button className="admin-btn" onClick={() => navigate('/admin/users')}>View All Users</button>
+          </section>
+
+       
+          <section className="admin-section">
+            <h3>Auctions</h3>
+            <p>View and manage all auction listings.</p>
+            <button className="admin-btn" onClick={() => navigate('/admin/auctions')}>
+              View All Auctions
+            </button>
+          </section>
+
+          <section className="admin-section">
+            <h3>Admin Tools</h3>
+            <p>View actions taken by all admins in real-time.</p>
+            <button className="admin-btn" onClick={() => navigate('/admin-dashboard/logs')}>View Logs</button>
+          </section>
+
         </div>
       </div>
-
-      <div className="admin-sections">
-        <section className="admin-section">
-          <h3>User Management</h3>
-          <p>Manage sellers, buyers, and permissions.</p>
-          <button className="admin-btn" onClick={() => navigate('/admin/users')}>View All Users</button>
-        </section>
-
-        <section className="admin-section">
-          <h3>Reports & System Logs</h3>
-          <p>Review complaints, suspicious activity, or logs.</p>
-          <button className="admin-btn">View Logs</button>
-        </section>
-
-        <section className="admin-section">
-          <h3>Pending Payments</h3>
-          <p>Verify and mark items as sold.</p>
-          <button className="admin-btn" onClick={() => navigate('/admin-dashboard/pending-payments')}>View Requests</button>
-        </section>
-
-        <section className="admin-section">
-          <h3>Admin Tools</h3>
-          <p>View actions taken by all admins in real-time.</p>
-          <button className="admin-btn" onClick={() => navigate('/admin-dashboard/logs')}>View Logs</button>
-        </section>
-
-      </div>
-    </div>
+    </>
   );
+
 }
 
 export default AdminDashboard;

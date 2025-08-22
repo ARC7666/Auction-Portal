@@ -78,25 +78,27 @@ export const processList = [
     id: "01",
     title: "Sign up",
     desc: "Sign in to your account, then create a listing by filling out a short form with basic details. Upload a few images of the item you want to put up for auction.",
-    cover: "https://rainbowthemes.net/themes/nuron/wp-content/uploads/2023/01/shape-7.png",
+    cover: "/images/products/shape-1.png",
+
   },
   {
     id: "02",
     title: "Auction goes online",
     desc: "Once listed, your auction goes live on Auctania at the scheduled time, visible to all verified buyers across the platform.",
-    cover: "https://rainbowthemes.net/themes/nuron/wp-content/uploads/2023/09/auction.png",
+    cover: "/images/products/shape-2.png",
+    
   },
   {
     id: "03",
     title: "Closing auction",
     desc: "When the auction timer ends, the highest bidder wins. If no new bid comes in before the final countdown, it is sold to the top bidder.",
-    cover: "https://rainbowthemes.net/themes/nuron/wp-content/uploads/2023/09/auction-2.png",
+    cover: "/images/products/shape-3.png",
   },
   {
     id: "04",
     title: "The last steps",
     desc: "The winner proceeds to payment, and the seller gets notified. Once paid, your product is marked as sold — smooth and simple.",
-    cover: "https://rainbowthemes.net/themes/nuron/wp-content/uploads/2023/09/auction-3.png",
+    cover: "/images/products/shape-4.png",
   },
 ];
 

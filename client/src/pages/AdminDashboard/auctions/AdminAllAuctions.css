@@ -1,0 +1,355 @@
+
+.admin-auctions-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.header-section h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-buttons button {
+    padding: 8px 16px;
+    border: 2px solid #007bff;
+    background: white;
+    color: #007bff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.filter-buttons button:hover {
+    background: #f8f9fa;
+    transform: translateY(-1px);
+}
+
+.filter-buttons button.active {
+    background: #007bff;
+    color: white;
+}
+
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.auctions-table {
+    width: 100%;
+    min-width: 800px;
+    position: sticky;
+    margin-top: 25px;
+        position: sticky;
+}
+
+.auctions-table th {
+    background: #f8f9fa;
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.auctions-table td {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+    vertical-align: middle;
+}
+
+.auctions-table tr:hover {
+    background: #f8f9fa;
+}
+
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.active {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-badge.banned {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.action-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    min-width: 100px;
+    justify-content: center;
+}
+
+.ban-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.ban-btn:hover:not(:disabled) {
+    background: #c82333;
+    transform: translateY(-1px);
+}
+
+.unban-btn {
+    background: #28a745;
+    color: white;
+}
+
+.unban-btn:hover:not(:disabled) {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+.action-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.loader {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.no-data {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.load-more-section {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.load-more-btn {
+    padding: 12px 24px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.load-more-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+.loading-indicator {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #6c757d;
+}
+
+.end-message {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+    font-style: italic;
+    border-top: 1px solid #dee2e6;
+    margin-top: 20px;
+}
+
+
+.skeleton-row td {
+    padding: 12px;
+}
+
+.skeleton-thumbnail,
+.skeleton-text,
+.skeleton-button {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeleton-thumbnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+}
+
+.skeleton-text {
+    height: 16px;
+    width: 100%;
+}
+
+.skeleton-text.small {
+    width: 60%;
+}
+
+.skeleton-button {
+    height: 36px;
+    width: 80px;
+    border-radius: 6px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+
+.header-bar-admin-us {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to right, #1f1c2c, #2f2845);
+  border-bottom: 3px solid #6c63ff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+.header-bar-admin-us h1 {
+  margin-top: 20px;
+  font-size: 25px;
+  color: #ffffffbf;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.unstyled-logo-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.unstyled-logo-button img {
+    height: 40px;
+    width: auto;
+}
+
+
+
+@media (max-width: 768px) {
+    .admin-auctions-container {
+        padding: 15px;
+    }
+    
+    .header-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .auctions-table th,
+    .auctions-table td {
+        padding: 8px 6px;
+        font-size: 0.9rem;
+    }
+    
+    .thumbnail {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .action-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        min-width: 80px;
+    }
+    
+    .header-section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .table-container {
+        margin: 0 -15px;
+        border-radius: 0;
+    }
+    
+    .auctions-table {
+        min-width: 600px;
+    }
+    
+    .filter-buttons button {
+        flex: 1;
+        min-width: 0;
+    }
+}

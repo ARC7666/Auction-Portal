@@ -4,15 +4,12 @@ import { doc, getDoc } from "firebase/firestore";
 import { db, storage, auth } from '../../../firebase/firebaseConfig';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import 'react-datepicker/dist/react-datepicker.css'; // help taken by  @Codevolution channel
 import DatePicker from "react-datepicker";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { logo } from '../../../assets';
-import { ClipLoader } from 'react-spinners';
 import Swal from "sweetalert2";
-import { Home, List, BarChart3, CalendarDays, MessageSquare } from 'lucide-react';
+
 
 
 function CreateAuction() {
@@ -29,6 +26,7 @@ function CreateAuction() {
   const [loading, setLoading] = useState(true);
   const [requestingVerification, setRequestingVerification] = useState(false);
   const [category, setCategory] = useState('');
+  const [displayPrice, setDisplayPrice] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -56,7 +54,7 @@ function CreateAuction() {
     return () => unsubscribe();
   }, []);
 
-   if (loading) {
+  if (loading) {
     return (
       <div className="spinner-overlay">
         <div className="spinned" />
@@ -67,13 +65,13 @@ function CreateAuction() {
   /*const handleGoBack1 = () => {
     navigate("/seller-dashboard"); 
   }*/
+  //parse is converting string data ( jo hum enter karenge) to numbers which is to be stored in database
 
   const formatIndianCurrency = (value) => {
     if (!value) return '';
-    const num = value.replace(/[^0-9]/g, '');
+    const num = value.toString().replace(/[^0-9]/g, '');
     const x = parseInt(num);
     if (isNaN(x)) return '';
-
     return '₹' + x.toLocaleString('en-IN');
   };
 
@@ -119,8 +117,8 @@ function CreateAuction() {
         description,
         category,
         media: mediaURLs, // ye firebase storage sai download url mila .[remember cloudinary use krne sai ye chnage karna hai]
-        startPrice: parseFloat(startPrice.replace(/[^\d.]/g, "")), //parse is converting string data ( jo hum enter karenge) to numbers which is to be stored in database
-        currentBid: parseFloat(startPrice.replace(/[^\d.]/g, "")),
+        startPrice: startPrice,
+  currentBid: startPrice,
         startTime: start.toISOString(),
         endTime: end.toISOString(),
         sellerId: auth.currentUser.uid,
@@ -215,9 +213,24 @@ function CreateAuction() {
 
         <input
           type="text"
-          placeholder="Start Price"
-          value={formatIndianCurrency(startPrice)}
-          onChange={(e) => setStartPrice(e.target.value)}
+          placeholder="Start Price (₹80 - ₹99.99L)"
+          value={displayPrice}
+          onChange={(e) => {
+            const raw = e.target.value.replace(/[^0-9]/g, '');
+            const num = parseInt(raw);
+
+            if (!isNaN(num)) {
+              if (num >= 80 && num <= 9999900) {
+                setStartPrice(num); 
+                setDisplayPrice(formatIndianCurrency(num)); 
+              } else {
+                setDisplayPrice(e.target.value);
+              }
+            } else {
+              setStartPrice('');
+              setDisplayPrice('');
+            }
+          }}
           required
         />
         <select
@@ -243,6 +256,7 @@ function CreateAuction() {
           <option value="Lifestyle">Lifestyle</option>
           <option value="Painting">Painting</option>
           <option value="RealEstate">Real Estate</option>
+          <option value="Books">Books</option>
           <option value="Others">Others</option>
         </select>
 
@@ -250,7 +264,7 @@ function CreateAuction() {
           selected={startTime}
           onChange={(date) => setStartTime(date)}
           showTimeSelect
-          placeholderText="dd/mm/yyyy ,  --:--  🗓️"
+          placeholderText="dd/mm/yyyy ,  --:--  "
           timeFormat="HH:mm"
           timeIntervals={1}
           timeCaption="Time"

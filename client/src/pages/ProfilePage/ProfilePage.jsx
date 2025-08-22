@@ -17,7 +17,6 @@ import {
   deleteObject
 } from "firebase/storage";
 import Swal from "sweetalert2";
-import ReminderCalendar from "../../components/ReminderCalendar/ReminderCalendar";
 import "./ProfilePage.css";
 
 function ProfilePage() {
@@ -72,7 +71,23 @@ function ProfilePage() {
     await setDoc(doc(db, "users", user.uid), { profileImageUrl: downloadURL }, { merge: true });
 
     setProfileData((prev) => ({ ...prev, profileImageUrl: downloadURL }));
-    alert("Profile picture updated!");
+    Swal.fire({
+      title: "Profile picture updated!",
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1200,
+      timerProgressBar: true,
+      showClass: {
+        popup: 'swal2-show',
+        icon: 'swal2-icon-show'
+      },
+      hideClass: {
+        popup: 'swal2-hide',
+        icon: 'swal2-icon-hide'
+      }
+    });
   };
 
   const handleRemovePhoto = async () => {
@@ -83,7 +98,23 @@ function ProfilePage() {
       await deleteObject(storageRef);
       await setDoc(doc(db, "users", user.uid), { profileImageUrl: null }, { merge: true });
       setProfileData((prev) => ({ ...prev, profileImageUrl: null }));
-      alert("Profile picture removed!");
+      Swal.fire({
+        title: "Profile picture removed!",
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 900,
+        timerProgressBar: true,
+        showClass: {
+          popup: 'swal2-show',
+          icon: 'swal2-icon-show'
+        },
+        hideClass: {
+          popup: 'swal2-hide',
+          icon: 'swal2-icon-hide'
+        }
+      });
     } catch (err) {
       console.error("Error removing profile photo:", err);
       alert("Failed to remove profile picture");
@@ -93,7 +124,7 @@ function ProfilePage() {
   const requestVerification = async () => {
     if (requestingVerification || !user) return;
 
-    setRequestingVerification(true); 
+    setRequestingVerification(true);
 
     try {
       await addDoc(collection(db, "adminLogs"), {
@@ -107,7 +138,7 @@ function ProfilePage() {
         icon: "info",
         title: "Request Sent",
         text: "Your verification request has been submitted to the admin.",
-        timer: 2500,
+        timer: 2000,
         showConfirmButton: false
       });
     } catch (err) {
@@ -196,7 +227,7 @@ function ProfilePage() {
                 {profileData.isVerified
                   ? " Verified Seller"
                   : requestingVerification
-                    ? "⏳ Sending Verification Request..."
+                    ? " Sending Verification Request..."
                     : " Not Verified (Click to Request)"}
               </p>
             )}

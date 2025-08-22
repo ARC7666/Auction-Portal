@@ -46,7 +46,7 @@ const ChatRoom = () => {
       orderBy('timestamp')
     );
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
+    const unsubscribe = onSnapshot(q, (snapshot) => { // real-time listener for chats/auctionId/messages collection
       setMessages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     });
 
@@ -161,9 +161,9 @@ const ChatRoom = () => {
 
         {replyTo && (
           <div className="reply-preview-box">
-            <div style={{ fontSize: '0.85rem', fontWeight: 500, color: '#075e54' }}>{replyTo.username}:</div>
-            <div style={{ fontSize: '0.9rem' }}>{replyTo.text}</div>
-            <button onClick={() => setReplyTo(null)} style={{ fontSize: '0.7rem', background: 'transparent', border: 'none', color: '#888' }}>Cancel</button>
+            <div style={{ fontSize: '0.85rem', fontWeight: 500, color: '#443d8a' ,  marginLeft: 20 }}>{replyTo.username}:</div>
+            <div style={{ fontSize: '0.9rem',marginLeft: 20 }}>{replyTo.text}</div>
+            <button onClick={() => setReplyTo(null)} style={{ fontSize: '0.7rem', background: 'transparent', border: 'none', color: '#988',marginLeft: 20 }}>Cancel</button>
           </div>
         )}
 

@@ -1,8 +1,22 @@
-/* Reset & base */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.header-bar-admin {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to right, #1f1c2c, #2f2845);
+  border-bottom: 3px solid #6c63ff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 html, body {
@@ -11,28 +25,29 @@ html, body {
 }
 .admin-dashboard {
   font-family: 'Poppins', sans-serif;
-  padding: 40px;
+
   background: #f5f7fa;
   min-height: 100vh;
-  color: #333;
+  color: #ffffff;
 }
 
-.admin-header {
-  margin-bottom: 30px;
+
+.header-bar-admin h1 {
+  margin-top: 20px;
+  font-size: 25px;
+  color: #ffffffbf;
 }
 
-.admin-header h1 {
-  font-size: 2.2rem;
-  color: #2c3e50;
-}
+
 
 .welcome-msg {
-  font-size: 1rem;
-  color: #7f8c8d;
+  font-size: 16px;
+  color: #97a4a4;
   margin-top: 5px;
+  margin-left: 10px;
 }
 
-/* KPIs (cards) */
+
 .admin-kpis {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -68,7 +83,7 @@ html, body {
   color: #2c3e50;
 }
 
-/* Admin Sections */
+
 .admin-sections {
   display: flex;
   flex-wrap: wrap;

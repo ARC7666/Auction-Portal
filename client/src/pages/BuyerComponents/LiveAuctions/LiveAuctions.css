@@ -25,7 +25,6 @@
   background-color: #4caf50;
 }
 
-/* Listing Card Component */
 .live-card {
   background: rgba(232, 232, 234, 0.85);
   border-radius: 18px;
@@ -51,7 +50,7 @@
 .live-image {
   width: 100%;
   height: 180px;
-  object-fit: cover;
+  object-fit: cover; /* resize the image so that it is contianed in the box without changing aspect ratio*/
 }
 
 .live-details {
