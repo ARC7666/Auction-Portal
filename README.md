@@ -266,6 +266,6 @@ AWS_REGION=ap-south-1
 
 <div align="center">
 
-*My first full-stack project — from concept to production. Built from scratch, deployed to the cloud.* 🚀
+*My first full-stack project* 
 
 </div>
