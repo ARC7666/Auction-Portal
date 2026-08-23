@@ -1,6 +1,8 @@
 <div align="center">
 
-# Auctania — Real-Time Online Auction Portal
+<img src="client/src/assets/images/logoblack.png" alt="Auctania" width="280" />
+
+### Real-Time Online Auction Portal
 
 **Next.js · TypeScript · Express.js · Node.js · Socket.IO · JWT · Docker · AWS EC2 · Nginx**
 
