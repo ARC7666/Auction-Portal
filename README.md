@@ -1,6 +1,10 @@
 <div align="center">
 
-<img src="client/src/assets/images/logoblack.png" alt="Auctania" width="280" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="client/src/assets/images/logo.png">
+  <source media="(prefers-color-scheme: light)" srcset="client/src/assets/images/logoblack.png">
+  <img src="client/src/assets/images/logoblack.png" alt="Auctania" width="280" />
+</picture>
 
 ### Real-Time Online Auction Portal
 
