@@ -19,6 +19,7 @@ function Signup() {
   const [googleUser, setGoogleUser] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isChoosingGoogleRole, setIsChoosingGoogleRole] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   const navigate = useNavigate();
 
@@ -127,12 +128,17 @@ function Signup() {
     <div className="backTheme">
       <div className="loginBox">
         <motion.div
-          className="imageIllustration"
+          className={`imageIllustration ${imgLoaded ? '' : 'loading'}`}
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <img src={image1} alt="login" className="image" />
+          <img 
+            src={image1} 
+            alt="login" 
+            className={`image ${imgLoaded ? 'loaded' : ''}`} 
+            onLoad={() => setImgLoaded(true)}
+          />
         </motion.div>
 
         <motion.div className="signupContent"

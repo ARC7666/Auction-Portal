@@ -19,15 +19,17 @@ const formatIndianPrice = (num) => {
 
 const ProductCard = ({ item }) => {
  const navigate = useNavigate(); 
+ const [imgLoaded, setImgLoaded] = useState(false);
   return (
     <div className="product-card">
-      <div className="product-card-img-container">
+      <div className={`product-card-img-container ${imgLoaded ? '' : 'loading'}`}>
         <NavLink to={`/`}>
           <img
                  src={item?.media?.[0]}
                  alt={item?.title}
-                 className="product-card-img"
+                 className={`product-card-img ${imgLoaded ? 'loaded' : ''}`}
                  loading="lazy"
+                 onLoad={() => setImgLoaded(true)}
            />
         </NavLink>
         

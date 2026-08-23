@@ -32,7 +32,8 @@ body {
   display: flex;
   width: 90vw;
   max-width: 1100px;
-  height: 660px;
+  min-height: 660px;
+  height: auto;
   background-color: rgba(247, 231, 231, 0.078);
   border-radius: 10px;
   overflow: hidden;
@@ -42,6 +43,14 @@ body {
 .imageIllustration {
   width: 50%;
   background-color: rgba(43, 38, 55, 0);
+  position: relative;
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+}
+
+.imageIllustration.loading {
+  animation: 1.5s shine linear infinite;
 }
 
 .image {
@@ -49,7 +58,12 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 7px 0 0 7px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
 
+.image.loaded {
+  opacity: 1;
 }
 
 .signupContent {

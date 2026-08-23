@@ -21,6 +21,7 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   /* example to understand the working of .then and .catch (as I am  forgetting it more often)
   orderPizza()
@@ -268,12 +269,17 @@ function Login() {
         </motion.div>
 
         <motion.div
-          className="imageIllustration1"
+          className={`imageIllustration1 ${imgLoaded ? '' : 'loading'}`}
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <img src={image1} alt="login" className="image1" />
+          <img 
+            src={image1} 
+            alt="login" 
+            className={`image1 ${imgLoaded ? 'loaded' : ''}`} 
+            onLoad={() => setImgLoaded(true)}
+          />
         </motion.div>
       </div>
     </div>

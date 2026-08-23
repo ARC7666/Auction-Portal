@@ -33,18 +33,26 @@
   display: flex;
   width: 90vw;
   max-width: 1100px;
-  height: 660px;
+  min-height: 660px;
+  height: auto;
   background-color: rgba(255, 255, 255, 0.461);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-
 }
 
 .imageIllustration1 {
   width: 50%;
   background-color: rgba(43, 38, 55, 0);
   overflow: hidden;
+  position: relative;
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+}
+
+.imageIllustration1.loading {
+  animation: 1.5s shine linear infinite;
 }
 
 .image1 {
@@ -53,10 +61,14 @@
   object-fit: cover;
   border-radius: 6px;
   margin-right: 8px;
-
   margin-left: 0px;
   border-radius: 0px 10px 10px 0px;
-  
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.image1.loaded {
+  opacity: 1;
 }
 
 .signInContent1 {

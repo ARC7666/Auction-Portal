@@ -11,6 +11,7 @@ function ListingCard({ listing }) {
   const { title, media, currentBid, startTime, endTime, description, id } = listing;
   const [now, setNow] = useState(new Date());
   const [descOpen, setDescOpen] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => setNow(new Date()), 1000);
@@ -118,7 +119,14 @@ useEffect(() => {
     return (
       <div className="listing-card">
         <div className={`badge ${badgeClass}`}>{badgeText}</div>
-        <img src={media?.[0]} alt={title} className="listing-image" />
+        <div className={`listing-image-wrapper ${imgLoaded ? '' : 'loading'}`}>
+          <img 
+            src={media?.[0]} 
+            alt={title} 
+            className={`listing-image ${imgLoaded ? 'loaded' : ''}`}
+            onLoad={() => setImgLoaded(true)}
+          />
+        </div>
         <div className="listing-details">
           <h3>{title}</h3>
           <hr className="listing-card-divider-up" />
