@@ -4,7 +4,7 @@
 
 ### Real-Time Online Auction Portal
 
-**Next.js · TypeScript · Express.js · Node.js · Socket.IO · JWT · Docker · AWS EC2 · Nginx**
+**Next.js · TypeScript · Express.js · Node.js · Socket.IO · JWT · Stripe · Docker · AWS EC2 · Nginx**
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-0066cc?style=for-the-badge&logo=vercel&logoColor=white)](https://auction-portal-in.web.app)
 [![GitHub](https://img.shields.io/badge/Source-Code-1d1d1f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ARC7666/Auction-Portal)
@@ -43,7 +43,7 @@ A production-grade, full-stack real-time auction platform where buyers and selle
 
 - **Real-Time Bidding & Messaging** — Implemented live bidding and in-app messaging using Socket.IO, achieving **sub-200ms bid broadcast latency** across all connected clients.
 
-- **Secure Payment Integration** — Integrated **Stripe Checkout API** for end-to-end payment flows, handling auction settlements, payment confirmations, and transaction receipts.
+- **Stripe Payment Integration** — Integrated **Stripe Checkout API** for secure, PCI-compliant end-to-end payment flows including auction settlements, automatic winner checkout sessions, payment confirmations, webhook-driven status updates, and transaction receipt generation.
 
 - **Containerized & Cloud-Deployed** — Dockerized a 3-service stack (Next.js, Express.js, Nginx) using Docker Compose and deployed on **AWS EC2**, with Nginx configured as a reverse proxy for SSL termination and zero-downtime deployments.
 
