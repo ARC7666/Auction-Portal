@@ -14,16 +14,6 @@ body {
 html, body, #root {
   margin: 0;
   padding: 0;
-  height: 100%;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 #root {
@@ -34,10 +24,6 @@ html, body {
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
-  overflow-y: auto;
 }
 
 .scroll-target {

@@ -14,42 +14,49 @@ function Signup() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('buyer');
-  const [showRolePopup, setShowRolePopup] = useState(false);
   const [googleUser, setGoogleUser] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [isChoosingGoogleRole, setIsChoosingGoogleRole] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
+
+  // Preload the illustration image immediately
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = image1;
+    document.head.appendChild(link);
+    
+    const img = new Image();
+    img.src = image1;
+    img.onload = () => setImgLoaded(true);
+    
+    return () => {
+      if (document.head.contains(link)) document.head.removeChild(link);
+    };
+  }, []);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user && !isChoosingGoogleRole) {
+      if (user) {
         const userDoc = await getDoc(doc(db, "users", user.uid));
         const role = userDoc.exists() ? userDoc.data().role : null;
 
         if (role === "buyer") navigate("/buyer-dashboard", { replace: true });
-        else if (role === "seller") navigate("/seller-dashboard", { replace: true });
+        else if (role === "seller") navigate("/buyer-dashboard", { replace: true });
         else if (role === "admin") navigate("/admin-dashboard", { replace: true });
-
       }
     });
 
     return () => unsubscribe();
-  }, [navigate, isChoosingGoogleRole]);
+  }, [navigate]);
 
   function redirectToDashboard(userRole) {
-    switch (userRole) {
-      case 'admin':
-        navigate('/admin-dashboard', { replace: true });
-        break;
-      case 'seller':
-        navigate('/seller-dashboard', { replace: true });
-        break;
-      default:
-        navigate('/buyer-dashboard', { replace: true });
-        break;
+    if (userRole === 'admin') {
+      navigate('/admin-dashboard', { replace: true });
+    } else {
+      navigate('/buyer-dashboard', { replace: true });
     }
   }
 
@@ -71,10 +78,10 @@ function Signup() {
           setDoc(doc(db, 'users', user.uid), {
             name: fullName,
             email: email,
-            role: role,
+            role: 'buyer',
             createdAt: new Date()
           }).then(() => {
-            redirectToDashboard(role);
+            redirectToDashboard('buyer');
           });
         });
       })
@@ -84,38 +91,34 @@ function Signup() {
   }
 
   function handleGoogleClick() {
-    setIsChoosingGoogleRole(true);
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
         setGoogleUser(user);
-        setShowRolePopup(true);
+        handleGoogleContinue(user);
       })
       .catch((error) => {
         alert("Google Sign in failed: " + error.message);
-        setIsChoosingGoogleRole(false);
       });
   }
 
-  function handleGoogleContinue(e) {
-    e.preventDefault(); // Prevent page reload on button click
+  function handleGoogleContinue(user) {
+    if (user === null) return;
 
-    if (googleUser === null) return;
-
-    const userDoc = doc(db, 'users', googleUser.uid);
+    const userDoc = doc(db, 'users', user.uid);
 
     getDoc(userDoc).then((snapshot) => {
       if (!snapshot.exists()) {
-        let nameToSave = firstName || googleUser.displayName || googleUser.email.split('@')[0];
+        let nameToSave = firstName || user.displayName || user.email.split('@')[0];
         if (firstName && lastName) nameToSave = `${firstName} ${lastName}`;
 
         setDoc(userDoc, {
           name: nameToSave,
-          email: googleUser.email,
-          role: role,
+          email: user.email,
+          role: 'buyer',
           createdAt: new Date()
         }).then(() => {
-          redirectToDashboard(role);
+          redirectToDashboard('buyer');
         });
       } else {
         const userRole = snapshot.data().role || 'buyer';
@@ -130,14 +133,17 @@ function Signup() {
         <motion.div
           className={`imageIllustration ${imgLoaded ? '' : 'loading'}`}
           initial={{ x: -50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          animate={{ x: 0, opacity: imgLoaded ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <img 
             src={image1} 
             alt="login" 
             className={`image ${imgLoaded ? 'loaded' : ''}`} 
             onLoad={() => setImgLoaded(true)}
+            loading="eager"
+            decoding="sync"
+            fetchPriority="high"
           />
         </motion.div>
 
@@ -198,14 +204,7 @@ function Signup() {
               </span>
             </div>
 
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="input"
-            >
-              <option value="buyer">Buyer</option>
-              <option value="seller">Seller</option>
-            </select>
+
 
             <button type="submit" className="button">Create account</button>
           </form>
@@ -228,19 +227,7 @@ function Signup() {
             <span className="link" onClick={() => navigate('/login')}>Login here</span>
           </p>
 
-          {showRolePopup && (
-            <div className="popup">
-              <h4>Select your role</h4>
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="input">
-                <option value="buyer">Buyer</option>
-                <option value="seller">Seller</option>
-              </select>
-              <button className="button" onClick={handleGoogleContinue}>Continue</button>
-            </div>
-          )}
+
         </motion.div>
       </div>
     </div>

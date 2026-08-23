@@ -80,25 +80,30 @@ function ListingCard({ listing }) {
     <div className="listing-card">
       <div className={`listing-image-wrapper ${imgLoaded ? '' : 'loading'}`}>
         <div className={`badge ${badgeClass}`}>{badgeText}</div>
-        <img 
-          src={media?.[0]} 
-          alt={title} 
-          className={`listing-image ${imgLoaded ? 'loaded' : ''}`}
-          onLoad={() => setImgLoaded(true)}
-        />
-        <div className="tooltip-wrapper reminder-icon-wrapper">
-          <button
-            className="calendar-icon-btn"
-            onClick={handleSaveReminder}
-          >
-            <CalendarDays size={20} />
-          </button>
-          <span className="tooltip-text">Add Reminder</span>
-        </div>
+        <Link to={`/buyer-dashboard/auction/${listing.id}`} style={{ display: 'block', width: '100%', height: '100%' }}>
+          <img 
+            src={media?.[0]} 
+            alt={title} 
+            className={`listing-image ${imgLoaded ? 'loaded' : ''}`}
+            onLoad={() => setImgLoaded(true)}
+          />
+        </Link>
       </div>
 
       <div className="listing-details">
-        <h3 className="listing-title" title={title}>{title}</h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+          <h3 className="listing-title" title={title} style={{ margin: 0 }}>{title}</h3>
+          <div className="tooltip-wrapper" style={{ flexShrink: 0, marginLeft: '8px' }}>
+            <button
+              className="calendar-icon-btn"
+              onClick={handleSaveReminder}
+              style={{ width: '24px', height: '24px' }}
+            >
+              <CalendarDays size={18} />
+            </button>
+            <span className="tooltip-text">Add to Calendar</span>
+          </div>
+        </div>
         
         <div className="listing-price-row">
           <span className="price-label">Current Bid</span>
@@ -107,9 +112,13 @@ function ListingCard({ listing }) {
           </span>
         </div>
 
-        <div className={`countdown-pill ${badgeClass}`}>
+        <div className={`countdown-inline ${badgeClass}`}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: '4px'}}>
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
           <span className="countdown-text">
-            {isLive ? '⏳ Ends in: ' : isUpcoming ? '🔜 Starts in: ' : '❌ Bidding ended '}
+            {isLive ? 'Ends in: ' : isUpcoming ? 'Starts in: ' : 'Ended'}
           </span>
           <span className="countdown-timer">{countdown()}</span>
         </div>

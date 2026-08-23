@@ -1,495 +1,242 @@
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
 .seller-dashboard {
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   position: relative;
-  background: radial-gradient(
-      circle at 20% 20%,
-      #d9e4f6 0%,
-      #fcf9fa 30%,
-      #e7ebf4 60%,
-      #e3ebf9 85%,
-      #c7d5ec 100%
-  );
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-
-
+  background: #f9fafb;
 }
 
-.sidebar {
-  width: 250px;
+.seller-dashboard .sidebar {
+  width: 260px;
   height: 100vh;
-  background: linear-gradient(to bottom, #1f1c2c, #302b63);
+  background: #ffffff;
   display: flex;
   flex-direction: column;
-  padding: 24px 16px;
-  position: relative;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
-  border-right: 3px solid #6c63ff;
-  font-family: 'Poppins', sans-serif;
+  padding: 32px 20px;
+  border-right: 1px solid #e5e7eb;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  z-index: 10;
+  transition: transform 0.3s ease;
 }
 
-.logo-seller img {
-  width: 11vw;
-  margin-bottom: 10px;
-  margin-left: 24px;
-  margin-top: 20px;
-  justify-content: center;
-}
+.seller-dashboard .logo-seller { margin-bottom: 2rem; padding-left: 12px; }
+.seller-dashboard .logo-seller img { width: 140px; cursor: pointer; }
+.seller-dashboard .dashboard-title { margin-bottom: 2rem; padding-left: 12px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #9ca3af; display: flex; align-items: center; }
+.seller-dashboard .dashboard-title hr { display: none; }
+.seller-dashboard .nav-buttons-seller { display: flex; flex-direction: column; gap: 8px; }
+.seller-dashboard .nav-buttons-seller a { text-decoration: none; }
+.seller-dashboard .nav-btn-seller { display: flex; align-items: center; gap: 14px; width: 100%; padding: 14px 16px; background: transparent; border: none; border-radius: 12px; color: #4b5563; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.seller-dashboard .nav-btn-seller:hover { background: #f3f4f6; color: #111827; }
+.seller-dashboard .nav-icon { width: 20px; height: 20px; color: inherit; }
+.seller-dashboard .hamburger-icon { display: none; padding: 10px; padding-left: 0; cursor: pointer; color: #111827; }
+.seller-dashboard .topbar-left { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.seller-dashboard .dashboard-topbar { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; position: relative; margin-bottom: 1rem; }
+.seller-dashboard .topbar-icons { position: relative; }
+.seller-dashboard .profile-toggle img { width: 44px; height: 44px; border-radius: 50%; cursor: pointer; }
+.seller-dashboard .profile-dropdown-seller { position: absolute; right: 0; top: 55px; background: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 0.5rem; z-index: 100; min-width: 200px; }
+.seller-dashboard .profile-info-seller { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6; }
+.seller-dashboard .profile-name { font-weight: 600; margin: 0; }
+.seller-dashboard .profile-email { color: #6b7280; font-size: 0.85rem; margin: 0; }
+.seller-dashboard .dropdown-btn { background: none; border: none; display: flex; align-items: center; gap: 8px; padding: 8px; cursor: pointer; border-radius: 8px; font-size: 0.9rem; font-weight: 500; color: #4b5563; transition: all 0.2s; }
+.seller-dashboard .dropdown-btn:hover { background: #f3f4f6; color: #111827; }
 
-.dashboard-title {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-  font-weight: 500;
-  font-size: 14px;
-  color: rgb(151, 151, 153);
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.dashboard-title hr {
-  flex: 1;
-  border: none;
-  border-top: 1px solid rgb(151, 151, 153);
-}
-
-.dashboard-title span {
-  margin: 0 10px;
-}
-
-
-.nav-buttons-seller {
-  display: flex;
-  color: #ccc;
-  flex-direction: column;
-  gap: 16px;
-    margin-top: 25px;
-}
-
-.nav-btn-seller {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 12px 18px;
-  background: transparent;
-  border: 1.5px solid #7e75ff;
-  border-radius: 12px;
-  color: white;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: inset 0 6px 20px rgba(108, 99, 255, 0.5);
- 
-
-}
-
-.nav-btn-seller:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 20px rgba(107, 99, 255, 0);
-    color: white;
-}
- 
-.nav-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.nav-btn-seller span {
-  color: white;
-}
-
-.nav-buttons-seller a,
-.nav-buttons-seller a:visited,
-.nav-buttons-seller a:hover {
-  text-decoration: none;
-}
-
-.dashboard-topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.dashboard-content {
+.seller-dashboard .dashboard-content {
   flex-grow: 1;
-  background-color: transparent;
-  color: white;
-  padding: 2rem;
+  background-color: #f9fafb;
+  padding: 3rem;
   display: flex;
   flex-direction: column; 
   align-items: flex-start; 
-  justify-content: flex-start; 
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   overflow-y: auto;
-}
-.dashboard-content h1 {
-  margin-top: -440px;
-  font-size: 30px;
-  margin-left: -500px;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
-.profile-container {
-  position: fixed;
-  top: 20px;
-  right: 30px;
-  z-index: 150;
-
+.seller-dashboard .welcome-section {
+  margin-bottom: 3rem;
 }
 
-
-.profile-toggle img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid #6c63ff;
-  box-shadow: 0 0 6px rgba(108, 99, 255, 0.4);
-  
+.seller-dashboard .welcome-section h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.5px;
 }
 
-.profile-dropdown-seller {
-  position: absolute;
-  right: 0;
-  margin-top: 4px;
-  background: #ffffff;
-  border-radius: 12px 0px 12px 12px ;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  padding: 12px;
-  min-width: 200px;
-  font-family: 'Poppins', sans-serif;
-}
-
-.dropdown-btn a {
-   color: inherit;        
-  text-decoration: none; 
-}
-
-
-.profile-info-seller {
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-
-}
-
-.profile-name {
-  font-weight: bold;
-  color: #555;
+.seller-dashboard .welcome-section p {
   margin: 0;
+  color: #6b7280;
+  font-size: 1.1rem;
 }
 
-.profile-email {
-  font-size: 0.85rem;
-  color: #555;
-  margin: 0;
-}
-
-.dropdown-btn {
-  width: 100%;
-  padding: 8px 10px;
-  background: none;
-  border: none;
-  text-align: left;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.dropdown-btn:hover {
-  background-color: #f5f5f5;
-}
-
-.topbar-icons {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-
-.kpi-container {
+.seller-dashboard .kpi-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);  
   gap: 1.5rem;
   width: 100%;
-  padding: 30px;
+  margin-bottom: 3rem;
 }
-.kpi-card {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.795) !important;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
 
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+.seller-dashboard .kpi-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
   padding: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  transition: all 0.2s ease-in-out;
-  
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.kpi-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+.seller-dashboard .kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.04);
 }
 
-.kpi-card svg {
-  background-color: #f4f4f4;
-  border-radius: 50%;
-  padding: 0.5rem;
-  color: #4f46e5;
-  width: 40px;
-  height: 40px;
-}
-
-.kpi-card h4 {
-  font-size: 0.95rem;
-  color: #444;
-  margin-bottom: 0.2rem;
-}
-
-.kpi-card p {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #111;
-}
-.welcome-section {
-  align-self: flex-start;
-  margin-left: 2.5rem;   
-  margin-top: 3.5rem;      
-}
-
-.welcome-section h2 {
-  font-size: 30px;
-  font-weight: 600;
-  color: #1f1c2c;
-  margin: 0;
-  text-align: left;
-}
-
-.welcome-section p {
-  margin: 0.4rem 0 0;
-  color: #555;
-  font-size: 1rem;
-  text-align: left;
-}
-
-
-.analytics-container {
-  width: 100%;
-  margin-top: 2rem;
-  padding: 1.5rem 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
-  border-radius: 16px;
-  color: white;
-}
-
-.analytics-container h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: #1f1c2c;
-  font-weight: 600;
-  margin-left: 20px;
-}
-
-.charts-wrapper {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-
-}
-
-.chart-card {
-  flex: 1 1 30%;
-  min-width: 300px;
-  max-width: 380px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(6px);
-  color: white;
-  text-align: center;
-}
-
-/* bar chart for months */
-.chart-card:nth-child(2) canvas {
-  margin-top: 60px;
-}
-
-/* top 5 bids*/
-.chart-card:nth-child(3) canvas {
-  margin-top: 60px;
-}
-
-.chart-card h4 {
-  margin-bottom: 12px;
-  font-size: 1.1rem;
-  color: #1f1c2c;
-  font-weight: 600;
-}
-
-.basic-stats-row {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.stat-box {
-  flex: 1 1 30%;
-  min-width: 250px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(6px);
+.seller-dashboard .kpi-card svg {
+  background-color: #f3f4f6;
   border-radius: 12px;
-  padding: 1.5rem 2rem;
-  color: #fff;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 12px;
+  color: #111827;
+  width: 48px;
+  height: 48px;
 }
 
-.stat-box h5 {
+.seller-dashboard .kpi-card div {
+  display: flex;
+  flex-direction: column;
+}
+
+.seller-dashboard .kpi-card h4 {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin: 0 0 0.2rem 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.seller-dashboard .kpi-card p {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111827;
   margin: 0;
-  font-size: 1rem;
-  color: #1f1c2c;
 }
 
-.stat-box p {
-  margin: 0.5rem 0 0;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #1f1c2c;
+.seller-dashboard .analytics-container {
+  width: 100%;
 }
 
-@media (max-width: 900px) {
-  .kpi-container {
+.seller-dashboard .analytics-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  font-weight: 700;
+}
+
+.seller-dashboard .charts-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.seller-dashboard .chart-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  color: #111827;
+}
+
+.seller-dashboard .chart-card h4 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.seller-dashboard .basic-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.seller-dashboard .stat-box {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1.5rem;
+  color: #111827;
+  text-align: left;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.seller-dashboard .stat-box h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.seller-dashboard .stat-box p {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+@media (max-width: 1024px) {
+  .seller-dashboard .kpi-container, .seller-dashboard .basic-stats-row {
     grid-template-columns: repeat(2, 1fr);
   }
- 
-}
-
-@media (max-width: 600px) {
-  .kpi-container {
-    grid-template-columns: 1fr;
-  }
-
-}
-
-
-.hamburger-icon {
-  display: none;
-  font-size: 50px;
-  color: #1f1c2c;
-  cursor: pointer;
-  margin-top: 0rem;
-  margin-left: 1.5rem;
-}
-
-.sidebar {
-  transition: transform 0.3s ease-in-out;
 }
 
 @media (max-width: 900px) {
-  .hamburger-icon {
+  .seller-dashboard .hamburger-icon {
     display: block;
-    z-index: 200;
+    margin-top: 5px;
   }
-
-  .sidebar {
+  .seller-dashboard .sidebar {
     position: fixed;
     left: 0;
     top: 0;
-    height: 100%;
     transform: translateX(-100%);
-    z-index: 1000;
+    z-index: 100;
   }
-
-  .sidebar.open {
+  .seller-dashboard .sidebar.open {
     transform: translateX(0);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
   }
-
-  .dashboard-content {
-    padding: 1.5rem 1rem;
+  .seller-dashboard .welcome-section {
+    margin-bottom: 0;
   }
-
-  .dashboard-topbar {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .welcome-section-mobile {
+  .seller-dashboard .welcome-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
     margin: 0;
-    text-align: left;
-    margin-left: 1rem;
-  
+    margin-top: 5px;
   }
-
-
-.welcome-section-mobile h2 {
-  font-size: 30px;
-  font-weight: 600;
-  color: #1f1c2c;
-  margin: 0;
-  text-align: left;
-}
-
-.welcome-section-mobile p {
-  margin: 0.4rem 0 0;
-  color: #555;
-  font-size: 1rem;
-  text-align: left;
-}
-
-
-
-  .topbar-icons {
-    margin-right: 1rem;
+  .seller-dashboard .welcome-section p {
+    display: none;
   }
-
- .logo-seller img {
-    width: 140px;
-    margin-left: 40px;
-    margin-top: 20px;
-  }
-
-  .welcome-section {
- display: none;     
-}
-
-}
-
-@media (max-width: 900px) {
-  .stat-box {
-    flex: 1 1 45%;
+  .seller-dashboard .topbar-left {
+    margin-bottom: 1.5rem;
   }
 }
 
-@media (max-width: 600px) {
-  .stat-box {
-    flex: 1 1 100%;
+@media (max-width: 768px) {
+  .seller-dashboard .dashboard-content {
+    padding: 2rem 1.5rem;
+  }
+  .seller-dashboard .kpi-container, .seller-dashboard .basic-stats-row, .seller-dashboard .charts-wrapper {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Trash2, Shield, X, ShieldAlert, BadgeCheck, CheckCircle, XCircle } from "lucide-react";
 import { collection, getDocs, updateDoc, doc, addDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import { auth, db } from '../../../firebase/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
@@ -203,7 +204,13 @@ function AdminUsers() {
                   <td>{user.name || "N/A"}</td>
                   <td>{user.email || "N/A"}</td>
                   <td>{user.role}</td>
-                  <td>{user.isVerified ? "✅" : "❌"}</td>
+                  <td>
+                    {user.isVerified ? (
+                      <CheckCircle size={16} color="green" />
+                    ) : (
+                      <XCircle size={16} color="red" />
+                    )}
+                  </td>
                   <td>
                     {user.role && (
                       <div className="admin-action-btns">

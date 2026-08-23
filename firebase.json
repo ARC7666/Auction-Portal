@@ -18,6 +18,7 @@
     }
   ],
   "hosting": {
+    "site": "auction-portal-in",
     "public": "client/dist",  
     "ignore": [
       "firebase.json",

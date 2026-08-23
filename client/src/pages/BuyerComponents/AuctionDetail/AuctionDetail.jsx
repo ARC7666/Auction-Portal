@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../../../firebase/firebaseConfig';
 import { arrayUnion } from "firebase/firestore";
-import { MessageSquare, Share2, } from "lucide-react";
+import { MessageSquare, Share2, CheckCircle } from "lucide-react";
 import './AuctionDetail.css';
 import { useNavigate } from 'react-router-dom';
+import SkeletonAuctionDetail from '../../../components/Skeleton/SkeletonAuctionDetail';
 
 const AuctionDetails = () => {
   const { auctionId } = useParams();
@@ -163,6 +164,7 @@ const AuctionDetails = () => {
   const status = now < start ? 'notStarted' : now > end ? 'ended' : 'live';
 
 
+  if (loading) return <SkeletonAuctionDetail />;
   if (!auction) return <p>No auction found.</p>;
 
   return (
@@ -170,15 +172,27 @@ const AuctionDetails = () => {
       <div className="auction-detail-container">
         <div className="auction-gallery">
           {auction.media && auction.media.length > 0 ? (
-            <div className="carousel-wrapper">
-              {auction.media.map((img, index) => (
-                <img
-                  key={index}
-                  src={img}
-                  alt={`Auction ${index}`}
-                  className={`auction-main-img ${index === currentImage ? 'visible' : 'hidden'}`}
-                />
-              ))}
+            <div className="carousel-wrapper" style={{ overflow: 'hidden', position: 'relative' }}>
+              <div 
+                className="carousel-track"
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  height: '100%',
+                  transform: `translateX(-${currentImage * 100}%)`,
+                  transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+              >
+                {auction.media.map((img, index) => (
+                  <div key={index} style={{ width: '100%', height: '100%', flexShrink: 0, padding: '2rem', boxSizing: 'border-box' }}>
+                    <img
+                      src={img}
+                      alt={`Auction ${index}`}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                  </div>
+                ))}
+              </div>
 
               <button
                 className="carousel-btn left"
@@ -216,7 +230,7 @@ const AuctionDetails = () => {
           <h2>{auction.title}</h2>
           <p className="auction-description">{auction.description}</p>
 
-          {bidSuccess && <div className="bid-success-msg">✅ Your bid was placed!</div>}
+          {bidSuccess && <div className="bid-success-msg"><CheckCircle size={16} style={{marginRight: '8px', verticalAlign: 'middle'}}/> Your bid was placed!</div>}
 
           {status === 'live' && (
             <div className="bidding-section">
@@ -234,27 +248,29 @@ const AuctionDetails = () => {
           )}
 
 
-          <button
-            className="chat-btn-buyer"
-            onClick={() => {
-              const user = auth.currentUser;
-              if (!user) {
-                navigate(`/login?redirect=/buyer-dashboard/auction/${auction.id}`);
-              } else {
-                navigate(`/buyer-dashboard/chat/${auction.id}`);
-              }
-            }}
-          >
-            <MessageSquare className="nav-icon" />
-            <span>Chat</span>
-          </button>
-          <button
-            className="chat-btn-buyer"
-            onClick={shareAuction}
-          >
-            <Share2 className="nav-icon" />
-            <span>Share</span>
-          </button>
+          <div className="secondary-actions">
+            <button
+              className="chat-btn-buyer"
+              onClick={() => {
+                const user = auth.currentUser;
+                if (!user) {
+                  navigate(`/login?redirect=/buyer-dashboard/auction/${auction.id}`);
+                } else {
+                  navigate(`/buyer-dashboard/chat/${auction.id}`);
+                }
+              }}
+            >
+              <MessageSquare className="nav-icon" />
+              <span>Chat</span>
+            </button>
+            <button
+              className="chat-btn-buyer"
+              onClick={shareAuction}
+            >
+              <Share2 className="nav-icon" />
+              <span>Share</span>
+            </button>
+          </div>
 
 
           {status === 'notStarted' && (

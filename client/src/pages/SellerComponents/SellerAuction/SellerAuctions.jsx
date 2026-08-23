@@ -4,6 +4,8 @@ import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/fire
 import { useNavigate, Link } from 'react-router-dom';
 import { db, auth } from '../../../firebase/firebaseConfig';
 import Swal from 'sweetalert2';
+import { Trash2, Edit } from 'lucide-react';
+import SkeletonCard from '../../../components/Skeleton/SkeletonCard';
 import './SellerAuctions.css';
 
 function SellerAuctions() {
@@ -79,7 +81,11 @@ function SellerAuctions() {
       <h2 className="seller-auctions-heading">Your Listings</h2>
 
       {loading ? (
-        <p className="seller-auctions-loading">Loading auctions...</p>
+        <div className="auction-grid">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <SkeletonCard key={idx} />
+          ))}
+        </div>
       ) : auctions.length === 0 ? (
         <p className="seller-auctions-empty">No listings yet.</p>
       ) : (
@@ -113,16 +119,20 @@ function SellerAuctions() {
                 </div>
 
                 <div className="auction-actions">
-                  <button onClick={() => handleDelete(auction.id)} className="delete-btn">❌ Delete</button>
+                  <button onClick={() => handleDelete(auction.id)} className="delete-btn">
+                    <Trash2 size={16} /> Delete
+                  </button>
                 </div>
 
                 {auction.status !== 'live' && (
                   <div className="auction-actions">
-                    <Link to={`/seller-dashboard-layout/edit-auction/${auction.id}`} className='edit-link' >✏️ ‎‎ ‎    Edit</Link>
-                    <button onClick={() => handleDelete(auction.id)} className="delete-btn">❌ Delete</button>
+                    <Link to={`/seller-dashboard-layout/edit-auction/${auction.id}`} className='edit-link'>
+                      <Edit size={16} /> Edit
+                    </Link>
+                    <button onClick={() => handleDelete(auction.id)} className="delete-btn">
+                      <Trash2 size={16} /> Delete
+                    </button>
                   </div>
-
-
                 )}
               </div>
             </div>

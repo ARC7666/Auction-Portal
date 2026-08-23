@@ -7,9 +7,10 @@ import { doc, getDoc, collection, query, where, getDocs } from "firebase/firesto
 import SellerAnalyticsSection from '../../../components/SellerAnalyticsSection/SellerAnalyticsSection';
 import './seller-dashboard.css';
 import Swal from 'sweetalert2';
-import { logo } from '../../../assets';
+import { logo, logoblack } from '../../../assets';
 import { MessageSquare, Gavel, List, BarChart3, Settings, User, LogOut, Eye, Hammer, TrendingUp } from "lucide-react";
 import LoaderScreen from '../../../components/LoaderScreen';
+import Footer from '../../../components/Footer/Footer';
 
 function SellerDashboard() {
   const navigate = useNavigate();
@@ -151,7 +152,7 @@ function SellerDashboard() {
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="logo-seller">
           <Link to="/seller-dashboard">
-            <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
+            <img src={logoblack} alt="Logo" style={{ cursor: 'pointer' }} />
           </Link>
         </div>
 
@@ -184,22 +185,26 @@ function SellerDashboard() {
               <span>Chat</span>
             </button>
           </Link>
+
+          <Link to="/buyer-dashboard">
+            <button className="nav-btn-seller" style={{ marginTop: 'auto' }}>
+              <User className="nav-icon" />
+              <span>Buyer Dashboard</span>
+            </button>
+          </Link>
         </nav>
       </aside>
 
       <main className="dashboard-content">
         <div className="dashboard-topbar">
-
-          <div className="hamburger-icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
-            <List />
-            <div className="welcome-section-mobile">
-              <h2>Hey {user?.name},</h2>
-              <p>Welcome back to Auctania — your auction HQ </p>
+          <div className="topbar-left">
+            <div className="hamburger-icon" onClick={() => setSidebarOpen(!sidebarOpen)}>
+              <List />
             </div>
-          </div>
-          <div className="welcome-section">
-            <h2>Hey {user?.name},</h2>
-            <p>Welcome back to Auctania — your auction HQ </p>
+            <div className="welcome-section">
+              <h2>Hey {user?.name},</h2>
+              <p>Welcome back to Auctania — your auction HQ</p>
+            </div>
           </div>
 
           <div className="topbar-icons" ref={dropdownRef}>
@@ -251,6 +256,10 @@ function SellerDashboard() {
         </div>
 
         <SellerAnalyticsSection />
+        
+        <div style={{ marginTop: 'auto', padding: '2rem 0', textAlign: 'center', color: '#9ca3af', fontSize: '0.85rem', borderTop: '1px solid #e5e7eb' }}>
+          &copy; {new Date().getFullYear()} Auctania. All rights reserved.
+        </div>
       </main>
     </div>
   );

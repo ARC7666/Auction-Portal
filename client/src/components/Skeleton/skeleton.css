@@ -1,0 +1,95 @@
+.skeleton-wrapper {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-pulse {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: pulse-animation 1.5s infinite linear;
+}
+
+@keyframes pulse-animation {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.skeleton-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 70%;
+  border-radius: 4px;
+}
+
+.skeleton-price {
+  height: 20px;
+  width: 40%;
+  border-radius: 4px;
+}
+
+.skeleton-timer {
+  height: 20px;
+  width: 60%;
+  border-radius: 4px;
+}
+
+.skeleton-button {
+  height: 48px;
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+/* Table Skeletons */
+.skeleton-table-row {
+  display: flex;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #fff;
+  gap: 16px;
+  align-items: center;
+}
+
+.skeleton-cell {
+  height: 20px;
+  border-radius: 4px;
+}
+
+.skeleton-cell.image {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.skeleton-cell.text-long {
+  flex: 2;
+}
+
+.skeleton-cell.text-short {
+  width: 100px;
+}
+
+.skeleton-cell.text-medium {
+  width: 150px;
+}

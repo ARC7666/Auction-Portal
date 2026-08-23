@@ -23,6 +23,24 @@ function Login() {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
 
+  // Preload the illustration image immediately
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = image1;
+    document.head.appendChild(link);
+    
+    // Also eagerly decode the image
+    const img = new Image();
+    img.src = image1;
+    img.onload = () => setImgLoaded(true);
+    
+    return () => {
+      if (document.head.contains(link)) document.head.removeChild(link);
+    };
+  }, []);
+
   /* example to understand the working of .then and .catch (as I am  forgetting it more often)
   orderPizza()
     .then((pizza) => {
@@ -37,6 +55,21 @@ function Login() {
     * if pizza not delivered -> .catch() runs
   */
 
+  const handleSuccessfulLogin = (role, redirectPath, navigateFn) => {
+    if (redirectPath) {
+      navigateFn(redirectPath, { replace: true });
+      return;
+    }
+
+    if (role === "buyer" || role === "seller") {
+      navigateFn("/buyer-dashboard", { replace: true });
+    } else if (role === "admin") {
+      navigateFn("/admin-dashboard", { replace: true });
+    } else {
+      navigateFn("/login", { replace: true });
+    }
+  };
+
   // User login using Google
   function loginWithGoogle() {
     signInWithPopup(auth, provider)
@@ -47,17 +80,7 @@ function Login() {
 
         if (userData.exists()) {
           const role = userData.data().role;
-          if (redirectPath) {
-            navigate(redirectPath, { replace: true });
-          } else if (role === "buyer") {
-            navigate("/buyer-dashboard", { replace: true });
-          } else if (role === "seller") {
-            navigate("/seller-dashboard", { replace: true });
-          } else if (role === "admin") {
-            navigate("/admin-dashboard", { replace: true });
-          } else {
-            navigate("/login");
-          }
+          handleSuccessfulLogin(role, redirectPath, navigate);
         } else {
           await signOut(auth);
           alert("No account found for this Google account. Please sign up first.");
@@ -79,17 +102,7 @@ function Login() {
         const userDoc = await getDoc(doc(db, "users", user.uid));
         const role = userDoc.exists() ? userDoc.data().role : null;
 
-        if (redirectPath) {
-          navigate(redirectPath, { replace: true });  
-        } else if (role === "buyer") {
-          navigate("/buyer-dashboard", { replace: true });  
-        } else if (role === "seller") {
-          navigate("/seller-dashboard", { replace: true });  
-        } else if (role === "admin") {
-          navigate("/admin-dashboard", { replace: true });  
-        } else {
-          navigate("/login", { replace: true });  
-        }
+        handleSuccessfulLogin(role, redirectPath, navigate);
       }
     });
 
@@ -110,17 +123,7 @@ function Login() {
           navigate("/");
         } else {
           const role = userData.data().role;
-          if (redirectPath) {
-            navigate(redirectPath, { replace: true });
-          } else if (role === "buyer") {
-            navigate("/buyer-dashboard", { replace: true });
-          } else if (role === "seller") {
-            navigate("/seller-dashboard", { replace: true });
-          } else if (role === "admin") {
-            navigate("/admin-dashboard", { replace: true });
-          } else {
-            navigate("/login");
-          }
+          handleSuccessfulLogin(role, redirectPath, navigate);
         }
       })
       .catch((error) => {
@@ -271,14 +274,17 @@ function Login() {
         <motion.div
           className={`imageIllustration1 ${imgLoaded ? '' : 'loading'}`}
           initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          animate={{ x: 0, opacity: imgLoaded ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <img 
             src={image1} 
             alt="login" 
             className={`image1 ${imgLoaded ? 'loaded' : ''}`} 
             onLoad={() => setImgLoaded(true)}
+            loading="eager"
+            decoding="sync"
+            fetchPriority="high"
           />
         </motion.div>
       </div>

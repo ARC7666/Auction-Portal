@@ -1,11 +1,11 @@
 .listing-card {
   background: white;
-  border-radius: 12px;
-  border: 1px solid #eaeaea;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   height: 100%; 
   min-height: 380px;
   position: relative;
@@ -15,8 +15,8 @@
 }
 
 .listing-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
 .listing-image-wrapper {
@@ -24,12 +24,12 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: #f0f0f0;
-  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
-  background-size: 200% 100%;
+  background: #f7f8fa; /* Soft gray for image background */
 }
 
 .listing-image-wrapper.loading {
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
   animation: 1.5s shine linear infinite;
 }
 
@@ -42,12 +42,14 @@
 .listing-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* Using contain so products aren't cropped, with soft gray bg */
   position: absolute;
   top: 0;
   left: 0;
   z-index: 0;
   opacity: 0;
+  padding: 16px; /* Let the image breathe inside the gray box */
+  box-sizing: border-box;
   transition: opacity 0.5s ease-in-out, transform 0.4s ease;
 }
 
@@ -56,118 +58,110 @@
 }
 
 .listing-card:hover .listing-image.loaded {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 4px 10px;
-  border-radius: 6px;
+  top: 12px;
+  left: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
   font-size: 0.7rem;
   font-weight: 700;
+  letter-spacing: 0.5px;
   color: white;
   text-transform: uppercase;
   z-index: 2;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.badge.live { background-color: #e53e3e; }
-.badge.upcoming { background-color: #dd6b20; }
-.badge.ended { background-color: #718096; }
+.badge.live { background-color: #212121; } /* Sleek black */
+.badge.upcoming { background-color: #f5a623; color: #fff; }
+.badge.ended { background-color: #9b9b9b; }
 
 .reminder-icon-wrapper {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   z-index: 2;
 }
 
 .calendar-icon-btn {
-  background: rgba(255, 255, 255, 0.9);
+  background: transparent;
   border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #4a5568;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  color: #9b9b9b;
   transition: all 0.2s ease;
+  padding: 0;
 }
 
 .calendar-icon-btn:hover {
-  background: #fff;
-  color: #6c63ff;
+  color: #212121; /* Turns dark on hover */
   transform: scale(1.1);
 }
 
 .listing-details {
-  padding: 16px;
+  padding: 16px 16px 12px 16px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
 .listing-title {
-  margin: 0 0 10px 0;
   font-weight: 600;
-  font-size: 1rem;
-  color: #2d3748;
+  font-size: 0.95rem;
+  color: #282c3f; /* Deep slate */
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: 2.8rem;
+  height: 2.6rem;
 }
 
 .listing-price-row {
   display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-  gap: 8px;
-}
-
-.price-label {
-  font-size: 0.8rem;
-  color: #718096;
-}
-
-.price-value {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #1a202c;
-}
-
-.countdown-pill {
-  display: inline-flex;
-  align-items: center;
-  background: #f7fafc;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  border: 1px solid #e2e8f0;
+  flex-direction: column;
   margin-bottom: 8px;
 }
 
-.countdown-pill.live {
-  background: #fff5f5;
-  border-color: #fed7d7;
-  color: #c53030;
-}
-.countdown-pill.upcoming {
-  background: #fffff0;
-  border-color: #fefcbf;
-  color: #b7791f;
+.price-label {
+  font-size: 0.75rem;
+  color: #7e818c;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
-.countdown-timer {
+.price-value {
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-left: 4px;
+  color: #282c3f;
+}
+
+.countdown-inline {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-bottom: 12px;
+  gap: 4px;
+}
+
+.countdown-inline.live {
+  color: #d32f2f; /* Refined urgent red */
+  font-weight: 600;
+}
+.countdown-inline.upcoming {
+  color: #f5a623;
+  font-weight: 600;
+}
+.countdown-inline.ended {
+  color: #7e818c;
 }
 
 .card-actions {
@@ -184,27 +178,28 @@
   width: 100%;
   padding: 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: 24px; /* Apple pill style */
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
   text-align: center;
 }
 
 .bid-now-btn.live-btn {
-  background-color: #6c63ff;
+  background-color: #1d1d1f;
   color: white;
 }
 
 .bid-now-btn.live-btn:hover {
-  background-color: #554bcc;
-  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+  transform: scale(1.02);
+  opacity: 0.9;
 }
 
 .bid-now-btn.disabled-btn {
-  background-color: #e2e8f0;
-  color: #a0aec0;
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #9ca3af;
   cursor: not-allowed;
 }
 
@@ -215,60 +210,54 @@
 
 .tooltip-text {
   visibility: hidden;
-  background-color: #2d3748;
+  background-color: #1d1d1f;
   color: #fff;
   text-align: center;
-  border-radius: 4px;
-  padding: 4px 8px;
+  border-radius: 8px;
+  padding: 6px 12px;
   position: absolute;
   z-index: 10;
-  top: 50%;
-  right: 120%; 
-  transform: translateY(-50%);
+  bottom: 130%; 
+  left: 50%;
+  transform: translateX(-50%);
   opacity: 0;
-  font-size: 11px;
+  font-size: 0.75rem;
   font-weight: 500;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s, transform 0.2s;
   white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .tooltip-wrapper:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
 }
 
 .tooltip-text::after {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 100%;
-  margin-top: -4px;
-  border-width: 4px;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent transparent #2d3748;
+  border-color: #1d1d1f transparent transparent transparent;
 }
 
 @media screen and (max-width: 600px) {
   .listing-card {
-    border-radius: 12px;
-    font-size: 0.85rem;
     min-height: auto;
   }
-  .listing-details {
-    padding: 12px;
-  }
   .listing-title {
-    font-size: 0.95rem;
-    height: 2.6rem;
+    font-size: 0.9rem;
+    height: 2.5rem;
   }
   .price-value {
     font-size: 1.1rem;
   }
-  .card-actions {
-    padding: 0 12px 12px 12px;
-  }
   .bid-now-btn {
-    padding: 10px;
+    padding: 8px;
     font-size: 0.85rem;
   }
 }

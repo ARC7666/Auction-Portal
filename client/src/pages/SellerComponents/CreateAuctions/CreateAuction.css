@@ -1,280 +1,121 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
 .auction-container {
   display: flex;
   width: 100vw;
   height: 100vh;
   position: relative;
-  background: radial-gradient(
-      circle at 20% 20%,
-      #e2e8f3 0%,
-      #eef2f9  30%,
-      #f3f7fd  60%,
-      #eef2f9 85%,
-      #d2dded 100%
-  );
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-
-
+  background: #f9fafb;
 }
-
-
-
 
 .dashboard-contented {
   flex-grow: 1;
-  background-color: transparent;
-  color: white;
-  padding: 40px;
+  background-color: #f9fafb;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-top: -10px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-y: auto;
 }
-
-
 
 .auction-form-create {
   width: 100%;
-  max-width: 600px;
-  background: rgb(0, 0, 0);
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(6.5px);
-  -webkit-backdrop-filter: blur(6.5px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  max-width: 640px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02), 0 10px 15px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+}
+
+.auction-form-create h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 1rem 0;
+  text-align: left;
 }
 
 .auction-form input,
 .auction-form textarea,
 .custom-datepicker,
 .auction-category-select-cretae {
-  padding: 14px 20px;
-  border: none;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
   border-radius: 12px;
-  border: 1.5px solid #7e75ff;
-  background-color: rgb(247, 245, 255);
-  color: rgba(4, 4, 6, 0.879);
-  font-size: 16px;
-  transition: 0.3s;
+  background-color: #f9fafb;
+  color: #111827;
+  font-size: 1rem;
+  transition: all 0.2s;
   width: 100%;
-
-  font-weight: 700;
+  font-family: inherit;
+  box-sizing: border-box;
 }
 
 .auction-form textarea {
   resize: vertical; 
+  min-height: 120px;
 }
 
 .auction-form input::placeholder,
 .auction-form textarea::placeholder {
-  color: #545353b5;
-  opacity: 1;
-  font-weight: 600;
+  color: #9ca3af;
 }
 
 .auction-form input:focus,
 .auction-form textarea:focus,
-.custom-datepicker:focus {
-
+.custom-datepicker:focus,
+.auction-category-select-cretae:focus {
   outline: none;
-  border: 1.5px solid rgb(176, 153, 208);
-    background-color: rgb(247, 245, 255);
-  box-shadow: 0 0 5px #4a91e200;
+  border-color: #111827;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.1);
 }
-
-.custom-datepicker {
-  margin-top: -20px;
-}
-.auction-form input:hover,
-.auction-form textarea:hover,
-.custom-datepicker:hover
-.auction-category-select-cretae:hover {
-  outline: none;
-  border: 1.5px solid rgb(176, 153, 208);
-  background-color: rgb(247, 245, 255);
-  box-shadow: 0 0 5px #4a91e200;
-}
-
 
 .auction-form button {
   padding: 16px;
-  background-color: #6c63ff;
+  background-color: #111827;
   color: white;
   border: none;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.05rem;
+  font-weight: 600;
   border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.2s;
+  margin-top: 1rem;
 }
 
 .auction-form button:hover {
-  background-color: #5848e5;
-  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.6);
-}
-
-input[type="file"] {
-  color: white;
-}
-
-input[type="file"]::-webkit-file-upload-button {
-  background-color: #6c63ff;
-  color: white;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  margin-right: 10px;
-  transition: background-color 0.3s ease;
-}
-
-input[type="file"]::-webkit-file-upload-button:hover {
-  background-color: #5848e5;
-}
-
-.not-verified-message {
-  margin: 80px auto;
-  text-align: center;
-  font-size: 1.2rem;
-  color: #ff4444;
-}
-
-.verify-link {
-  color: #6c63ff;
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 15px;
-  text-decoration: underline;
-}
-
-.swal2-timer-progress-bar {
-  background: rgb(134, 133, 133) !important;
-  height: 6px !important;
-  border-radius: 3px;
-}
-
-.auction-category-select-cretae {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  border: 2px solid #ccc;
-  font-size: 16px;
-  color: #00000000;
-  background-color: #ffffff27;
-  appearance: none;
-  outline: none;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.auction-category-select:invalid {
-  color: #777;
-}
-
-.auction-category-select option {
-  color: #000000a4;
-}
-
-@media (max-width: 600px) {
-  .dashboard-contented {
-    padding: 20px;
-  }
-
-  .auction-form-create {
-    padding: 20px;
-    gap: 16px;
-    border-radius: 12px;
-  }
-
-  .auction-form input,
-  .auction-form textarea,
-  .custom-datepicker,
-  .auction-category-select-cretae {
-    font-size: 14px;
-    padding: 10px 14px;
-  }
-
-  .auction-form button {
-    padding: 14px;
-    font-size: 16px;
-  }
-}
-
-.media-upload-section {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-}
-
-.media-upload-label,
-.add-more-label {
-  background-color: #6c63ff;
-  color: white;
-  font-weight: bold;
-  padding: 12px 16px;
-  border-radius: 10px;
-  text-align: center;
-  cursor: pointer;
-  display: inline-block;
-  width: fit-content;
-  transition: background-color 0.3s;
-}
-
-.media-upload-label:hover,
-.add-more-label:hover {
-  background-color: #5848e5;
-}
-
-.media-input {
-  display: none;
-}
-
-.media-preview {
-  font-size: 14px;
-  color: #ccc;
+  background-color: #374151;
 }
 
 .media-upload-section {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-top: 20px;
 }
 
 .media-upload-label,
 .add-more-label {
-  background-color: #6c63ff;
-  color: white;
-  font-weight: 500;
-  padding: 12px 16px;
-  border-radius: 10px;
+  background-color: #f3f4f6;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 12px;
   text-align: center;
   cursor: pointer;
   display: inline-block;
   width: fit-content;
-  transition: background-color 0.3s;
+  transition: all 0.2s;
 }
 
 .media-upload-label:hover,
 .add-more-label:hover {
-  background-color: #5848e5;
+  background-color: #e5e7eb;
 }
 
 .media-input {
@@ -284,17 +125,17 @@ input[type="file"]::-webkit-file-upload-button:hover {
 .media-preview-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
 }
 
 .media-preview-card {
   position: relative;
-  width: 120px;
-  height: 120px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
   overflow: hidden;
-  background-color: #fafafa;
+  background-color: #f9fafb;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -309,67 +150,31 @@ input[type="file"]::-webkit-file-upload-button:hover {
 
 .remove-media-btn {
   position: absolute;
-  top: 4px;
-  right: 8px;
-  font-size: 18px;
-  color: white;
-  background: rgba(0, 0, 0, 0.6);
+  top: 6px;
+  right: 6px;
+  font-size: 14px;
+  color: #111827;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 50%;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
+.remove-media-btn:hover {
+  background: #f3f4f6;
+}
 
-/* Fix react-datepicker on mobile */
 @media (max-width: 600px) {
-  .react-datepicker {
-    width: 80% !important;
-    font-size: 14px;
+  .dashboard-contented {
+    padding: 1.5rem;
   }
-
-  .react-datepicker__triangle {
-    display: none; 
+  .auction-form-create {
+    padding: 1.5rem;
   }
-
-  .react-datepicker__header {
-    padding-top: 8px;
-  }
-
-  .react-datepicker__month-container {
-    width: 100% !important;
-  }
-
-  .react-datepicker__time-container {
-    width: 100% !important;
-    border-left: none;
-    margin-top: 10px;
-  }
-
-  .react-datepicker__time {
-    width: 100% !important;
-  }
-
-  .react-datepicker__time-box {
-    width: 100% !important;
-  }
-
-  .react-datepicker-popper {
-    width: 90vw !important;
-    left: 5% !important;
-    transform: none !important;
-    z-index: 9999;
-  }
-  .react-datepicker__navigation--previous {
-  left: 8px !important;
 }
-
-.react-datepicker__navigation--next {
-  right: 8px !important;
-  left: auto !important;
-}
-}
-

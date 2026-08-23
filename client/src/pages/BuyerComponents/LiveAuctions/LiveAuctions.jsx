@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 import ListingCard from "../../../components/ListingCard";
+import SkeletonCard from "../../../components/Skeleton/SkeletonCard";
 import "./LiveAuctions.css";
 
 
@@ -38,7 +39,11 @@ const LiveAuctions = () => {
   return (
     <div style={{ padding: "2rem" }}>
       {loading ? (
-        <p>Loading...</p>
+        <div className="live-auctions-grid">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <SkeletonCard key={idx} />
+          ))}
+        </div>
       ) : liveListings.length === 0 ? (
         <p>No live auctions currently.</p>
       ) : (

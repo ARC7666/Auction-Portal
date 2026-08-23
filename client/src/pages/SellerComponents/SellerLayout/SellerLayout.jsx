@@ -6,9 +6,10 @@ import { doc, getDoc } from "firebase/firestore";
 import {
   MessageSquare, Gavel, List, Settings, User, LogOut, Home
 } from "lucide-react";
-import { logo } from "../../../assets";
+import { logo, logoblack } from "../../../assets";
 import LoaderScreen from "../../../components/LoaderScreen";
 import { Outlet } from "react-router-dom";
+import Footer from '../../../components/Footer/Footer';
 import "./SellerLayout.css";
 
 const SellerLayout = ({ children }) => {
@@ -85,7 +86,7 @@ const SellerLayout = ({ children }) => {
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="logo-seller">
           <Link to="/seller-dashboard">
-            <img src={logo} alt="Logo" style={{ cursor: 'pointer' }} />
+            <img src={logoblack} alt="Logo" style={{ cursor: 'pointer' }} />
           </Link>
         </div>
 
@@ -120,6 +121,13 @@ const SellerLayout = ({ children }) => {
               <span>Chat</span>
             </button>
           </Link>
+
+          <Link to="/buyer-dashboard">
+            <button className="nav-btn-seller" style={{ marginTop: 'auto' }}>
+              <User className="nav-icon" />
+              <span>Buyer Dashboard</span>
+            </button>
+          </Link>
         </nav>
       </aside>
 
@@ -150,6 +158,10 @@ const SellerLayout = ({ children }) => {
           </div>
         </div>*/}
         <Outlet />
+        
+        <div style={{ marginTop: 'auto', padding: '2rem 0', textAlign: 'center', color: '#9ca3af', fontSize: '0.85rem', borderTop: '1px solid #e5e7eb' }}>
+          &copy; {new Date().getFullYear()} Auctania. All rights reserved.
+        </div>
       </main>
     </div>
   );

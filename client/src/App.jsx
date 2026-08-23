@@ -25,7 +25,6 @@ import { ProductList } from "./components/ProductList/ProductList";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import CalenderPage from "./pages/Calender/CalenderPage";
 import AdminUsers from "./pages/AdminDashboard/users/AdminUsers";
-import AdminLogs from "./pages/AdminDashboard/logs/AdminLogs";
 import PaymentSuccess from "./pages/BuyerComponents/BuyerPayment/PaymentSuccess";
 import RedirectIfLoggedIn from "./components/RedirectIfLoggedIn";
 //import AdminAuctions from "./pages/AdminDashboard/auctions/AdminAuctions";
@@ -34,12 +33,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminAllAuctions from "./pages/AdminDashboard/auctions/AdminAllAuctions";
 import NotFound from "./components/ErrorPage/NotFound";
 import Working from "./pages/AdminDashboard/Working/Working";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"
@@ -107,7 +108,6 @@ function App() {
   
         
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/admin-dashboard/logs" element={<ProtectedRoute requiredRole="admin"><AdminLogs /></ProtectedRoute>} />
         <Route path="/admin/users" element={<ProtectedRoute requiredRole="admin"><AdminUsers /></ProtectedRoute>} />
         <Route path="/admin/working" element={<ProtectedRoute requiredRole="admin"><Working /></ProtectedRoute>} />
         <Route path="/admin/auctions" element={<ProtectedRoute requiredRole="admin"><AdminAllAuctions /></ProtectedRoute>} />

@@ -30,6 +30,7 @@
   height: 60px;
   object-fit: contain;
   margin-bottom: 0.8rem;
+  filter: brightness(0);
 }
 
 .category-card-title {
@@ -156,6 +157,7 @@
   height: 50px;
   object-fit: contain;
   margin-bottom: 0.5rem;
+  filter: brightness(0);
 }
 
 .category-card-title {

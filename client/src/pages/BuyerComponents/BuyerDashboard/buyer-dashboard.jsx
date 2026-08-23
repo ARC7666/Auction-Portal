@@ -7,8 +7,9 @@ import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { auth, db } from '../../../firebase/firebaseConfig';
 import { doc, getDoc } from "firebase/firestore";
 import ListingCard from '../../../components/ListingCard';
+import SkeletonCard from '../../../components/Skeleton/SkeletonCard';
 import './buyer-dashboard.css';
-import { ListFilter, Radio, Archive, Clock, Car, Laptop, Gem, Crown, Watch, Shirt, Package, Menu, Paintbrush, Home, Folder, Book } from 'lucide-react';
+import { ListFilter, Radio, Archive, Clock, Car, Laptop, Gem, Crown, Watch, Shirt, Package, Menu, Paintbrush, Home, Folder, Book, PackageX } from 'lucide-react';
 
 
 function BuyerDashboard() {
@@ -39,7 +40,7 @@ function BuyerDashboard() {
         if (docSnap.exists()) {
           const role = docSnap.data().role;
 
-          if (role !== "buyer") {
+          if (role !== "buyer" && role !== "seller") {
             navigate("/unauthorized", { replace: true });
           } else {
             setUser(user);
@@ -137,6 +138,13 @@ function BuyerDashboard() {
   });
 
 
+  const groupedListings = filteredListings.reduce((acc, listing) => {
+    const cat = listing.category || 'Others';
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(listing);
+    return acc;
+  }, {});
+
   const categoryIcons = {
     all: Menu,
     vehicle: Car,
@@ -155,6 +163,12 @@ function BuyerDashboard() {
 
     <>
       <main>
+        <div className="hero-banner-buyer">
+          <div className="hero-content">
+            <h1>Discover Extraordinary Items.</h1>
+            <p>Bid on exclusive items from top sellers around the world.</p>
+          </div>
+        </div>
         <div>
           <div className="filter-container-wrapper">
             <div className="filter-block" ref={filterRef}>
@@ -228,20 +242,52 @@ function BuyerDashboard() {
         </div>
 
         {loading ? (
-          <p>Loading auctions...</p>
-        ) : filteredListings.length === 0 ? (
-          <p className="no-auctions">No auctions found.</p>
-        ) : (
-          <div className="auction-grid-buyer">
-            {filteredListings.map((listing, index) => (
-              <div
-                key={listing.id}
-                className="animated-card-buyer"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <ListingCard listing={listing} />
-              </div>
+          <div className="auction-grid-buyer" style={{ marginTop: '2rem' }}>
+            {Array.from({ length: 8 }).map((_, idx) => (
+              <SkeletonCard key={idx} />
             ))}
+          </div>
+        ) : filteredListings.length === 0 ? (
+          <div className="empty-state-container">
+            <PackageX size={64} color="#a1a1aa" className="empty-state-icon" />
+            <h3>No items found</h3>
+            <p>We're brewing up some extraordinary items. Stay tuned and check back soon!</p>
+          </div>
+        ) : (
+          <div className="categorized-listings">
+            {Object.keys(groupedListings).sort((a, b) => {
+              const catA = a.toLowerCase();
+              const catB = b.toLowerCase();
+              if (catA === 'electronics') return -1;
+              if (catB === 'electronics') return 1;
+              if (catA === 'vehicle' || catA === 'cars') return -1;
+              if (catB === 'vehicle' || catB === 'cars') return 1;
+              if (catA === 'others') return 1;
+              if (catB === 'others') return -1;
+              return a.localeCompare(b);
+            }).map((category) => {
+              const items = groupedListings[category];
+              const lowerCat = category.toLowerCase();
+              const IconComponent = categoryIcons[lowerCat] || categoryIcons.others;
+              return (
+                <div key={category} className="category-section" style={{ marginBottom: '3rem' }}>
+                  <h2 className="category-title" style={{ fontSize: '2rem', fontWeight: 700, color: '#1d1d1f', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    {IconComponent && <IconComponent size={28} />} {category}
+                  </h2>
+                  <div className="auction-grid-buyer">
+                    {items.map((listing, index) => (
+                      <div
+                        key={listing.id}
+                        className="animated-card-buyer"
+                        style={{ animationDelay: `${index * 100}ms` }}
+                      >
+                        <ListingCard listing={listing} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </main>

@@ -14,8 +14,7 @@ const RedirectIfLoggedIn = ({ children }) => {
         const docSnap = await getDoc(doc(db, 'users', user.uid));
         if (docSnap.exists()) {
           const role = docSnap.data().role;
-          if (role === 'buyer') setRedirectTo('/buyer-dashboard');
-          else if (role === 'seller') setRedirectTo('/seller-dashboard');
+          if (role === 'buyer' || role === 'seller') setRedirectTo('/buyer-dashboard');
           else if (role === 'admin') setRedirectTo('/admin-dashboard');
           else setRedirectTo('/unauthorized');
         }

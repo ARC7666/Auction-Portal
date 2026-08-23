@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import { onAuthStateChanged } from "firebase/auth";
 import 'react-datepicker/dist/react-datepicker.css';
 import './edit-auctions.css';
+import { ArrowLeft, Plus, XCircle, Trash2 } from 'lucide-react';
 import { deleteObject } from 'firebase/storage';
 
 
@@ -124,7 +125,9 @@ function EditAuction() {
     return (
       <div className="dashboard-content-3">
         <h2>Edit Auction</h2>
-        <p style={{ color: 'red' }}>❌ This auction has already started and cannot be edited.</p>
+        <p style={{ color: 'red', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <XCircle size={16} /> This auction has already started and cannot be edited.
+        </p>
         <button onClick={() => navigate('/seller-dashboard-layout/seller-auctions')}>Go Back</button>
       </div>
     );
@@ -173,7 +176,7 @@ function EditAuction() {
               selected={startTime}
               onChange={(date) => setStartTime(date)}
               showTimeSelect
-              placeholderText=" dd/mm/yyyy ,  --:-- 🗓️"
+              placeholderText=" dd/mm/yyyy ,  --:--"
               timeFormat="HH:mm"
               timeIntervals={1}
               timeCaption="Time"
@@ -220,7 +223,7 @@ function EditAuction() {
                         cursor: 'pointer',
                       }}
                     >
-                      ❌ Delete
+                      <Trash2 size={14} style={{marginRight: '4px'}}/> Delete
                     </button>
                   </div>
                 ))}
@@ -263,7 +266,7 @@ function EditAuction() {
                         cursor: 'pointer',
                       }}
                     >
-                      ❌ Delete
+                      <Trash2 size={14} style={{marginRight: '4px'}}/> Delete
                     </button>
                   </div>
                 ))}

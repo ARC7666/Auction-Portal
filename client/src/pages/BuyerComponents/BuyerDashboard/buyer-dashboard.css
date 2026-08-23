@@ -1,221 +1,180 @@
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-
-.buyer-dashboard {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-
-  /*background-image: url('/images/back.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;*/
-
-  position: relative;
-}
-
-
-
-
-.dashboard-main {
-  flex-grow: 1; 
-  height: 100%;
-  padding: 30px;
-  overflow-y: auto;
-  background: #f9fafb;
-}
-
-
-.my-bids-heading {
-  margin-left: 40px;
-}
-
-
-
-.filter-toggle:hover {
-  background: rgb(255, 255, 255);
-  color: #000;
-}
-.filter-dropdown {
-  position: absolute; 
-  top: 45px; 
-  right: 0;
-  background: white;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  border-radius: 12px 0 12px 12px;
-  overflow: hidden;
-  width: 180px;
-  padding: 5px 5px ;
-  z-index: 99;
-}
-
-.filter-dropdown button {
-  padding: 4px 0px;
-  background: white;
-  border: none;
-  text-align: left;
-  width: 100%;
-  font-size: 0.95rem;
-  transition: background 0.2s;
-}
-
-.filter-dropdown button:hover {
-  background-color: #dddcdcab;
-  border-radius: 6px 0 0 6px;
-}
-
-.auction-grid-buyer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /*1fr= 1 fraction of available spac*/
-  gap: 1.5rem;
-  padding: 2rem;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
- position: relative;
-  z-index: 1;
-  align-items: start;
-}
-
-.card .status-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background-color: #ff4d4d;
-  padding: 4px 10px;
-  font-size: 0.8rem;
-  color: white;
-  border-radius: 8px;
-  font-weight: 600;
-}
-
-.card .status-badge.upcoming {
-  background-color: #f4b400;
-}
-
-.card .status-badge.live {
-  background-color: #34a853;
-}
-
-.dashboard-main::-webkit-scrollbar {
-  width: 8px;
-}
-
-.dashboard-main::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.dashboard-main::-webkit-scrollbar-thumb {
-    background: transparent;
-  border-radius: 20px;
-  transition: all 0.3s ease-in-out;
-}
-
-.dashboard-main::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(108, 99, 255, 0.4);
-}
-
-
-.animated-card-buyer {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeSlideIn 0.5s forwards;
-}
-
-@keyframes fadeSlideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
 .filter-container-wrapper {
-  position: fixed;
-  top: 30px;
-  right: 30px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  z-index: 10;
-  max-width: 90vw;
-  top: 70px;
-  
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  padding: 0 0 20px 0;
+  margin-bottom: 20px;
 }
 
 .filter-block {
   position: relative;
-  flex-shrink: 0;
 }
 
 .filter-toggle {
+  background: #e5e5ea;
+  color: #1d1d1f;
+  border: none;
   padding: 8px 16px;
-  background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  color: #2d3748;
-  border: 1px solid #e2e8f0;
   border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  font-weight: 600;
-  max-width: 100%;
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   transition: all 0.2s ease;
 }
 
 .filter-toggle:hover {
-  background: #f7fafc;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  background: #d1d1d6;
 }
 
 .filter-dropdown {
   position: absolute;
-  top: 45px;
-  right: 0;
-  background: white;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  border-radius: 12px 0 0px 12px;
-  overflow: hidden;
-  width: 180px;
-  padding: 5px;
-  z-index: 99;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid #d2d2d7;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  padding: 8px;
+  width: 220px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-
-.active-option {
-  background-color: #6059e4c0 !important;
-  color: white !important;
-  font-weight: bold;
-  border-radius: 6px 0 0 6px;
-  
+.filter-dropdown button {
+  background: transparent;
+  border: none;
+  color: #1d1d1f;
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s ease;
 }
 
-@media screen and (max-width: 600px) {
-  .filter-container-wrapper {
-    right: 10px;
-    top: 20px;
-    flex-direction: column;
-    align-items: flex-end;
+.filter-dropdown button:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.filter-dropdown button.active-option {
+  background: #1d1d1f;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.auction-grid-buyer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.animated-card-buyer {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.4s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media screen and (min-width: 1400px) {
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.empty-state-icon {
+  margin-bottom: 1rem;
+}
+
+.empty-state-container h3 {
+  font-size: 1.5rem;
+  color: #1d1d1f;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.empty-state-container p {
+  color: #86868b;
+  font-size: 1rem;
+  max-width: 400px;
+}
+
+@media screen and (max-width: 768px) {
   .auction-grid-buyer {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  
+  .filter-container-wrapper {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 0 16px 0;
+    margin-bottom: 16px;
+  }
+  
+  .filter-toggle {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .hero-banner-buyer {
     padding: 2rem;
-    gap: 1.5rem;
+  }
+  .hero-banner-buyer h1 {
+    font-size: 1.8rem;
   }
 }
 
+.hero-banner-buyer {
+  background: linear-gradient(135deg, #1d1d1f 0%, #434345 100%);
+  border-radius: 24px;
+  padding: 3rem 4rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-banner-buyer h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.hero-banner-buyer p {
+  font-size: 1.1rem;
+  color: #d2d2d7;
+  max-width: 500px;
+}

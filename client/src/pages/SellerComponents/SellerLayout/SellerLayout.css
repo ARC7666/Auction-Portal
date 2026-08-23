@@ -1,189 +1,124 @@
 .seller-dashboard-layout {
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   position: relative;
-  background: radial-gradient(
-      circle at 20% 20%,
-      #e2e8f3 0%,
-      #eef2f9  30%,
-      #f3f7fd  60%,
-      #eef2f9 85%,
-      #d2dded 100%
-  );
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-
+  background: #f9fafb; /* Clean off-white background */
+  overflow: hidden;
 }
 
-.sidebar-seller {
-  width: 250px;
+.seller-dashboard-layout .sidebar {
+  width: 260px;
   height: 100vh;
-  background: linear-gradient(to bottom, #1f1c2c, #302b63);
+  background: #ffffff;
   display: flex;
   flex-direction: column;
-  padding: 24px 16px;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
-  border-right: 3px solid #6c63ff;
-  font-family: 'Poppins', sans-serif;
+  padding: 32px 20px;
+  border-right: 1px solid #e5e7eb;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  z-index: 10;
 }
 
-.sidebar-seller .logo img {
-  width: 11vw;
-  margin-bottom: 0px;
-  margin-left: 20px;
+.seller-dashboard-layout .logo-seller {
+  margin-bottom: 2rem;
+  padding-left: 12px;
 }
 
-.logo img {
-  width: 11vw;
-  margin-bottom: 0px;
-  margin-left: 20px;
-  justify-content: center;
+.seller-dashboard-layout .logo-seller img {
+  width: 140px;
+  cursor: pointer;
 }
 
-.dashboard-title-seller {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: rgb(151, 151, 153);
-  margin-top: -10px
- ;
+.seller-dashboard-layout .dashboard-title {
+  margin-bottom: 2rem;
+  padding-left: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9ca3af;
 }
 
-.dashboard-title-seller hr {
-  flex: 1;
-  border: none;
-  border-top: 1px solid rgb(151, 151, 153);
+.seller-dashboard-layout .dashboard-title hr {
+  display: none;
 }
 
-.dashboard-title a {
-  color: inherit;        
-  text-decoration: none;  
-}
-
-
-.dashboard-title-seller span {
-  margin: 0 10px;
-}
-
-.nav-buttons-seller {
+.seller-dashboard-layout .nav-buttons-seller {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
-.nav-btn-seller {
+.seller-dashboard-layout .nav-buttons-seller a {
+  text-decoration: none;
+}
+
+.seller-dashboard-layout .nav-btn-seller {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 18px;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
   background: transparent;
-  border: 1.5px solid #7e75ff;
+  border: none;
   border-radius: 12px;
-  color: white;
+  color: #4b5563;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: inset 0 6px 20px rgba(108, 99, 255, 0.2);
+  transition: all 0.2s ease;
 }
 
-.nav-btn-seller:hover {
-  transform: scale(1.03);
-  box-shadow: inset 0 6px 20px rgba(91, 83, 255, 0);
-  color: #c7d5ec;
-  background-color: rgba(255, 255, 255, 0);
+.seller-dashboard-layout .nav-btn-seller:hover {
+  background: #f3f4f6;
+  color: #111827;
 }
 
-.nav-icon {
+.seller-dashboard-layout .nav-icon {
   width: 20px;
   height: 20px;
+  color: inherit;
 }
 
-.nav-btn-seller span {
-  color: white;
-}
-
-
-.dashboard-content-seller {
+.seller-dashboard-layout .dashboard-content-seller {
   flex-grow: 1;
-  padding: 2rem;
   overflow-y: auto;
   height: 100vh;
-}
-
-.dashboard-topbar-seller {
+  padding: 0;
+  background: #f9fafb;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  width: 100%;
-  margin-bottom: 1.5rem;
-  position: relative;
+  flex-direction: column;
 }
 
-.welcome-section h2 {
-  font-size: 28px;
-  color: #1f1c2c;
-  margin-bottom: 4px;
-}
-
-.welcome-section p {
-  color: #555;
-}
-
-
-.profile-toggle-seller img {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.seller-dashboard-layout .hamburger-icon {
+  display: none;
+  padding: 20px;
   cursor: pointer;
-  position: absolute;
-  border: 2px solid #6c63ff;
+  color: #111827;
 }
 
-.profile-dropdown-seller {
-  position: absolute;
-  right: 0;
-  margin-top: 10px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  padding: 12px;
-  min-width: 200px;
-  z-index: 999;
-}
-
-.profile-info {
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 8px;
-  margin-bottom: 8px;
-}
-
-.profile-name {
-  font-weight: bold;
-  color: #333;
-}
-
-.profile-email {
-  font-size: 0.85rem;
-  color: #666;
-}
-
-.dropdown-btn {
-  width: 100%;
-  padding: 8px;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.2s ease;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.dropdown-btn:hover {
-  background-color: #f3f3f3;
+@media (max-width: 900px) {
+  .seller-dashboard-layout .hamburger-icon {
+    display: block;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 50;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 8px;
+  }
+  .seller-dashboard-layout .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 150;
+  }
+  .seller-dashboard-layout .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+  }
 }

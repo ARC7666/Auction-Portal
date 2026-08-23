@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { logo } from "../../../assets";
+import { logoblack } from "../../../assets";
 import "./buyer-layout.css";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase/firebaseConfig";
 import Swal from "sweetalert2";
 import { Home, Gavel, Radio, User, LogOut, BellRing, CalendarDays, Search, X } from "lucide-react";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 import dayjs from "dayjs";
 import LoaderScreen from '../../../components/LoaderScreen';
+import Footer from '../../../components/Footer/Footer';
 
 function BuyerLayout() {
   const location = useLocation();
@@ -43,8 +44,9 @@ function BuyerLayout() {
       if (user) {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists() && docSnap.data().role === "buyer") {
+        if (docSnap.exists()) {
           const userData = docSnap.data();
+          // Allow both buyers and sellers to view the buyer dashboard
           setUser({ ...user, name: userData.name, role: userData.role, profileImageUrl: userData.profileImageUrl || "" });
           setLoading(false);
         } else if (!isAuctionPreview) {
@@ -65,6 +67,11 @@ function BuyerLayout() {
       setIsMobile(window.innerWidth <= 768);
     };
     window.addEventListener("resize", handleResize);
+    
+    // Force body to scroll, overriding any sweetalert bugs or global css locks
+    document.body.style.overflow = "auto";
+    document.documentElement.style.overflow = "auto";
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -164,6 +171,25 @@ function BuyerLayout() {
     }
   };
 
+  const handleSwitchToSeller = async () => {
+    if (!user) return;
+    if (user.role !== "seller") {
+      try {
+        await updateDoc(doc(db, "users", user.uid), { role: "seller" });
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Upgraded!',
+          text: 'You are now a Seller.',
+          timer: 1500,
+          showConfirmButton: false
+        });
+      } catch (err) {
+        console.error("Error upgrading role", err);
+      }
+    }
+    navigate("/seller-dashboard");
+  };
+
   return (
     <div className="buyer-dashboard upgraded-layout">
       <header className="header-bar-buyer" ref={dropdownRef}>
@@ -172,7 +198,7 @@ function BuyerLayout() {
             onClick={() => navigate(user ? "/buyer-dashboard" : "/")}
             className="unstyled-logo-button"
           >
-            <img src={logo} alt="Logo" />
+            <img src={logoblack} alt="Logo" />
           </button>
         </div>
 
@@ -185,10 +211,16 @@ function BuyerLayout() {
         </nav>
 
         <div className="right-section-header">
+          {user && window.innerWidth > 768 && (
+            <button className="explicit-seller-btn" onClick={handleSwitchToSeller}>
+              {user.role === 'seller' ? 'Store Dashboard' : 'Start Selling'}
+            </button>
+          )}
+
           {/* laptop search */}
           {window.innerWidth > 768 && (
-            <div className="search-container desktop-search" ref={searchContainerRef}>
-              <Search size={24} color="#fff" onClick={() => searchInputRef.current?.focus()} style={{ cursor: "pointer" }} />
+            <div className="search-container desktop-search" ref={searchContainerRef} onClick={() => searchInputRef.current?.focus()} style={{ cursor: "text" }}>
+              <Search size={24} color="#1d1d1f" onClick={() => searchInputRef.current?.focus()} style={{ cursor: "pointer" }} />
               <input
                 ref={searchInputRef}
                 type="text"
@@ -198,7 +230,7 @@ function BuyerLayout() {
                 className="search-input-box visible"
               />
               {searchQuery && (
-                <X size={16} color="#fff" className="clear-search" onClick={() => setSearchQuery("")} />
+                <X size={16} color="#1d1d1f" className="clear-search" onClick={() => setSearchQuery("")} />
               )}
             </div>
           )}
@@ -210,7 +242,7 @@ function BuyerLayout() {
                 className="mobile-search-icon"
                 onClick={() => setMobileSearchVisible(prev => !prev)}
               >
-                <Search size={24} color="#fff" />
+                <Search size={24} color="#1d1d1f" />
               </div>
 
               {mobileSearchVisible && (
@@ -259,9 +291,11 @@ function BuyerLayout() {
                       <>
                         <button className="dropdown-btn" onClick={() => handleProtectedNavigation("/buyer-dashboard/my-bids")}> <Gavel size={16} /> My Bids </button>
                         <button className="dropdown-btn" onClick={() => handleProtectedNavigation("/buyer-dashboard/live-auctions")}> <Radio size={16} /> Live </button>
-
                       </>
                     )}
+                    <button className="dropdown-btn" style={{color: "#0066cc", fontWeight: 600}} onClick={handleSwitchToSeller}> 
+                      <User size={16} /> {user.role === 'seller' ? 'Seller Dashboard' : 'Become a Seller'} 
+                    </button>
                     <button className="dropdown-btn" onClick={handleLogout}> <LogOut size={16} /> Sign Out </button>
                   </>
                 ) : (
@@ -274,23 +308,26 @@ function BuyerLayout() {
       </header>
 
       <main className="dashboard-main">
-        {searchQuery && (
-          <div className="search-result-box">
-            <h4>Search Results:</h4>
-            {searchResults.length === 0 ? (
-              <p>No matching products</p>
-            ) : (
-              searchResults.map((item) => (
-                <div key={item.id} className="search-result-item" onClick={() => navigate(`/buyer-dashboard/auction/${item.id}`)}>
-                  <p><strong>{item.title}</strong></p>
-                  <p style={{ fontSize: "12px", color: "#777" }}>{item.description?.slice(0, 60)}...</p>
-                </div>
-              ))
-            )}
-          </div>
-        )}
-        <Outlet />
+        <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+          {searchQuery && (
+            <div className="search-result-box">
+              <h4>Search Results:</h4>
+              {searchResults.length === 0 ? (
+                <p>No matching products</p>
+              ) : (
+                searchResults.map((item) => (
+                  <div key={item.id} className="search-result-item" onClick={() => navigate(`/buyer-dashboard/auction/${item.id}`)}>
+                    <p><strong>{item.title}</strong></p>
+                    <p style={{ fontSize: "12px", color: "#777" }}>{item.description?.slice(0, 60)}...</p>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+          <Outlet />
+        </div>
       </main>
+      <Footer />
     </div>
   );
 }

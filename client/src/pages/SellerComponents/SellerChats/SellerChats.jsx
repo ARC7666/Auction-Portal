@@ -39,7 +39,7 @@ function SellerChats() {
   //  also written in shorthand as <> 
   //like in map method unique key dena hota hai , that is not the case in react fragment 
   return (
-    <div className="dashboard-content">
+    <div className="seller-chats-container" style={{ padding: '2rem' }}>
       {listings.length === 0 ? (
         <p className="seller-chat-msg">No auctions found.</p>
       ) : (

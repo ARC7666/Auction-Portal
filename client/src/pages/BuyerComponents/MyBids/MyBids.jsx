@@ -3,6 +3,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from "../../../firebase/firebaseConfig";
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
+import SkeletonTableRow from "../../../components/Skeleton/SkeletonTableRow";
+import { CheckCircle } from "lucide-react";
 import "./MyBids.css";
 
 const MyBids = () => {
@@ -92,7 +94,21 @@ const MyBids = () => {
   return (
     <div className="my-bids-wrapper">
       {loading ? (
-        <p className="my-bids-loading">Loading your bids...</p>
+        <div className="my-bids-table-scroll">
+          <div className="my-bids-table">
+            <div className="my-bids-table-header">
+              <span>Thumbnail</span>
+              <span>Title</span>
+              <span>Current Bid</span>
+              <span>Your Bid</span>
+              <span>Start Price</span>
+              <span>Status</span>
+            </div>
+            {Array.from({ length: 5 }).map((_, idx) => (
+              <SkeletonTableRow key={idx} />
+            ))}
+          </div>
+        </div>
       ) : userBids.length === 0 ? (
         <p className="my-bids-empty">You haven’t placed a bid on any auction yet.</p>
       ) : (
@@ -204,7 +220,7 @@ const MyBids = () => {
                       <div>
                         <p className="label">Status</p>
                         {item.paymentStatus === "paid" ? (
-                          <p className="status paid">Paid ✅</p>
+                          <p className="status paid"><CheckCircle size={14} color="green" style={{marginRight: '4px'}}/> Paid</p>
                         ) : isWinner ? (
                           <>
                             <p className="status won">Won</p>

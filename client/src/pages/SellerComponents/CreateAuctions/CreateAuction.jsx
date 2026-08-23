@@ -184,16 +184,36 @@ function CreateAuction() {
 
   if (!user?.isVerified) {
     return (
-      <div className="not-verified-message">
-        <h2>⚠️ You are not a verified seller.</h2>
-        <p>Only verified sellers can list auctions.</p>
+      <div className="not-verified-message" style={{ textAlign: 'center', marginTop: '10vh' }}>
+        <h2 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', color: '#111827' }}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          Account Not Verified
+        </h2>
+        <p style={{ color: '#6b7280', fontSize: '1.1rem', marginBottom: '2rem' }}>Only verified sellers can list auctions on Auctania.</p>
         <button
           onClick={requestVerification}
           disabled={requestingVerification}
           className="verify-link"
-          style={{ marginTop: "1rem", padding: "10px 20px", fontSize: "16px" }}
+          style={{ 
+            padding: "12px 24px", 
+            fontSize: "1rem", 
+            fontWeight: 600, 
+            background: "#111827", 
+            color: "white", 
+            border: "none", 
+            borderRadius: "12px", 
+            cursor: requestingVerification ? "not-allowed" : "pointer",
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
         >
-          {requestingVerification ? "Sending Request..." : "👉 Request Verification"}
+          {requestingVerification ? "Sending Request..." : (
+            <>
+              Request Verification
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </>
+          )}
         </button>
       </div>
     );
