@@ -27,11 +27,11 @@ html, body {
 
 
 .dashboard-main {
-  flex-grow: 1; /*flex box property , tells the element to take up all the available space in its parent */
+  flex-grow: 1; 
   height: 100%;
   padding: 30px;
   overflow-y: auto;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(255,255,255,0.02));
+  background: #f9fafb;
 }
 
 
@@ -160,17 +160,24 @@ html, body {
 }
 
 .filter-toggle {
-  padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.382);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.017);
-  color: rgb(0, 0, 0);
-  border: none;
-  border-radius: 6px;
+  padding: 8px 16px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  color: #2d3748;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
   cursor: pointer;
   font-weight: 600;
   max-width: 100%;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
 
+.filter-toggle:hover {
+  background: #f7fafc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 
 .filter-dropdown {

@@ -1,59 +1,30 @@
-
-.badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 5px 10px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: white;
-  text-transform: uppercase;
-  user-select: none;
-  pointer-events: none;
- z-index: 2;
-}
-
-.badge.live {
-  background-color: #4caf50; 
-}
-
-.badge.upcoming {
-  background-color: #ff9800; 
-}
-
-.badge.ended {
-  background-color: #f44336; 
-}
-
 .listing-card {
   background: white;
-  border-radius: 16px;
-  border: 5px solid white;
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.045);
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%; 
-  min-height: 420px;
-   position: relative;
+  min-height: 380px;
+  position: relative;
   z-index: 1;
   overflow: hidden;
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
-
 .listing-card:hover {
-  transform: translateY(0px);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
 .listing-image-wrapper {
   position: relative;
   width: 100%;
-  height: 180px;
-  border-radius: 8px 8px 0 0;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: #eee;
+  background: #f0f0f0;
   background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
   background-size: 200% 100%;
 }
@@ -70,20 +41,70 @@
 
 .listing-image {
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 0;
-  border-radius: 8px 8px 0 0;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out, transform 0.4s ease;
 }
 
 .listing-image.loaded {
   opacity: 1;
 }
+
+.listing-card:hover .listing-image.loaded {
+  transform: scale(1.05);
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.badge.live { background-color: #e53e3e; }
+.badge.upcoming { background-color: #dd6b20; }
+.badge.ended { background-color: #718096; }
+
+.reminder-icon-wrapper {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+.calendar-icon-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #4a5568;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.calendar-icon-btn:hover {
+  background: #fff;
+  color: #6c63ff;
+  transform: scale(1.1);
+}
+
 .listing-details {
   padding: 16px;
   flex-grow: 1;
@@ -91,117 +112,100 @@
   flex-direction: column;
 }
 
-.listing-details h3 {
-  margin: 0 0 8px 0;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: #222;
-  white-space: nowrap;
+.listing-title {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2d3748;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
+  height: 2.8rem;
 }
 
-.listing-card-divider-up {
-  margin-top: 0px;
-  border: none;
-  border-top: 1px solid #545354;
-  margin-bottom: 5px;
-}
-
-.listing-card-divider-down {
-  margin-top: -5px;
-  border: none;
-  border-top: 1px solid #222222;
-  margin-bottom: 5px;
-}
-.listing-details .desc {
-  flex-grow: 1;
-  font-size: 0.9rem;
-  color: #555;
+.listing-price-row {
+  display: flex;
+  align-items: center;
   margin-bottom: 12px;
+  gap: 8px;
 }
 
-
-.desc-toggle-btn {
-  background: none;
-  border: none;
-  color: #6C63FF;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 6px 0;
-  text-align: left;
-  outline: none;
-  transition: color 0.2s ease;
-}
-
-.desc-toggle-btn:hover {
-  color: #302c82;
-  background-color: transparent;
-}
-
-
-.listing-details .desc-content {
-  max-height: 0;
-  overflow: hidden;
-  font-size: 12px;
-  color: #555;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-  padding: 0 0;
-}
-
-.listing-details .desc-content.open {
-  max-height: 200px; 
-  padding: 8px 0 12px 0;
-}
-.bid-now {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 0 8px 8px 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.4s ease;
-  margin-bottom: -20px;
-  margin-top: 5px;
-  margin-left: -5px;
-  transition: background 0.5s;
-}
-
-.bid-now:hover {
-  background-color: #3a8b3a;
-  transform: scale(1.05);
-}
-
-.listing-details p.desc {
-  margin: 4px 0 4px 0;
-  font-size: 0.95rem;
-  color: #444;
-}
-
-.listing-details p.countdown {
+.price-label {
   font-size: 0.8rem;
-  font-weight: 500;
-  margin-top: 2px;
-  margin-bottom: 4px;  /* reduced from 10px */
-  line-height: 1.2;
+  color: #718096;
+}
+
+.price-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.countdown-pill {
+  display: inline-flex;
+  align-items: center;
+  background: #f7fafc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 8px;
+}
+
+.countdown-pill.live {
+  background: #fff5f5;
+  border-color: #fed7d7;
+  color: #c53030;
+}
+.countdown-pill.upcoming {
+  background: #fffff0;
+  border-color: #fefcbf;
+  color: #b7791f;
+}
+
+.countdown-timer {
+  font-weight: 700;
+  margin-left: 4px;
 }
 
 .card-actions {
-  margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 0 16px 16px 16px;
 }
 
-.calendar-icon svg {
-  color: #6c63ff;
-  transition: transform 0.2s ease;
+.full-width-link {
+  text-decoration: none;
+  display: block;
+  width: 100%;
 }
 
-.calendar-icon:hover svg {
-  transform: scale(1.1);
+.bid-now-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.bid-now-btn.live-btn {
+  background-color: #6c63ff;
+  color: white;
+}
+
+.bid-now-btn.live-btn:hover {
+  background-color: #554bcc;
+  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+}
+
+.bid-now-btn.disabled-btn {
+  background-color: #e2e8f0;
+  color: #a0aec0;
+  cursor: not-allowed;
 }
 
 .tooltip-wrapper {
@@ -211,158 +215,60 @@
 
 .tooltip-text {
   visibility: hidden;
-  background-color: rgba(68, 67, 67, 0.112);
-  color: #2d2c2c;
+  background-color: #2d3748;
+  color: #fff;
   text-align: center;
-  border-radius: 6px;
-  padding: 5px 8px;
+  border-radius: 4px;
+  padding: 4px 8px;
   position: absolute;
-  z-index: 1;
-  bottom: 125%; 
-  transform: translateX(-50%);
+  z-index: 10;
+  top: 50%;
+  right: 120%; 
+  transform: translateY(-50%);
   opacity: 0;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   transition: opacity 0.3s;
-  margin-right: 70px;
-  margin-left: -20px;
-  margin-bottom:-8px;
+  white-space: nowrap;
 }
 
 .tooltip-wrapper:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
-
 }
 
-.listing-image:hover {
-  transform: scale(1.06);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.14);
-  transition: all 0.3s ease;
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -4px;
+  border-width: 4px;
+  border-style: solid;
+  border-color: transparent transparent transparent #2d3748;
 }
 
 @media screen and (max-width: 600px) {
   .listing-card {
     border-radius: 12px;
-    padding: 0;
     font-size: 0.85rem;
+    min-height: auto;
   }
-
   .listing-details {
     padding: 12px;
   }
-
-  .listing-details h3 {
+  .listing-title {
     font-size: 0.95rem;
-    margin-bottom: 4px;
+    height: 2.6rem;
   }
-
-  .listing-details .desc {
-    font-size: 0.8rem;
-    margin-bottom: 6px;
+  .price-value {
+    font-size: 1.1rem;
   }
-
-  .desc-toggle-btn {
-    font-size: 0.8rem;
-    padding: 4px 0;
-  }
-
-  .listing-details .desc-content {
-    font-size: 0.75rem;
-    line-height: 1.2;
-  }
-
-  .bid-now {
-    padding: 5px 10px;
-    font-size: 0.8rem;
-    margin-bottom: -14px;
-  }
-
-  .calendar-icon svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .tooltip-text {
-    font-size: 10px;
-    padding: 4px 6px;
-    margin-left: -16px;
-  }
-
-  .listing-image {
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-  }
-
   .card-actions {
-    margin-top: 0.3rem;
+    padding: 0 12px 12px 12px;
   }
-
-  .listing-details .desc {
-  flex-grow: 1;
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 2px;
+  .bid-now-btn {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
 }
-
-
-
-}
-
-.desc-popover-wrapper {
-  position: relative;
-  width: 100%;
-  margin-top: 10px;
-z-index: 1000;
-}
-
-.desc-toggle-btn {
-  background: none;
-  border: none;
-  color: #6C63FF;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 0;
-}
-
-.desc-icon {
-  font-size: 0.8rem;
-}
-
-.desc-popover-float {
-  font-family: 'Inter', 'Poppins', 'Segoe UI', sans-serif; /* Match your app font */
-  font-size: 0.88rem;
-  color: #333;
-  line-height: 1.5;
-  background-color: #fff;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  max-width: 320px;
-  word-wrap: break-word;
-  z-index: 9999;
-}
-
-.desc-popover-float p {
-  margin: 0;
-  font-weight: 400;
-  text-align: left;
-}
-
-.desc-arrow {
-  position: absolute;
-  top: -8px;
-  left: 20px;
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid #fff;
-  filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.05));
-}
-

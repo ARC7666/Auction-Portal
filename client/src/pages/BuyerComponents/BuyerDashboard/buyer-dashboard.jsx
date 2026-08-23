@@ -159,7 +159,7 @@ function BuyerDashboard() {
           <div className="filter-container-wrapper">
             <div className="filter-block" ref={filterRef}>
               <button className="filter-toggle" onClick={toggleDropdown}>
-                ☰ Filter
+                <ListFilter size={18} style={{marginRight: '8px'}} /> Filter
               </button>
               {showDropdown && (
                 <div className="filter-dropdown">
@@ -198,7 +198,7 @@ function BuyerDashboard() {
 
             <div className="filter-block" ref={categoryRef}>
               <button className="filter-toggle" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-                <Folder size={18} className="mr-2" />
+                <Folder size={18} style={{marginRight: '8px'}} />
                 Category
               </button>
               {showCategoryDropdown && (

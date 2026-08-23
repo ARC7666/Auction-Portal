@@ -1,16 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { db, auth } from '../firebase/firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { CalendarDays } from 'lucide-react';
 import Swal from 'sweetalert2';
-import DescriptionPopover from './DescriptionPopover';
 import './listing-card.css';
 
 function ListingCard({ listing }) {
-  const { title, media, currentBid, startTime, endTime, description, id } = listing;
+  const { title, media, currentBid, startTime, endTime, id } = listing;
   const [now, setNow] = useState(new Date());
-  const [descOpen, setDescOpen] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
@@ -38,162 +36,97 @@ function ListingCard({ listing }) {
       .padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
+  const handleSaveReminder = async () => {
+    try {
+      const user = auth.currentUser;
+      if (!user) return alert("Please login first");
 
- const [anchorRect, setAnchorRect] = useState(null);
-const descBtnRef = useRef();
+      await addDoc(collection(db, "reminders"), {
+        userId: user.uid,
+        auctionId: id,
+        title,
+        startTime,
+        endTime,
+        createdAt: serverTimestamp()
+      });
 
-const toggleDesc = () => {
-  if (descOpen) {
-    setDescOpen(false);
-    setAnchorRect(null);
-  } else {
-    const rect = descBtnRef.current.getBoundingClientRect();
-    setAnchorRect(rect);
-    setDescOpen(true);
-  }
-};
-
-useEffect(() => {
-  const closeOnClickOrScroll = (e) => {
-    if (!descBtnRef.current?.contains(e.target)) {
-      setDescOpen(false);
-      setAnchorRect(null);
+      await Swal.fire({
+        icon: "success",
+        title: "Reminder Added",
+        text: "This auction has been saved to your calendar.",
+        timer: 1800,
+        showConfirmButton: false,
+        toast: true,
+        position: "top-end",
+        timerProgressBar: true,
+        background: "#fff",
+        color: "#000"
+      });
+    } catch (err) {
+      console.error("❌ Failed to save reminder", err);
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: "Could not add reminder.",
+        showConfirmButton: true,
+      });
     }
   };
 
-  const closeOnScroll = () => {
-    setDescOpen(false);
-    setAnchorRect(null);
-  };
+  const badgeText = isLive ? 'LIVE' : isUpcoming ? 'UPCOMING' : 'ENDED';
+  const badgeClass = isLive ? 'live' : isUpcoming ? 'upcoming' : 'ended';
 
-  document.addEventListener('mousedown', closeOnClickOrScroll);
-  window.addEventListener('scroll', closeOnScroll, true); 
-
-  return () => {
-    document.removeEventListener('mousedown', closeOnClickOrScroll);
-    window.removeEventListener('scroll', closeOnScroll, true);
-  };
-}, []);
- 
-
-    const handleSaveReminder = async () => {
-      try {
-        const user = auth.currentUser;
-        if (!user) return alert("Please login first");
-
-        await addDoc(collection(db, "reminders"), {
-          userId: user.uid,
-          auctionId: id,
-          title,
-          startTime,
-          endTime,
-          createdAt: serverTimestamp()
-        });
-
-        await Swal.fire({
-          icon: "success",
-          title: "Reminder Added",
-          text: "This auction has been saved to your calendar.",
-          timer: 1800,
-          showConfirmButton: false,
-          toast: true,
-          position: "top-end",
-          timerProgressBar: true,
-          background: "#fff",
-          color: "#000"
-        });
-      } catch (err) {
-        console.error("❌ Failed to save reminder", err);
-        Swal.fire({
-          icon: "error",
-          title: "Failed",
-          text: "Could not add reminder.",
-          showConfirmButton: true,
-        });
-      }
-    };
-
-    const badgeText = isLive ? 'LIVE' : isUpcoming ? 'UPCOMING' : 'ENDED';
-    const badgeClass = isLive ? 'live' : isUpcoming ? 'upcoming' : 'ended';
-
-    return (
-      <div className="listing-card">
+  return (
+    <div className="listing-card">
+      <div className={`listing-image-wrapper ${imgLoaded ? '' : 'loading'}`}>
         <div className={`badge ${badgeClass}`}>{badgeText}</div>
-        <div className={`listing-image-wrapper ${imgLoaded ? '' : 'loading'}`}>
-          <img 
-            src={media?.[0]} 
-            alt={title} 
-            className={`listing-image ${imgLoaded ? 'loaded' : ''}`}
-            onLoad={() => setImgLoaded(true)}
-          />
-        </div>
-        <div className="listing-details">
-          <h3>{title}</h3>
-          <hr className="listing-card-divider-up" />
-          <p className="desc">Current Bid: ₹{currentBid?.toFixed(2)}</p>
-          <p
-            style={{ fontSize: '0.85rem', color: isLive ? 'green' : isUpcoming ? 'orange' : 'red', marginTop: '-85px' }}
+        <img 
+          src={media?.[0]} 
+          alt={title} 
+          className={`listing-image ${imgLoaded ? 'loaded' : ''}`}
+          onLoad={() => setImgLoaded(true)}
+        />
+        <div className="tooltip-wrapper reminder-icon-wrapper">
+          <button
+            className="calendar-icon-btn"
+            onClick={handleSaveReminder}
           >
-            {isLive ? '⏳ Ends in: ' : isUpcoming ? '🔜 Starts in: ' : '❌ Bidding ended'} {countdown()}
-          </p>
-          <hr className="listing-card-divider-down" />
-          {description && (
-            <div className="desc-popover-wrapper">
-              <button
-                className="desc-toggle-btn"
-                onClick={toggleDesc}
-                ref={descBtnRef}
-                aria-expanded={descOpen}
-              >
-                {descOpen ? (
-                  <>Hide  Description <span className="desc-icon">▲</span></>
-                ) : (
-                  <>Show Description <span className="desc-icon">▼</span></>
-                )}
-              </button>
-            </div>
-          )}
-
-          {descOpen && (
-            <DescriptionPopover
-              anchorRect={anchorRect}
-              description={description}
-              onClose={() => setDescOpen(false)}
-            />
-          )}
-          <div className="card-actions">
-            <Link to={`/buyer-dashboard/auction/${listing.id}`}>
-              <button
-                className="bid-now"
-                disabled={!isLive}
-                style={{
-                  backgroundColor: isLive ? '#4CAF50' : '#ccc',
-                  cursor: isLive ? 'pointer' : 'not-allowed',
-                }}
-              >
-                {isLive ? 'Bid Now' : isUpcoming ? 'Not Started' : 'Ended'}
-              </button>
-            </Link>
-
-            <div className="tooltip-wrapper">
-              <button
-                className="calendar-icon"
-                onClick={handleSaveReminder}
-                style={{
-                  marginLeft: "auto",
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer"
-                }}
-              >
-                <CalendarDays size={22} />
-              </button>
-              <span className="tooltip-text">Add Reminder</span>
-            </div>
-          </div>
+            <CalendarDays size={20} />
+          </button>
+          <span className="tooltip-text">Add Reminder</span>
         </div>
       </div>
-    );
-  }
 
-  export default ListingCard;
+      <div className="listing-details">
+        <h3 className="listing-title" title={title}>{title}</h3>
+        
+        <div className="listing-price-row">
+          <span className="price-label">Current Bid</span>
+          <span className="price-value">
+            ₹{currentBid?.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+          </span>
+        </div>
+
+        <div className={`countdown-pill ${badgeClass}`}>
+          <span className="countdown-text">
+            {isLive ? '⏳ Ends in: ' : isUpcoming ? '🔜 Starts in: ' : '❌ Bidding ended '}
+          </span>
+          <span className="countdown-timer">{countdown()}</span>
+        </div>
+      </div>
+
+      <div className="card-actions">
+        <Link to={`/buyer-dashboard/auction/${listing.id}`} className="full-width-link">
+          <button
+            className={`bid-now-btn ${isLive ? 'live-btn' : 'disabled-btn'}`}
+            disabled={!isLive}
+          >
+            {isLive ? 'Bid Now' : isUpcoming ? 'Not Started' : 'Ended'}
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export default ListingCard;
